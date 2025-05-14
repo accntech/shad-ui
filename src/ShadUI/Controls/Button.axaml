@@ -100,7 +100,6 @@
         </Setter>
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Duration="0:0:0.35" Property="Background" />
                 <DoubleTransition Duration="0:0:0.35" Property="Opacity" />
             </Transitions>
         </Setter>
@@ -314,7 +313,6 @@
             <Style Selector="^ /template/ Border#RootBorder">
                 <Setter Property="Transitions">
                     <Transitions>
-                        <BrushTransition Duration="0:0:0.2" Property="Background" />
                         <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
                     </Transitions>
                 </Setter>
@@ -362,7 +360,6 @@
             <Style Selector="^ /template/ Border#RootBorder">
                 <Setter Property="Transitions">
                     <Transitions>
-                        <BrushTransition Duration="0:0:0.2" Property="Background" />
                         <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
                     </Transitions>
                 </Setter>
@@ -408,7 +405,6 @@
             <Style Selector="^ /template/ Border#RootBorder">
                 <Setter Property="Transitions">
                     <Transitions>
-                        <BrushTransition Duration="0:0:0.2" Property="Background" />
                         <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
                     </Transitions>
                 </Setter>
