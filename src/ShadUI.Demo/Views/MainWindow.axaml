@@ -19,11 +19,14 @@
     xmlns:extensions="clr-namespace:ShadUI.Extensions;assembly=ShadUI"
     xmlns:icons="clr-namespace:LucideAvalonia;assembly=LucideAvalonia"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:themes="clr-namespace:ShadUI.Themes;assembly=ShadUI"
     xmlns:toasts="clr-namespace:ShadUI.Toasts;assembly=ShadUI"
     xmlns:ui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:global="clr-namespace:">
+    <controls:Window.Resources>
+        <global:ThemeToIconConverter x:Key="ThemeToIconConverter"/>
+    </controls:Window.Resources>
     <controls:Window.DataTemplates>
         <ui:DataTemplateInclude Source="avares://ShadUI.Demo/Views/PageDataTemplates.axaml" />
     </controls:Window.DataTemplates>
@@ -66,7 +69,7 @@
             Background="{DynamicResource SidebarBackgroundColor}"
             Classes="Icon"
             Command="{Binding SwitchThemeCommand}"
-            Content="{Binding SelectedThemeIcon, Mode=TwoWay}"
+            Content="{Binding SelectedTheme, Converter={StaticResource ThemeToIconConverter}}"
             ToolTip.Tip="Switch Theme">
             <Button.Styles>
                 <Style Selector="icons|Lucide">
