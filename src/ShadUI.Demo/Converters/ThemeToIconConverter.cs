@@ -1,43 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Avalonia.Data.Converters;
 using LucideAvalonia;
 using LucideAvalonia.Enum;
 using ShadUI.Themes;
 
+namespace ShadUI.Demo.Converters;
+
 public class ThemeToIconConverter : IValueConverter
 {
-    private static readonly Lucide[] ThemeIcons =
-    [
-        new() { Icon = LucideIconNames.SunMoon, StrokeThickness = 1.5, Width = 18, Height = 18 },
-        new() { Icon = LucideIconNames.Sun,      StrokeThickness = 1.5, Width = 18, Height = 18 },
-        new() { Icon = LucideIconNames.Moon,     StrokeThickness = 1.5, Width = 18, Height = 18 }
-    ];
+    private static readonly Dictionary<ThemeMode, Lucide> ThemeIconDictionary = new()
+        {
+            [ThemeMode.System] = new Lucide { Icon = LucideIconNames.SunMoon, StrokeThickness = 1.5, Width = 18, Height = 18 },
+            [ThemeMode.Light]  = new Lucide { Icon = LucideIconNames.Sun,     StrokeThickness = 1.5, Width = 18, Height = 18 },
+            [ThemeMode.Dark]   = new Lucide { Icon = LucideIconNames.Moon,    StrokeThickness = 1.5, Width = 18, Height = 18 },
+        };
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        switch (value)
-        {
-            case ThemeMode mode:
-            {
-                var index = mode switch
-                {
-                    ThemeMode.System => 0,
-                    ThemeMode.Light  => 1,
-                    ThemeMode.Dark   => 2,
-                    _                => 0
-                };
-                return ThemeIcons[index];
-            }
-            case int idx and >= 0 when idx < ThemeIcons.Length:
-                return ThemeIcons[idx];
-            default:
-                return ThemeIcons[0];
-        }
+        if (value is ThemeMode mode && ThemeIconDictionary.TryGetValue(mode, out var icon))
+            return icon;
+
+        if (value is not int idx)
+            return ThemeIconDictionary[ThemeMode.System];
+        
+        var modes = new[] { ThemeMode.System, ThemeMode.Light, ThemeMode.Dark };
+        if (idx >= 0 && idx < modes.Length && ThemeIconDictionary.TryGetValue(modes[idx], out icon))
+            return icon;
+
+        return ThemeIconDictionary[ThemeMode.System];
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+        => throw new NotImplementedException();
 }
