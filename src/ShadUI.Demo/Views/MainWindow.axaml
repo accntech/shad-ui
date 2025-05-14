@@ -57,54 +57,24 @@
                 Header="Close"
                 Width="175" />
         </MenuItem>
-        <MenuItem Header="Theme">
-            <MenuItem
-                Command="{Binding SwitchThemeCommand}"
-                CommandParameter="{x:Static themes:ThemeMode.System}"
-                Header="System"
-                Width="175">
-                <MenuItem.Icon>
-                    <icons:Lucide
-                        Height="14"
-                        Icon="Check"
-                        IsVisible="{Binding SelectedTheme, Converter={x:Static converters:StringConverters.IsEqual}, ConverterParameter='System'}"
-                        StrokeBrush="{DynamicResource ForegroundColor}"
-                        StrokeThickness="1.5"
-                        Width="14" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem
-                Command="{Binding SwitchThemeCommand}"
-                CommandParameter="{x:Static themes:ThemeMode.Dark}"
-                Header="Dark"
-                Width="175">
-                <MenuItem.Icon>
-                    <icons:Lucide
-                        Height="14"
-                        Icon="Check"
-                        IsVisible="{Binding SelectedTheme, Converter={x:Static converters:StringConverters.IsEqual}, ConverterParameter='Dark'}"
-                        StrokeBrush="{DynamicResource ForegroundColor}"
-                        StrokeThickness="1.5"
-                        Width="14" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem
-                Command="{Binding SwitchThemeCommand}"
-                CommandParameter="{x:Static themes:ThemeMode.Light}"
-                Header="Light"
-                Width="175">
-                <MenuItem.Icon>
-                    <icons:Lucide
-                        Height="14"
-                        Icon="Check"
-                        IsVisible="{Binding SelectedTheme, Converter={x:Static converters:StringConverters.IsEqual}, ConverterParameter='Light'}"
-                        StrokeBrush="{DynamicResource ForegroundColor}"
-                        StrokeThickness="1.5"
-                        Width="14" />
-                </MenuItem.Icon>
-            </MenuItem>
-        </MenuItem>
     </controls:Window.MenuItems>
+    <controls:Window.RightWindowTitleBarControls>
+        <Button
+            Margin="0, 2, 0, 0"
+            Height="24"
+            Width="24"
+            Background="{DynamicResource SidebarBackgroundColor}"
+            Classes="Icon"
+            Command="{Binding SwitchThemeCommand}"
+            Content="{Binding SelectedThemeIcon, Mode=TwoWay}"
+            ToolTip.Tip="Switch Theme">
+            <Button.Styles>
+                <Style Selector="icons|Lucide">
+                    <Setter Property="StrokeBrush" Value="{DynamicResource ForegroundColor}"></Setter>
+                </Style>
+            </Button.Styles>
+        </Button>
+    </controls:Window.RightWindowTitleBarControls>
     <Panel>
         <controls:SidebarMenu>
             <controls:SidebarMenu.Styles>

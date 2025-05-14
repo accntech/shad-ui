@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LucideAvalonia;
+using LucideAvalonia.Enum;
 using ShadUI.Dialogs;
 using ShadUI.Themes;
 using ShadUI.Toasts;
@@ -226,10 +228,29 @@ public sealed partial class MainWindowViewModel(
     [ObservableProperty]
     private string _selectedTheme = "System";
 
+    [ObservableProperty] private Lucide _selectedThemeIcon = ThemeIcons[0];
+    private int _selectedThemeIconIndex;
+    private static readonly Lucide[] ThemeIcons =
+    [
+        new(){Icon = LucideIconNames.SunMoon, StrokeThickness = 1.5, Width = 18, Height = 18},
+        new(){Icon = LucideIconNames.Sun, StrokeThickness = 1.5, Width = 18, Height = 18},
+        new(){Icon = LucideIconNames.Moon, StrokeThickness = 1.5, Width = 18, Height = 18}
+    ];
+
     [RelayCommand]
-    private void SwitchTheme(ThemeMode mode)
+    private void SwitchTheme()
     {
+        _selectedThemeIconIndex += 1;
+        if (_selectedThemeIconIndex >= ThemeIcons.Length) _selectedThemeIconIndex = 0;
+        var mode = _selectedThemeIconIndex switch
+        {
+            0 => ThemeMode.System,
+            1 => ThemeMode.Light,
+            2 => ThemeMode.Dark,
+            _ => ThemeMode.System
+        };
         themeWatcher.SwitchTheme(mode);
         SelectedTheme = mode.ToString();
+        SelectedThemeIcon = ThemeIcons[_selectedThemeIconIndex];
     }
 }
