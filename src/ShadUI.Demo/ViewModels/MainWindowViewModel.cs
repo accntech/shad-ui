@@ -23,6 +23,7 @@ public sealed partial class MainWindowViewModel(
     CardsViewModel cardsViewModel,
     DataGridViewModel dataGridViewModel,
     DateViewModel dateViewModel,
+    ExpandersViewModel expandersViewModel,
     CheckBoxesViewModel checkBoxesViewModel,
     DialogsViewModel dialogsViewModel,
     TimeViewModel timeViewModel,
@@ -127,6 +128,12 @@ public sealed partial class MainWindowViewModel(
     private async Task OpenDialogs()
     {
         await SwitchPageAsync(dialogsViewModel);
+    }
+    
+    [RelayCommand]
+    private async Task OpenExpanders()
+    {
+        await SwitchPageAsync(expandersViewModel);
     }
 
     [RelayCommand]

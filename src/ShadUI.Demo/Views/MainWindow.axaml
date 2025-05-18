@@ -258,6 +258,20 @@
                 </controls:SidebarMenuItem>
                 <controls:SidebarMenuItem
                     Classes="Compact"
+                    Command="{Binding OpenExpandersCommand}"
+                    Header="Expanders"
+                    ToolTip.Tip="{Binding IsMenuExpanded, RelativeSource={RelativeSource AncestorType=controls:SidebarMenu}, Converter={x:Static converters:BooleanToNullOrStringConverter.Instance}, ConverterParameter='Expanders'}">
+                    <controls:SidebarMenuItem.Icon>
+                        <icons:Lucide
+                            Height="16"
+                            Icon="ChevronRight"
+                            StrokeBrush="{Binding RelativeSource={RelativeSource AncestorType=controls:SidebarMenuItem}, Path=Foreground}"
+                            StrokeThickness="1.5"
+                            Width="16" />
+                    </controls:SidebarMenuItem.Icon>
+                </controls:SidebarMenuItem>
+                <controls:SidebarMenuItem
+                    Classes="Compact"
                     Command="{Binding OpenInputsCommand}"
                     Header="Inputs"
                     ToolTip.Tip="{Binding IsMenuExpanded, RelativeSource={RelativeSource AncestorType=controls:SidebarMenu}, Converter={x:Static converters:BooleanToNullOrStringConverter.Instance}, ConverterParameter='Inputs'}">
