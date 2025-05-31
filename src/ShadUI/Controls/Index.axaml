@@ -21,6 +21,7 @@
         <ResourceInclude Source="avares://ShadUI/Controls/DataGrid.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/DataValidationErrors.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/DateInput.axaml" />
+        <ResourceInclude Source="avares://ShadUI/Controls/Expander.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Loading.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Menu.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/MenuFlyoutPresenter.axaml" />

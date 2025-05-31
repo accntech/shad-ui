@@ -1,0 +1,458 @@
+﻿<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:contents="clr-namespace:ShadUI.Contents"
+    xmlns:extensions="clr-namespace:ShadUI.Extensions"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Design.PreviewWith>
+        <Border
+            Height="500"
+            Padding="8"
+            Width="400">
+            <StackPanel Orientation="Vertical" Spacing="20">
+                <Expander
+                    Content="Expander content"
+                    ExpandDirection="Up"
+                    Header="Header"
+                    Padding="10"
+                    Width="200" />
+                <Expander
+                    Content="Expander content"
+                    ExpandDirection="Down"
+                    Header="Header"
+                    Padding="10"
+                    Width="200" />
+                <Expander
+                    Content="Expander content"
+                    ExpandDirection="Left"
+                    Header="Header"
+                    HorizontalAlignment="Center"
+                    MinWidth="200"
+                    Padding="10,0" />
+                <Expander
+                    Content="Expander content"
+                    ExpandDirection="Right"
+                    Header="Header"
+                    HorizontalAlignment="Center"
+                    MinWidth="200"
+                    Padding="10,0" />
+                <Expander
+                    Content="Expander content"
+                    ExpandDirection="Down"
+                    Header="Header"
+                    IsEnabled="False"
+                    Padding="10"
+                    Width="200" />
+                <Expander
+                    Content="Expander content"
+                    ExpandDirection="Down"
+                    Header="Header"
+                    IsEnabled="False"
+                    Padding="10"
+                    Width="200"
+                    extensions:ControlAssist.Hint="This control is currently disabled"
+                    extensions:ControlAssist.Label="Disabled Selection">
+                    <DataValidationErrors.Error>
+                        <system:Exception />
+                    </DataValidationErrors.Error>
+                </Expander>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme TargetType="ToggleButton" x:Key="ShadUiExpanderToggleButtonTheme">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Background="{TemplateBinding Background}"
+                    Height="{TemplateBinding Height}"
+                    MinHeight="{TemplateBinding MinHeight}"
+                    Padding="{TemplateBinding Padding}">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <ContentPresenter
+                            Background="Transparent"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{Binding $parent[Expander].HeaderTemplate}"
+                            Grid.Column="0"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Name="PART_ContentPresenter"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <Path
+                            Data="{x:Static contents:Icons.ChevronRight}"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            Margin="5,0,18,0"
+                            Name="PART_Icon"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center"
+                            Width="8">
+                            <Path.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition
+                                        Duration="0:0:0.2"
+                                        Easing="CircularEaseOut"
+                                        Property="RenderTransform" />
+                                </Transitions>
+                            </Path.Transitions>
+                        </Path>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover /template/ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderLowBrush}" />
+        </Style>
+        <Style Selector="^ /template/ Path#PART_Icon">
+            <Setter Property="Fill" Value="{DynamicResource MutedColor}" />
+        </Style>
+        <Style Selector="^[Tag=error] /template/ Path#PART_Icon">
+            <Setter Property="Fill" Value="{DynamicResource ErrorColor}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource ShadUiExpanderToggleButtonTheme}"
+        TargetType="ToggleButton"
+        x:Key="ShadUiExpanderToggleButtonUpTheme">
+        <Style Selector="^ /template/ Path#PART_Icon">
+            <Setter Property="RenderTransform" Value="rotate(-90deg)" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource ShadUiExpanderToggleButtonTheme}"
+        TargetType="ToggleButton"
+        x:Key="ShadUiExpanderToggleButtonDownTheme">
+        <Style Selector="^ /template/ Path#PART_Icon">
+            <Setter Property="RenderTransform" Value="rotate(90deg)" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource ShadUiExpanderToggleButtonTheme}"
+        TargetType="ToggleButton"
+        x:Key="ShadUiExpanderToggleButtonLeftTheme">
+        <Style Selector="^ /template/ Path#PART_Icon">
+            <Setter Property="RenderTransform" Value="rotate(180deg)" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource ShadUiExpanderToggleButtonTheme}"
+        TargetType="ToggleButton"
+        x:Key="ShadUiExpanderToggleButtonRightTheme">
+        <Style Selector="^ /template/ Path#PART_Icon">
+            <Setter Property="RenderTransform" Value="rotate(0deg)" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme TargetType="Expander" x:Key="ExpanderControlTheme">
+        <Setter Property="BorderThickness" Value="1, 1, 1, 1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource MdCornerRadius}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="extensions:ControlAssist.MinHeight" Value="34" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="extensions:ExpanderAssist.HeaderPadding" Value="18, 0, 0, 0" />
+
+        <Style Selector="^[ExpandDirection=Up]">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DataValidationErrors>
+                        <StackPanel Background="Transparent" Spacing="4">
+                            <TextBlock
+                                Classes="Small"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Label,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,0,0,6"
+                                Name="PART_Label"
+                                Text="{TemplateBinding extensions:ControlAssist.Label}" />
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Name="PART_Border">
+                                <Grid RowDefinitions="*,Auto">
+                                    <ToggleButton
+                                        Content="{TemplateBinding Header}"
+                                        Grid.Row="1"
+                                        Height="{TemplateBinding extensions:ControlAssist.Height}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        IsChecked="{TemplateBinding IsExpanded,
+                                                                    Mode=TwoWay}"
+                                        MinHeight="{TemplateBinding extensions:ControlAssist.MinHeight}"
+                                        Name="PART_Toggle"
+                                        Padding="{TemplateBinding extensions:ExpanderAssist.HeaderPadding}"
+                                        Theme="{StaticResource ShadUiExpanderToggleButtonTheme}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}" />
+                                    <ContentPresenter
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Grid.Row="0"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        IsVisible="{TemplateBinding IsExpanded}"
+                                        Name="PART_ContentPresenter"
+                                        Padding="{TemplateBinding Padding}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </Border>
+                            <TextBlock
+                                Classes="Caption Muted"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Hint,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Name="PART_Hint"
+                                Text="{TemplateBinding extensions:ControlAssist.Hint}" />
+                        </StackPanel>
+                    </DataValidationErrors>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:expanded /template/ ToggleButton#PART_Toggle">
+                <Setter Property="Theme" Value="{StaticResource ShadUiExpanderToggleButtonUpTheme}" />
+            </Style>
+        </Style>
+        <Style Selector="^[ExpandDirection=Down]">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DataValidationErrors>
+                        <StackPanel Background="Transparent" Spacing="4">
+                            <TextBlock
+                                Classes="Small"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Label,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,0,0,6"
+                                Name="PART_Label"
+                                Text="{TemplateBinding extensions:ControlAssist.Label}" />
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Name="PART_Border">
+                                <Grid RowDefinitions="Auto, *">
+                                    <ToggleButton
+                                        Content="{TemplateBinding Header}"
+                                        Grid.Row="0"
+                                        Height="{TemplateBinding extensions:ControlAssist.Height}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        IsChecked="{TemplateBinding IsExpanded,
+                                                                    Mode=TwoWay}"
+                                        MinHeight="{TemplateBinding extensions:ControlAssist.MinHeight}"
+                                        Name="PART_Toggle"
+                                        Padding="{TemplateBinding extensions:ExpanderAssist.HeaderPadding}"
+                                        Theme="{StaticResource ShadUiExpanderToggleButtonTheme}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}" />
+                                    <ContentPresenter
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Grid.Row="1"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        IsVisible="{TemplateBinding IsExpanded}"
+                                        Name="PART_ContentPresenter"
+                                        Padding="{TemplateBinding Padding}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </Border>
+                            <TextBlock
+                                Classes="Caption Muted"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Hint,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Name="PART_Hint"
+                                Text="{TemplateBinding extensions:ControlAssist.Hint}" />
+                        </StackPanel>
+                    </DataValidationErrors>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:expanded /template/ ToggleButton#PART_Toggle">
+                <Setter Property="Theme" Value="{StaticResource ShadUiExpanderToggleButtonDownTheme}" />
+            </Style>
+        </Style>
+        <Style Selector="^[ExpandDirection=Right]">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DataValidationErrors>
+                        <StackPanel Background="Transparent" Spacing="4">
+                            <TextBlock
+                                Classes="Small"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Label,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,0,0,6"
+                                Name="PART_Label"
+                                Text="{TemplateBinding extensions:ControlAssist.Label}" />
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Name="PART_Border">
+                                <Grid ColumnDefinitions="Auto,*">
+                                    <ToggleButton
+                                        Content="{TemplateBinding Header}"
+                                        Grid.Column="0"
+                                        Height="{TemplateBinding extensions:ControlAssist.Height}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        IsChecked="{TemplateBinding IsExpanded,
+                                                                    Mode=TwoWay}"
+                                        MinHeight="{TemplateBinding extensions:ControlAssist.MinHeight}"
+                                        Name="PART_Toggle"
+                                        Padding="{TemplateBinding extensions:ExpanderAssist.HeaderPadding}"
+                                        Theme="{StaticResource ShadUiExpanderToggleButtonLeftTheme}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}" />
+                                    <ContentPresenter
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Grid.Column="1"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        IsVisible="{TemplateBinding IsExpanded}"
+                                        Name="PART_ContentPresenter"
+                                        Padding="{TemplateBinding Padding}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </Border>
+                            <TextBlock
+                                Classes="Caption Muted"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Hint,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Name="PART_Hint"
+                                Text="{TemplateBinding extensions:ControlAssist.Hint}" />
+                        </StackPanel>
+                    </DataValidationErrors>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:expanded /template/ ToggleButton#PART_Toggle">
+                <Setter Property="Theme" Value="{StaticResource ShadUiExpanderToggleButtonRightTheme}" />
+            </Style>
+        </Style>
+        <Style Selector="^[ExpandDirection=Left]">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <DataValidationErrors>
+                        <StackPanel Background="Transparent" Spacing="4">
+                            <TextBlock
+                                Classes="Small"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Label,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,0,0,6"
+                                Name="PART_Label"
+                                Text="{TemplateBinding extensions:ControlAssist.Label}" />
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Name="PART_Border">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <ToggleButton
+                                        Content="{TemplateBinding Header}"
+                                        Grid.Column="1"
+                                        Height="{TemplateBinding extensions:ControlAssist.Height}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        IsChecked="{TemplateBinding IsExpanded,
+                                                                    Mode=TwoWay}"
+                                        MinHeight="{TemplateBinding extensions:ControlAssist.MinHeight}"
+                                        Name="PART_Toggle"
+                                        Padding="{TemplateBinding extensions:ExpanderAssist.HeaderPadding}"
+                                        Theme="{StaticResource ShadUiExpanderToggleButtonTheme}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}" />
+                                    <ContentPresenter
+                                        Content="{TemplateBinding Content}"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                                        Grid.Column="0"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        IsVisible="{TemplateBinding IsExpanded}"
+                                        Name="PART_ContentPresenter"
+                                        Padding="{TemplateBinding Padding}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </Border>
+                            <TextBlock
+                                Classes="Caption Muted"
+                                IsVisible="{TemplateBinding extensions:ControlAssist.Hint,
+                                                            Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Name="PART_Hint"
+                                Text="{TemplateBinding extensions:ControlAssist.Hint}" />
+                        </StackPanel>
+                    </DataValidationErrors>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:expanded /template/ ToggleButton#PART_Toggle">
+                <Setter Property="Theme" Value="{StaticResource ShadUiExpanderToggleButtonLeftTheme}" />
+            </Style>
+        </Style>
+
+        <Style Selector="^[IsExpanded=true]">
+            <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                <Style.Animations>
+                    <Animation
+                        Duration="0:0:0.15"
+                        Easing="SineEaseInOut"
+                        FillMode="Forward">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
+                            <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
+                            <Setter Property="Opacity" Value="0" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                            <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                            <Setter Property="Opacity" Value="1" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+        </Style>
+
+        <Style Selector="^:focus">
+            <Style Selector="^ /template/ Border#PART_Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}" />
+            </Style>
+        </Style>
+        <Style Selector="^ /template/ Border#PART_Border">
+            <Style Selector="^:pointerover">
+                <Setter Property="Transitions">
+                    <Setter.Value>
+                        <Transitions>
+                            <BrushTransition Duration="0:0:0.20" Property="Background" />
+                            <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
+                        </Transitions>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush" Value="{DynamicResource OutlineColor}" />
+                <Setter Property="Background" Value="{DynamicResource OutlineColor}" />
+            </Style>
+        </Style>
+        <Style Selector="^ /template/ ToggleButton#PART_Toggle">
+            <Style Selector="^:pointerover">
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+        </Style>
+        <Style Selector="^:disabled /template/ Border#PART_Border">
+            <Setter Property="Opacity" Value="0.50" />
+        </Style>
+        <Style Selector="^:error">
+            <Style Selector="^ /template/ Border#PART_Border">
+                <Setter Property="BorderBrush" Value="{DynamicResource ErrorColor}" />
+            </Style>
+            <Style Selector="^ /template/ ToggleButton#PART_Toggle">
+                <Setter Property="Tag" Value="error" />
+            </Style>
+            <Style Selector="^ /template/ TextBlock#PART_Label">
+                <Setter Property="Foreground" Value="{DynamicResource ErrorColor}" />
+            </Style>
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource ExpanderControlTheme}"
+        TargetType="Expander"
+        x:Key="{x:Type Expander}" />
+</ResourceDictionary>
