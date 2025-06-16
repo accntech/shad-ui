@@ -33,6 +33,9 @@
     <DataTemplate DataType="{x:Type viewModels:DialogsViewModel}">
         <views:DialogsPage />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type viewModels:ExpandersViewModel}">
+        <views:ExpandersPage />
+    </DataTemplate>
     <DataTemplate DataType="{x:Type viewModels:InputViewModel}">
         <views:InputPage />
     </DataTemplate>
