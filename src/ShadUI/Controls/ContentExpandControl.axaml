@@ -1,0 +1,26 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:ShadUI.Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="controls:ContentExpandControl" x:Key="ShadContentExpandControl">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Content="{TemplateBinding Content}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    Name="PART_ContentPresenter"
+                    Padding="{TemplateBinding Padding}"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource ShadContentExpandControl}"
+        TargetType="controls:ContentExpandControl"
+        x:Key="{x:Type controls:ContentExpandControl}" />
+</ResourceDictionary>

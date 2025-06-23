@@ -1,0 +1,203 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:contents="clr-namespace:ShadUI.Contents"
+    xmlns:controls="clr-namespace:ShadUI.Controls"
+    xmlns:extensions="clr-namespace:ShadUI.Extensions"
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <controls:Accordion Width="495">
+            <controls:AccordionItem Header="Product Information">
+                <controls:AccordionItem.Content>
+                    <StackPanel Spacing="10">
+                        <StackPanel>
+                            <TextBlock Text="Our flagship product combines cutting-edge technology with sleek design." />
+                            <TextBlock Text="Built with premium materials, it offers unparalleled performance and reliability." />
+                        </StackPanel>
+                        <TextBlock Text="Key features include advanced processing capabilities, and an intuitive user interface designed for both beginners and experts." />
+                    </StackPanel>
+                </controls:AccordionItem.Content>
+            </controls:AccordionItem>
+            <controls:AccordionItem Header="Shipping Details">
+                <controls:AccordionItem.Content>
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days." />
+                        <TextBlock Text="All orders are carefully packaged and fully insured. Track your shipment in real-time through our dedicated tracking portal." />
+                    </StackPanel>
+                </controls:AccordionItem.Content>
+            </controls:AccordionItem>
+            <controls:AccordionItem Header="Return policy">
+                <controls:AccordionItem.Content>
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition." />
+                        <TextBlock Text="Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of receiving the returned item." />
+                    </StackPanel>
+                </controls:AccordionItem.Content>
+            </controls:AccordionItem>
+        </controls:Accordion>
+    </Design.PreviewWith>
+
+    <ControlTheme TargetType="ToggleButton" x:Key="AccordionItemToggleButtonTheme">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Background="{TemplateBinding Background}"
+                    Height="{TemplateBinding Height}"
+                    MinHeight="{TemplateBinding MinHeight}"
+                    Padding="{TemplateBinding Padding}">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <ContentPresenter
+                            Background="Transparent"
+                            Content="{TemplateBinding Content}"
+                            Grid.Column="0"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Name="PART_ContentPresenter"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <Path
+                            Data="{x:Static contents:Icons.ChevronDown}"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            Margin="10,0,0,0"
+                            Name="PART_Icon"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center"
+                            Width="9">
+                            <Path.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition
+                                        Duration="0:0:0.2"
+                                        Easing="CircularEaseOut"
+                                        Property="RenderTransform" />
+                                </Transitions>
+                            </Path.Transitions>
+                        </Path>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover /template/ Border">
+            <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderLowBrush}" />
+        </Style>
+        <Style Selector="^ /template/ Path#PART_Icon">
+            <Setter Property="Fill" Value="{DynamicResource MutedColor}" />
+        </Style>
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="TextBlock.TextDecorations" Value="Underline" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource AccordionItemToggleButtonTheme}"
+        TargetType="ToggleButton"
+        x:Key="AccordionToggleButtonDownTheme">
+        <Style Selector="^ /template/ Path#PART_Icon">
+            <Setter Property="RenderTransform" Value="rotate(180deg)" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme TargetType="controls:AccordionItem" x:Key="AccordionItemStyle">
+        <Setter Property="TextBlock.TextAlignment" Value="Start" />
+        <Setter Property="ClipToBounds" Value="False" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="extensions:ControlAssist.MinHeight" Value="34" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Name="PART_Border">
+                    <Border CornerRadius="{TemplateBinding CornerRadius}" Name="PART_InnerBorder">
+                        <Panel>
+                            <controls:ContentExpandControl
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Name="PART_ContentExpand"
+                                Padding="0,0,0,10"
+                                TextBlock.TextWrapping="Wrap"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                            <LayoutTransformControl Name="PART_ToggleTransform">
+                                <DockPanel>
+                                    <ToggleButton
+                                        Content="{TemplateBinding Header}"
+                                        Height="{TemplateBinding extensions:ControlAssist.Height}"
+                                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                        IsChecked="{TemplateBinding IsSelected,
+                                                                    Mode=TwoWay}"
+                                        MinHeight="{TemplateBinding extensions:ControlAssist.MinHeight}"
+                                        Name="PART_Toggle"
+                                        Padding="{TemplateBinding extensions:AccordionAssist.HeaderPadding}"
+                                        Theme="{StaticResource AccordionItemToggleButtonTheme}"
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}" />
+                                </DockPanel>
+                            </LayoutTransformControl>
+                        </Panel>
+                    </Border>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:selected /template/ ToggleButton#PART_Toggle">
+            <Setter Property="Theme" Value="{StaticResource AccordionToggleButtonDownTheme}" />
+        </Style>
+
+        <Style Selector="^:disabled /template/ Border#PART_Border">
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+
+        <Style Selector="^:not(.no-transitions) /template/ controls|ContentExpandControl#PART_ContentExpand">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition
+                        Duration="0.25"
+                        Easing="CircularEaseOut"
+                        Property="Multiplier" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="^ /template/ Border#PART_InnerBorder">
+            <Setter Property="ClipToBounds" Value="True" />
+        </Style>
+
+        <Style Selector="^ /template/ LayoutTransformControl#PART_ToggleTransform">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="ClipToBounds" Value="False" />
+        </Style>
+
+        <Style Selector="^ /template/ controls|ContentExpandControl#PART_ContentExpand">
+            <Setter Property="Multiplier" Value="0" />
+            <Setter Property="Padding" Value="0,0,0,10" />
+            <Setter Property="Orientation" Value="Vertical" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="0,34,0,0" />
+        </Style>
+
+        <Style Selector="^:selected /template/ controls|ContentExpandControl#PART_ContentExpand">
+            <Setter Property="Multiplier" Value="1" />
+        </Style>
+
+        <Style Selector="^:selected /template/ Path#PART_Icon">
+            <Setter Property="RenderTransform" Value="rotate(180deg)" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme
+        BasedOn="{StaticResource AccordionItemStyle}"
+        TargetType="controls:AccordionItem"
+        x:Key="{x:Type controls:AccordionItem}" />
+</ResourceDictionary>

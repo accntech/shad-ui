@@ -8,6 +8,8 @@
         <ResourceInclude Source="avares://ShadUI/ColorPickers/ColorPicker.axaml" />
         <ResourceInclude Source="avares://ShadUI/ColorPickers/ColorView.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/AutoCompleteBox.axaml" />
+        <ResourceInclude Source="avares://ShadUI/Controls/Accordion.axaml" />
+        <ResourceInclude Source="avares://ShadUI/Controls/AccordionItem.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Avatar.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/BusyArea.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Button.axaml" />
@@ -21,6 +23,7 @@
         <ResourceInclude Source="avares://ShadUI/Controls/CardDescription.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/CardTitle.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/CheckBox.axaml" />
+        <ResourceInclude Source="avares://ShadUI/Controls/ContentExpandControl.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/ComboBox.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/ComboBoxItem.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Constants.axaml" />

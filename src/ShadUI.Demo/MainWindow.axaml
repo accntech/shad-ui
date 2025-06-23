@@ -1,7 +1,16 @@
 ﻿<controls:Window
+    Height="768"
+    Icon="/Assets/favicon.ico"
+    IsMenuVisible="True"
+    Title="ShadUI App"
+    TitleFontWeight="SemiBold"
+    Width="1024"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.MainWindow"
+    x:DataType="demo:MainWindowViewModel"
+    x:Name="Window"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:contents="clr-namespace:ShadUI.Contents;assembly=ShadUI"
     xmlns:controls="clr-namespace:ShadUI.Controls;assembly=ShadUI"
     xmlns:converters="clr-namespace:ShadUI.Demo.Converters"
@@ -11,22 +20,13 @@
     xmlns:extensions="clr-namespace:ShadUI.Extensions;assembly=ShadUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toasts="clr-namespace:ShadUI.Toasts;assembly=ShadUI"
-    x:Name="Window"
-    Title="ShadUI App"
-    Width="1024"
-    Height="768"
-    d:DesignWidth="800"
-    x:DataType="demo:MainWindowViewModel"
-    Icon="/Assets/favicon.ico"
-    IsMenuVisible="True"
-    TitleFontWeight="SemiBold"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <controls:Window.LogoContent>
         <PathIcon
-            Width="14"
+            Data="{x:Static contents:Icons.Logo}"
             Height="14"
             Margin="8,8,0,8"
-            Data="{x:Static contents:Icons.Logo}" />
+            Width="14" />
     </controls:Window.LogoContent>
     <controls:Window.Hosts>
         <dialogs:DialogHost Manager="{Binding DialogManager}" Owner="{Binding RelativeSource={RelativeSource AncestorType=controls:Window}}" />
@@ -34,49 +34,49 @@
     <controls:Window.MenuItems>
         <MenuItem Header="File">
             <MenuItem
-                Width="175"
                 Command="{Binding ShowAboutCommand}"
-                Header="About">
+                Header="About"
+                Width="175">
                 <MenuItem.Icon>
                     <TextBlock Classes="LucideIcon" Text="&#57599;" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem
-                Width="175"
                 Command="{Binding TryCloseCommand}"
-                Header="Close" />
+                Header="Close"
+                Width="175" />
         </MenuItem>
     </controls:Window.MenuItems>
     <controls:Window.RightWindowTitleBarControls>
         <Button
-            Width="30"
-            Height="30"
             Background="{DynamicResource SidebarBackgroundColor}"
             Command="{Binding SwitchThemeCommand}"
             CornerRadius="{DynamicResource MdCornerRadius}"
-            ToolTip.Tip="Switch Theme">
+            Height="30"
+            ToolTip.Tip="Switch Theme"
+            Width="30">
             <TextBlock Classes="LucideIcon" Text="{Binding CurrentTheme, Converter={x:Static converters:ThemeModeConverters.ToLucideIcon}}" />
         </Button>
         <Button
-            x:Name="FullscreenButton"
-            Width="30"
-            Height="30"
-            Margin="8,0,0,0"
             Background="{DynamicResource SidebarBackgroundColor}"
             CornerRadius="{DynamicResource MdCornerRadius}"
+            Height="30"
             IsVisible="{Binding #Window.WindowState, Converter={x:Static converters:WindowStateConverters.IsNotFullScreen}}"
-            ToolTip.Tip="Fullscreen">
+            Margin="8,0,0,0"
+            ToolTip.Tip="Fullscreen"
+            Width="30"
+            x:Name="FullscreenButton">
             <TextBlock Classes="LucideIcon" Text="&#58681;" />
         </Button>
         <Button
-            x:Name="ExitFullscreenButton"
-            Width="30"
-            Height="30"
-            Margin="8,0,0,0"
             Background="{DynamicResource SidebarBackgroundColor}"
             CornerRadius="{DynamicResource MdCornerRadius}"
+            Height="30"
             IsVisible="{Binding #Window.WindowState, Converter={x:Static converters:WindowStateConverters.IsFullScreen}}"
-            ToolTip.Tip="Exit Fullscreen">
+            Margin="8,0,0,0"
+            ToolTip.Tip="Exit Fullscreen"
+            Width="30"
+            x:Name="ExitFullscreenButton">
             <TextBlock Classes="LucideIcon" Text="&#57631;" />
         </Button>
     </controls:Window.RightWindowTitleBarControls>
@@ -93,10 +93,10 @@
             </controls:SidebarMenu.BodyContent>
             <controls:SidebarMenu.HeaderContent>
                 <controls:Avatar
-                    Width="80"
                     Height="80"
                     Margin="30,10,30,30"
-                    Source="../Assets/user.png" />
+                    Source="../Assets/user.png"
+                    Width="80" />
             </controls:SidebarMenu.HeaderContent>
             <controls:SidebarMenu.Items>
                 <controls:SidebarMenuItem
@@ -127,6 +127,15 @@
                     </controls:SidebarMenuItem.Icon>
                 </controls:SidebarMenuItem>
                 <Separator />
+                <controls:SidebarMenuItem
+                    Classes="Compact"
+                    Command="{Binding OpenAccordionCommand}"
+                    Header="Accordion"
+                    ToolTip.Tip="{Binding IsMenuExpanded, RelativeSource={RelativeSource AncestorType=controls:SidebarMenu}, Converter={x:Static converters:BooleanToNullOrStringConverter.Instance}, ConverterParameter='Accordion'}">
+                    <controls:SidebarMenuItem.Icon>
+                        <TextBlock Classes="LucideIcon" Text="&#58594;" />
+                    </controls:SidebarMenuItem.Icon>
+                </controls:SidebarMenuItem>
                 <controls:SidebarMenuItem
                     Classes="Compact"
                     Command="{Binding OpenAvatarCommand}"
@@ -324,10 +333,10 @@
                         </Style>
                     </StackPanel.Styles>
                     <Button
-                        Width="36"
-                        Height="36"
                         CommandParameter="https://github.com/accntech/shad-ui"
-                        ToolTip.Tip="Source repository">
+                        Height="36"
+                        ToolTip.Tip="Source repository"
+                        Width="36">
                         <extensions:ButtonAssist.Icon>
                             <TextBlock
                                 Classes="ShadUIIcon"
@@ -336,10 +345,10 @@
                         </extensions:ButtonAssist.Icon>
                     </Button>
                     <Button
-                        Width="36"
-                        Height="36"
                         CommandParameter="https://github.com/accntech/shad-ui/blob/main/LICENSE"
-                        ToolTip.Tip="Open source license">
+                        Height="36"
+                        ToolTip.Tip="Open source license"
+                        Width="36">
                         <extensions:ButtonAssist.Icon>
                             <TextBlock
                                 Classes="ShadUIIcon"
@@ -348,10 +357,10 @@
                         </extensions:ButtonAssist.Icon>
                     </Button>
                     <Button
-                        Width="36"
-                        Height="36"
                         CommandParameter="https://www.nuget.org/packages/ShadUI"
-                        ToolTip.Tip="Nuget package">
+                        Height="36"
+                        ToolTip.Tip="Nuget package"
+                        Width="36">
                         <extensions:ButtonAssist.Icon>
                             <TextBlock
                                 Classes="ShadUIIcon"

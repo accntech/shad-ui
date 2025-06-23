@@ -24,6 +24,7 @@ public sealed partial class MainWindowViewModel(
     CardsViewModel cardsViewModel,
     DataGridViewModel dataGridViewModel,
     DateViewModel dateViewModel,
+    AccordionViewModel accordionViewModel,
     CheckBoxesViewModel checkBoxesViewModel,
     DialogsViewModel dialogsViewModel,
     TimeViewModel timeViewModel,
@@ -120,6 +121,12 @@ public sealed partial class MainWindowViewModel(
     private async Task OpenDialogs()
     {
         await SwitchPageAsync(dialogsViewModel);
+    }
+    
+    [RelayCommand]
+    private async Task OpenAccordion()
+    {
+        await SwitchPageAsync(accordionViewModel);
     }
 
     [RelayCommand]
