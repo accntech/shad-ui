@@ -97,6 +97,21 @@ public class Window : Avalonia.Controls.Window
         get => GetValue(IsTitleBarVisibleProperty);
         set => SetValue(IsTitleBarVisibleProperty, value);
     }
+    
+    /// <summary>
+    ///     The corner radius of the window.
+    /// </summary>
+    public static readonly StyledProperty<CornerRadius> RootCornerRadiusProperty =
+        AvaloniaProperty.Register<Border, CornerRadius>(nameof(RootCornerRadius), defaultValue: default);
+
+    /// <summary>
+    ///     Gets or sets the value of <see cref="RootCornerRadiusProperty"/>.
+    /// </summary>
+    public CornerRadius RootCornerRadius
+    {
+        get => GetValue(RootCornerRadiusProperty);
+        set => SetValue(RootCornerRadiusProperty, value);
+    }
 
     /// <summary>
     ///     Whether to enable title bar animation.
@@ -306,6 +321,17 @@ public class Window : Avalonia.Controls.Window
                 titleBar.PointerPressed += OnTitleBarPointerPressed;
                 titleBar.DoubleTapped += OnMaximizeButtonClicked;
             }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                if (e.NameScope.Get<Panel>("PART_Root") is { } rootPanel)
+                {
+                    AddResizeGripForLinux(rootPanel);
+                }
+                if (RootCornerRadius == default)
+                {
+                    RootCornerRadius = new CornerRadius(10);
+                }
+            }
         }
         catch
         {
@@ -432,6 +458,128 @@ public class Window : Avalonia.Controls.Window
     public void RestoreWindowState()
     {
         WindowState = _lastState == WindowState.FullScreen ? WindowState.Maximized : _lastState;
+    }
+    
+    private void AddResizeGripForLinux(Panel rootPanel)
+    {
+        var resizeBorders = new[]
+        {
+            new {
+                Tag = "North",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+                Cursor = StandardCursorType.SizeNorthSouth,
+                IsCorner = false
+            },
+            new {
+                Tag = "South",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Bottom,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+                Cursor = StandardCursorType.SizeNorthSouth,
+                IsCorner = false
+            },
+            new {
+                Tag = "West",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
+                Cursor = StandardCursorType.SizeWestEast,
+                IsCorner = false
+            },
+            new {
+                Tag = "East",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                Cursor = StandardCursorType.SizeWestEast,
+                IsCorner = false
+            },
+
+            new {
+                Tag = "NW",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
+                Cursor = StandardCursorType.TopLeftCorner,
+                IsCorner = true
+            },
+            new {
+                Tag = "NE",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                Cursor = StandardCursorType.TopRightCorner,
+                IsCorner = true
+            },
+            new {
+                Tag = "SW",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Bottom,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
+                Cursor = StandardCursorType.BottomLeftCorner,
+                IsCorner = true
+            },
+            new {
+                Tag = "SE",
+                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Bottom,
+                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Right,
+                Cursor = StandardCursorType.BottomRightCorner,
+                IsCorner = true
+            }
+        };
+
+        foreach (var config in resizeBorders)
+        {
+            var border = new Border
+            {
+                Tag = config.Tag,
+                Background = Brushes.Transparent,
+                Cursor = new Cursor(config.Cursor)
+            };
+
+            if (config.IsCorner)
+            {
+                border.Width = 8;
+                border.Height = 8;
+                border.VerticalAlignment = config.VerticalAlignment;
+                border.HorizontalAlignment = config.HorizontalAlignment;
+            }
+            else
+            {
+                if (config.VerticalAlignment == Avalonia.Layout.VerticalAlignment.Stretch)
+                {
+                    border.Width = 6;
+                }
+                if (config.HorizontalAlignment == Avalonia.Layout.HorizontalAlignment.Stretch)
+                {
+                    border.Height = 6;
+                }
+                border.VerticalAlignment = config.VerticalAlignment;
+                border.HorizontalAlignment = config.HorizontalAlignment;
+            }
+
+            border.PointerPressed += RaiseResize;
+            rootPanel.Children.Add(border);
+        }
+    }
+
+    private void RaiseResize(object? sender, PointerPressedEventArgs e)
+    {
+        if (!CanResize) return;
+        if (sender is not Border border || border.Tag is not string edge) return;
+        if (VisualRoot is not Window window)
+            return;
+
+        var windowEdge = edge switch
+        {
+            "North" => WindowEdge.North,
+            "South" => WindowEdge.South,
+            "West" => WindowEdge.West,
+            "East" => WindowEdge.East,
+            "NW" => WindowEdge.NorthWest,
+            "NE" => WindowEdge.NorthEast,
+            "SW" => WindowEdge.SouthWest,
+            "SE" => WindowEdge.SouthEast,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        window?.BeginResizeDrag(windowEdge, e);
+        e.Handled = true;
     }
 
     static Window()
