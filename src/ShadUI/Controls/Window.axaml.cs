@@ -419,7 +419,7 @@ public class Window : Avalonia.Controls.Window
                 break;
             case WindowState.Maximized:
                 ToggleMaxButtonVisibility(CanMaximize);
-                Margin = new Thickness(7);
+                Margin = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? new Thickness(0) : new Thickness(7);
                 break;
             case WindowState.Normal:
                 ToggleMaxButtonVisibility(CanMaximize);
