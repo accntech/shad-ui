@@ -1,8 +1,11 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+	xmlns:collections="using:Avalonia.Collections">
     <Thickness x:Key="DataGridTextColumnCellTextBlockMargin">4</Thickness>
+	<StreamGeometry x:Key="DataGridRowGroupHeaderIconClosedPath">M515 93l930 931l-930 931l90 90l1022 -1021l-1022 -1021z</StreamGeometry>
+	<StreamGeometry x:Key="DataGridRowGroupHeaderIconOpenedPath">M109 486 19 576 1024 1581 2029 576 1939 486 1024 1401z</StreamGeometry>
     <ControlTheme x:Key="{x:Type DataGridCell}" TargetType="DataGridCell">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -208,6 +211,93 @@
             <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
         </Style>
     </ControlTheme>
+	<ControlTheme x:Key="ShadDataGridRowGroupExpanderButtonTheme" TargetType="ToggleButton">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Width="12"
+						Height="12"
+						Background="Transparent"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+					<Path Fill="{TemplateBinding Foreground}"
+						  Data="{StaticResource DataGridRowGroupHeaderIconClosedPath}"
+						  HorizontalAlignment="Right"
+						  VerticalAlignment="Center"
+						  Stretch="Uniform" />
+				</Border>
+			</ControlTemplate>
+		</Setter>
+		<Style Selector="^:checked /template/ Path">
+			<Setter Property="Data" Value="{StaticResource DataGridRowGroupHeaderIconOpenedPath}" />
+		</Style>
+	</ControlTheme>
+	<ControlTheme x:Key="{x:Type DataGridRowGroupHeader}" TargetType="DataGridRowGroupHeader">
+		<Setter Property="FontSize" Value="15" />
+		<Setter Property="MinHeight" Value="32" />
+		<Setter Property="Template">
+			<ControlTemplate x:DataType="collections:DataGridCollectionViewGroup">
+				<DataGridFrozenGrid Name="PART_Root"
+									Background="{DynamicResource GhostHoverColor}"
+									MinHeight="{TemplateBinding MinHeight}"
+									ColumnDefinitions="Auto,Auto,Auto,Auto,*"
+									RowDefinitions="*,Auto">
+
+					<Rectangle Name="PART_IndentSpacer"
+							   Grid.Column="1" />
+
+					<ToggleButton Name="PART_ExpanderButton"
+			                      Grid.Column="2"
+			                      Width="12"
+			                      Height="12"
+			                      Margin="12,0,0,0"
+			                      Theme="{StaticResource ShadDataGridRowGroupExpanderButtonTheme}"
+			                      BorderBrush="{TemplateBinding BorderBrush}"
+			                      BorderThickness="{TemplateBinding BorderThickness}"
+			                      Background="{TemplateBinding Background}"
+			                      CornerRadius="{TemplateBinding CornerRadius}"
+			                      IsTabStop="False"
+			                      Foreground="{TemplateBinding Foreground}" />
+
+					<StackPanel Grid.Column="3"
+								Orientation="Horizontal"
+								VerticalAlignment="Center"
+								Margin="12,0,0,0">
+						<TextBlock Name="PART_PropertyNameElement"
+								   Margin="4,0,0,0"
+								   IsVisible="{TemplateBinding IsPropertyNameVisible}"
+								   Foreground="{TemplateBinding Foreground}" />
+						<TextBlock Margin="4,0,0,0"
+								   Text="{Binding Key}"
+								   Foreground="{TemplateBinding Foreground}" />
+						<TextBlock Name="PART_ItemCountElement"
+								   Margin="4,0,0,0"
+								   IsVisible="{TemplateBinding IsItemCountVisible}"
+								   Foreground="{TemplateBinding Foreground}" />
+					</StackPanel>
+
+					<Rectangle x:Name="CurrencyVisual"
+							   Grid.ColumnSpan="5"
+							   IsVisible="False"
+							   HorizontalAlignment="Stretch"
+							   VerticalAlignment="Stretch"
+							   Fill="Transparent"
+							   IsHitTestVisible="False"
+							   Stroke="{TemplateBinding BorderBrush}"
+							   StrokeThickness="1" />
+
+					<DataGridRowHeader Name="PART_RowHeader"
+									   Grid.RowSpan="2"
+									   DataGridFrozenGrid.IsFrozen="True" />
+
+					<Rectangle x:Name="PART_BottomGridLine"
+							   Grid.Row="1"
+							   Grid.ColumnSpan="5"
+							   Height="1"
+							   Fill="{TemplateBinding BorderBrush}"/>
+				</DataGridFrozenGrid>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
     <ControlTheme x:Key="{x:Type DataGrid}" TargetType="DataGrid">
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
         <Setter Property="RowBackground" Value="{DynamicResource BackgroundColor}" />
