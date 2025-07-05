@@ -13,7 +13,7 @@
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <ApplicationIcon>Assets\favicon.ico</ApplicationIcon>
-        <PlatformTarget>x64</PlatformTarget>
+        <PlatformTarget>AnyCPU</PlatformTarget>
         <Platforms>AnyCPU;x64</Platforms>
         <PrepareForRunDependsOn>$(PrepareForRunDependsOn);GenerateXamlTextCopies;GenerateCSharpTextCopies</PrepareForRunDependsOn>
     </PropertyGroup>
