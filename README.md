@@ -35,7 +35,7 @@ Include ShadTheme in your App.xaml:
 
 ```xml
 <Application
-    xmlns:themes="clr-namespace:ShadUI.Themes;assembly=ShadUI">
+    xmlns:themes="clr-namespace:ShadUI;assembly=ShadUI">
 
     <!-- other code -->
 
