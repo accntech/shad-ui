@@ -16,7 +16,7 @@ public sealed partial class GroupedDataTableViewModel : ViewModelBase
 
         var csharpPath = Path.Combine(AppContext.BaseDirectory, "viewModels", "Examples", "DataTable",
             "GroupedDataTableViewModel.cs");
-        CSharpCode = csharpPath.ExtractWithSkipRanges((31, 36), (48, 53)).CleanIndentation();
+		CSharpCode = csharpPath.ExtractByLineRange(1, 71).CleanIndentation();
 
         var people = new List<Person>
         {
