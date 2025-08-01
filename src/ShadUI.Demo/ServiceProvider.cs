@@ -19,6 +19,7 @@ namespace ShadUI.Demo;
 [ServiceProvider]
 [Transient<AboutViewModel>]
 [Transient<AvatarViewModel>]
+[Transient<BadgeViewModel>]
 [Transient<ButtonViewModel>]
 [Transient<CardViewModel>]
 [Transient<DataTableViewModel>]

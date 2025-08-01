@@ -1,0 +1,358 @@
+<UserControl
+    x:Class="ShadUI.Demo.Views.BadgeAccessibilityDemoPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <ScrollViewer>
+        <StackPanel Margin="20" Spacing="32">
+            <!-- Page Header -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="h1" Text="Badge Accessibility &amp; Usability Tests" />
+                <TextBlock 
+                    Classes="p" 
+                    Text="Comprehensive testing of Badge control accessibility features, color contrast, and usability scenarios."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <!-- Screen Reader Accessibility -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Screen Reader Accessibility" />
+                <TextBlock Classes="p" Text="Badges with proper automation properties for screen readers:" />
+                
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <shadui:Badge 
+                        Content="New" 
+                        AutomationProperties.Name="New notification indicator"
+                        AutomationProperties.HelpText="Indicates you have new notifications"
+                        AutomationProperties.Role="Text" />
+                    
+                    <shadui:Badge 
+                        Classes="Destructive" 
+                        Content="Error" 
+                        AutomationProperties.Name="Error status indicator"
+                        AutomationProperties.HelpText="Indicates an error condition"
+                        AutomationProperties.Role="Text" />
+                    
+                    <shadui:Badge 
+                        Classes="Secondary" 
+                        Content="99+" 
+                        AutomationProperties.Name="Message count badge"
+                        AutomationProperties.HelpText="You have 99 or more unread messages"
+                        AutomationProperties.Role="Text" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Color Contrast Testing -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Color Contrast Validation" />
+                <TextBlock Classes="p" Text="Badges with high contrast color combinations meeting WCAG AA standards:" />
+                
+                <StackPanel Spacing="12">
+                    <!-- High Contrast Combinations -->
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="High Contrast:" VerticalAlignment="Center" FontWeight="SemiBold" />
+                        <shadui:Badge 
+                            Content="White on Black" 
+                            Background="Black" 
+                            Foreground="White" />
+                        <shadui:Badge 
+                            Content="Black on White" 
+                            Background="White" 
+                            Foreground="Black" 
+                            BorderBrush="Gray" 
+                            BorderThickness="1" />
+                        <shadui:Badge 
+                            Content="Yellow on Navy" 
+                            Background="Navy" 
+                            Foreground="Yellow" />
+                    </StackPanel>
+                    
+                    <!-- Theme Color Validation -->
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Theme Colors:" VerticalAlignment="Center" FontWeight="SemiBold" />
+                        <shadui:Badge Content="Default Theme" />
+                        <shadui:Badge Classes="Secondary" Content="Secondary Theme" />
+                        <shadui:Badge Classes="Destructive" Content="Destructive Theme" />
+                        <shadui:Badge Classes="Outline" Content="Outline Theme" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Long Content and Text Wrapping -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Long Content Handling" />
+                <TextBlock Classes="p" Text="Testing Badge behavior with various content lengths:" />
+                
+                <StackPanel Spacing="12">
+                    <!-- Different Content Lengths -->
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Content Lengths:" VerticalAlignment="Center" FontWeight="SemiBold" />
+                        <shadui:Badge Content="1" />
+                        <shadui:Badge Content="99+" />
+                        <shadui:Badge Content="Short" />
+                        <shadui:Badge Content="Medium Length Text" />
+                        <shadui:Badge Content="This is a very long badge text that tests wrapping behavior" MaxWidth="150" />
+                    </StackPanel>
+                    
+                    <!-- Constrained Width Testing -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Width Constrained Badges:" FontWeight="SemiBold" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <shadui:Badge 
+                                Content="Long text in narrow badge" 
+                                MaxWidth="80" 
+                                Classes="Secondary" />
+                            <shadui:Badge 
+                                Content="Another long text example for testing" 
+                                MaxWidth="100" 
+                                Classes="Destructive" />
+                            <shadui:Badge 
+                                Content="Constrained outline badge with long content" 
+                                MaxWidth="120" 
+                                Classes="Outline" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Disabled State Testing -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Disabled State Styling" />
+                <TextBlock Classes="p" Text="Testing disabled state visual feedback across all variants:" />
+                
+                <StackPanel Spacing="12">
+                    <!-- Enabled vs Disabled Comparison -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Enabled Badges:" FontWeight="SemiBold" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <shadui:Badge Content="Default Enabled" />
+                            <shadui:Badge Classes="Secondary" Content="Secondary Enabled" />
+                            <shadui:Badge Classes="Destructive" Content="Destructive Enabled" />
+                            <shadui:Badge Classes="Outline" Content="Outline Enabled" />
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Disabled Badges:" FontWeight="SemiBold" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <shadui:Badge Content="Default Disabled" IsEnabled="False" />
+                            <shadui:Badge Classes="Secondary" Content="Secondary Disabled" IsEnabled="False" />
+                            <shadui:Badge Classes="Destructive" Content="Destructive Disabled" IsEnabled="False" />
+                            <shadui:Badge Classes="Outline" Content="Outline Disabled" IsEnabled="False" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Layout Integration Testing -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Layout Container Integration" />
+                <TextBlock Classes="p" Text="Testing Badge integration within various layout containers:" />
+                
+                <StackPanel Spacing="16">
+                    <!-- StackPanel Integration -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="StackPanel Integration:" FontWeight="SemiBold" />
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="Status:" VerticalAlignment="Center" />
+                            <shadui:Badge Content="Online" />
+                            <TextBlock Text="Priority:" VerticalAlignment="Center" Margin="12,0,0,0" />
+                            <shadui:Badge Classes="Destructive" Content="High" />
+                            <TextBlock Text="Version:" VerticalAlignment="Center" Margin="12,0,0,0" />
+                            <shadui:Badge Classes="Outline" Content="v2.1.0" />
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <!-- Grid Integration -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Grid Integration:" FontWeight="SemiBold" />
+                        <Grid ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Connection:" VerticalAlignment="Center" />
+                            <shadui:Badge Grid.Row="0" Grid.Column="2" Content="Connected" />
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Notifications:" VerticalAlignment="Center" />
+                            <shadui:Badge Grid.Row="1" Grid.Column="2" Classes="Secondary" Content="5 New" />
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Errors:" VerticalAlignment="Center" />
+                            <shadui:Badge Grid.Row="2" Grid.Column="2" Classes="Destructive" Content="2 Issues" />
+                        </Grid>
+                    </StackPanel>
+                    
+                    <!-- WrapPanel Integration -->
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="WrapPanel Integration (Tags):" FontWeight="SemiBold" />
+                        <WrapPanel Orientation="Horizontal">
+                            <shadui:Badge Content="React" Margin="0,0,4,4" />
+                            <shadui:Badge Classes="Secondary" Content="TypeScript" Margin="0,0,4,4" />
+                            <shadui:Badge Classes="Outline" Content="Avalonia" Margin="0,0,4,4" />
+                            <shadui:Badge Content="C#" Margin="0,0,4,4" />
+                            <shadui:Badge Classes="Secondary" Content="XAML" Margin="0,0,4,4" />
+                            <shadui:Badge Classes="Destructive" Content="Deprecated" Margin="0,0,4,4" />
+                            <shadui:Badge Classes="Outline" Content="Beta" Margin="0,0,4,4" />
+                            <shadui:Badge Content="Stable" Margin="0,0,4,4" />
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Complex Content Testing -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Complex Content Support" />
+                <TextBlock Classes="p" Text="Testing Badge with complex content objects:" />
+                
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <!-- Badge with Icon and Text -->
+                    <shadui:Badge Classes="Secondary">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="✓" FontSize="12" VerticalAlignment="Center" />
+                            <TextBlock Text="Verified" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </shadui:Badge>
+                    
+                    <!-- Badge with Multiple Elements -->
+                    <shadui:Badge Classes="Destructive">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="⚠" FontSize="12" VerticalAlignment="Center" />
+                            <TextBlock Text="Alert" VerticalAlignment="Center" />
+                            <TextBlock Text="!" FontWeight="Bold" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </shadui:Badge>
+                    
+                    <!-- Badge with Styled Content -->
+                    <shadui:Badge Classes="Outline">
+                        <TextBlock>
+                            <Run Text="v" FontSize="10" />
+                            <Run Text="2.1.0" FontWeight="Bold" />
+                        </TextBlock>
+                    </shadui:Badge>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Tooltip Integration -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Tooltip Integration" />
+                <TextBlock Classes="p" Text="Badges with tooltips for additional context (hover to see):" />
+                
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <shadui:Badge 
+                        Content="99+" 
+                        ToolTip.Tip="You have 99 or more unread messages" />
+                    <shadui:Badge 
+                        Classes="Destructive" 
+                        Content="Error" 
+                        ToolTip.Tip="System error detected. Click for details." />
+                    <shadui:Badge 
+                        Classes="Secondary" 
+                        Content="Beta" 
+                        ToolTip.Tip="This feature is in beta testing phase" />
+                    <shadui:Badge 
+                        Classes="Outline" 
+                        Content="Info" 
+                        ToolTip.Tip="Additional information available" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Keyboard Navigation Testing -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Keyboard Navigation" />
+                <TextBlock Classes="p" Text="Focusable badges for keyboard navigation (use Tab to navigate):" />
+                
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <shadui:Badge 
+                        Content="Focusable 1" 
+                        Focusable="True" 
+                        TabIndex="1"
+                        ToolTip.Tip="Press Tab to navigate to next badge" />
+                    <shadui:Badge 
+                        Classes="Secondary" 
+                        Content="Focusable 2" 
+                        Focusable="True" 
+                        TabIndex="2"
+                        ToolTip.Tip="Second focusable badge" />
+                    <shadui:Badge 
+                        Classes="Destructive" 
+                        Content="Focusable 3" 
+                        Focusable="True" 
+                        TabIndex="3"
+                        ToolTip.Tip="Third focusable badge" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Localization Testing -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Localization Support" />
+                <TextBlock Classes="p" Text="Testing Badge with different languages and RTL text:" />
+                
+                <StackPanel Spacing="12">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Languages:" VerticalAlignment="Center" FontWeight="SemiBold" />
+                        <shadui:Badge Content="English" />
+                        <shadui:Badge Classes="Secondary" Content="Español" />
+                        <shadui:Badge Classes="Destructive" Content="Français" />
+                        <shadui:Badge Classes="Outline" Content="Deutsch" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="RTL Languages:" VerticalAlignment="Center" FontWeight="SemiBold" />
+                        <shadui:Badge Content="العربية" />
+                        <shadui:Badge Classes="Secondary" Content="עברית" />
+                        <shadui:Badge Classes="Destructive" Content="فارسی" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Asian Languages:" VerticalAlignment="Center" FontWeight="SemiBold" />
+                        <shadui:Badge Content="中文" />
+                        <shadui:Badge Classes="Secondary" Content="日本語" />
+                        <shadui:Badge Classes="Destructive" Content="한국어" />
+                        <shadui:Badge Classes="Outline" Content="Русский" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Performance Testing -->
+            <StackPanel Spacing="16">
+                <TextBlock Classes="h2" Text="Performance &amp; Stress Testing" />
+                <TextBlock Classes="p" Text="Multiple badges to test rendering performance:" />
+                
+                <WrapPanel Orientation="Horizontal">
+                    <!-- Generate multiple badges for performance testing -->
+                    <shadui:Badge Content="Badge 1" Margin="2" />
+                    <shadui:Badge Classes="Secondary" Content="Badge 2" Margin="2" />
+                    <shadui:Badge Classes="Destructive" Content="Badge 3" Margin="2" />
+                    <shadui:Badge Classes="Outline" Content="Badge 4" Margin="2" />
+                    <shadui:Badge Content="Badge 5" Margin="2" />
+                    <shadui:Badge Classes="Secondary" Content="Badge 6" Margin="2" />
+                    <shadui:Badge Classes="Destructive" Content="Badge 7" Margin="2" />
+                    <shadui:Badge Classes="Outline" Content="Badge 8" Margin="2" />
+                    <shadui:Badge Content="Badge 9" Margin="2" />
+                    <shadui:Badge Classes="Secondary" Content="Badge 10" Margin="2" />
+                    <shadui:Badge Classes="Destructive" Content="Badge 11" Margin="2" />
+                    <shadui:Badge Classes="Outline" Content="Badge 12" Margin="2" />
+                    <shadui:Badge Content="Badge 13" Margin="2" />
+                    <shadui:Badge Classes="Secondary" Content="Badge 14" Margin="2" />
+                    <shadui:Badge Classes="Destructive" Content="Badge 15" Margin="2" />
+                    <shadui:Badge Classes="Outline" Content="Badge 16" Margin="2" />
+                    <shadui:Badge Content="Badge 17" Margin="2" />
+                    <shadui:Badge Classes="Secondary" Content="Badge 18" Margin="2" />
+                    <shadui:Badge Classes="Destructive" Content="Badge 19" Margin="2" />
+                    <shadui:Badge Classes="Outline" Content="Badge 20" Margin="2" />
+                </WrapPanel>
+            </StackPanel>
+
+            <!-- Summary -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="h2" Text="Accessibility Summary" />
+                <TextBlock Classes="p" TextWrapping="Wrap">
+                    This page demonstrates comprehensive accessibility and usability testing for the Badge control, including:
+                    screen reader support, color contrast validation, content length handling, disabled state styling,
+                    layout integration, complex content support, tooltip integration, keyboard navigation,
+                    localization support, and performance testing.
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
