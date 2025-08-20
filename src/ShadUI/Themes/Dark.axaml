@@ -9,7 +9,7 @@
     <Color x:Key="BorderColor60">#262626</Color>
     <Color x:Key="BorderColor30">#4C353535</Color>
     <Color x:Key="OutlineColor">#3E3E3E</Color>
-    <Color x:Key="GhostColor">#252525</Color>
+    <Color x:Key="GhostColor">#353535</Color>
     <Color x:Key="GhostHoverColor">#7F252525</Color>
     <Color x:Key="GhostHoverColor50">#33252525</Color>
     <Color x:Key="SelectionColor">#0CE5E5E5</Color>
