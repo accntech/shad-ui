@@ -9,7 +9,7 @@
     <Color x:Key="BorderColor60">#DEDEDE</Color>
     <Color x:Key="BorderColor30">#4CCECECE</Color>
     <Color x:Key="OutlineColor">#E5E5E5</Color>
-    <Color x:Key="GhostColor">#F5F5F5</Color>
+    <Color x:Key="GhostColor">#E8E8E8</Color>
     <Color x:Key="GhostHoverColor">#7FF5F5F5</Color>
     <Color x:Key="GhostHoverColor50">#33F5F5F5</Color>
     <Color x:Key="SelectionColor">#0CE5E5E5</Color>
