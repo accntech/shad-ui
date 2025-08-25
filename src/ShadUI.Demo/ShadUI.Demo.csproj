@@ -45,14 +45,20 @@
         <ProjectReference Include="..\ShadUI\ShadUI.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Update="Views\PoupMaskPage.axaml.cs">
+        <DependentUpon>PoupMaskPage.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
     <Target Name="GenerateXamlTextCopies" BeforeTargets="PrepareForRun">
         <ItemGroup>
             <XamlFiles Include="Views\**\*.axaml"/>
         </ItemGroup>
 
-        <Copy SourceFiles="@(XamlFiles)"
-              DestinationFiles="@(XamlFiles->'$(OutDir)views/%(RecursiveDir)%(Filename).axaml')"
-              SkipUnchangedFiles="true"/>
+        <Copy SourceFiles="@(XamlFiles)" 
+			  DestinationFiles="@(XamlFiles->'$(OutDir)views/%(RecursiveDir)%(Filename).axaml')" 
+			  SkipUnchangedFiles="true"/>
     </Target>
 
     <Target Name="GenerateCSharpTextCopies" BeforeTargets="PrepareForRun">
@@ -60,8 +66,8 @@
             <CSharpFiles Include="ViewModels\**\*.cs" Exclude="ViewModels\ViewModelBase.cs"/>
         </ItemGroup>
 
-        <Copy SourceFiles="@(CSharpFiles)"
-              DestinationFiles="@(CSharpFiles->'$(OutDir)viewModels/%(RecursiveDir)%(Filename).cs')"
-              SkipUnchangedFiles="true"/>
+        <Copy SourceFiles="@(CSharpFiles)" 
+			  DestinationFiles="@(CSharpFiles->'$(OutDir)viewModels/%(RecursiveDir)%(Filename).cs')" 
+			  SkipUnchangedFiles="true"/>
     </Target>
 </Project>

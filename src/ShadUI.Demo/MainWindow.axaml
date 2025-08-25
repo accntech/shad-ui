@@ -276,6 +276,20 @@
                         </shadui:SidebarItem.Icon>
                     </shadui:SidebarItem>
                     <shadui:SidebarItem
+                        Command="{Binding OpenPoupMaskCommand}"
+                        Content="PopupMask"
+                        Route="dialog"
+                        ToolTip.Tip="{Binding $parent[shadui:Sidebar].Expanded, Converter={x:Static converters:BooleanConverters.NullOrString}, ConverterParameter='PopupMask'}">
+                        <shadui:SidebarItem.Icon>
+                            <Viewbox>
+                                <TextBlock
+                                    Classes="LucideIcon"
+                                    Foreground="{DynamicResource ForegroundColor}"
+                                    Text="&#57627;" />
+                            </Viewbox>
+                        </shadui:SidebarItem.Icon>
+                    </shadui:SidebarItem>
+                    <shadui:SidebarItem
                         Command="{Binding OpenInputsCommand}"
                         Content="Input"
                         Route="input"

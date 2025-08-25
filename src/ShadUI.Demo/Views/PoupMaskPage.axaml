@@ -1,0 +1,172 @@
+<UserControl
+    x:Class="ShadUI.Demo.Views.PoupMaskPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
+    d:DesignHeight="900"
+    d:DesignWidth="800"
+    x:DataType="viewModels:PoupMaskViewModel"
+    mc:Ignorable="d">
+    <DockPanel LastChildFill="True">
+        <StackPanel
+            MaxWidth="{StaticResource PageMaxWidth}"
+            Margin="{StaticResource PageMargin}"
+            DockPanel.Dock="Top"
+            Spacing="4">
+            <Grid ColumnDefinitions="* Auto">
+                <TextBlock Classes="h2" Text="Dialog" />
+                <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button
+                        Width="28"
+                        Height="28"
+                        Background="{DynamicResource GhostHoverColor}"
+                        Classes="Icon"
+                        Command="{Binding BackPageCommand}">
+                        <Viewbox Margin="6">
+                            <TextBlock Classes="LucideIcon" Text="&#57420;" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="28"
+                        Height="28"
+                        Background="{DynamicResource GhostHoverColor}"
+                        Classes="Icon"
+                        Command="{Binding NextPageCommand}">
+                        <Viewbox Margin="6">
+                            <TextBlock Classes="LucideIcon" Text="&#57421;" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <TextBlock
+                Classes="p"
+                Text="Bullet box covering the area"
+                TextWrapping="Wrap" />
+        </StackPanel>
+        <ScrollViewer>
+            <StackPanel
+                MaxWidth="{StaticResource PageMaxWidth}"
+                Margin="{StaticResource PageMargin}"
+                Spacing="32">
+                <StackPanel Orientation="Vertical" Spacing="8">
+                    <TextBlock Classes="h4" Text="Installation" />
+                    <Separator Margin="0" />
+                    <TextBlock
+                        Classes="Small"
+                        Text="Make sure to add DialogHost as the top most element in a window and supply its DialogManager and Window owner"
+                        TextWrapping="Wrap" />
+                    <controls:CodeTextBlock Language="xaml">
+                        <Run Text="&lt;shadui:PopupMask&gt;" />
+                        <LineBreak />
+                        <Run Text="   &lt;shadui:PopupMask.Hosts&gt;" />
+                        <LineBreak />
+                        <Run Text="     &lt;shadui:DialogHost Manager=&quot;{Binding DialogManager}&quot;/&gt;" />
+                        <LineBreak />
+                        <Run Text="   &lt;/shadui:PopupMask.Hosts&gt;" />
+                        <LineBreak />
+                        <Run Text="&lt;/shadui:PopupMask.Hosts&gt;" />
+                    </controls:CodeTextBlock>
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        Classes="Small"
+                        Text="Resolve DialogManager using dependency injection framework for easy access. Make sure to have only one instance of DialogManager."
+                        TextWrapping="Wrap" />
+                    <controls:CodeTextBlock Language="cs">
+                        <Run Text="public static void AddServices(this IServiceCollection collection)" />
+                        <LineBreak />
+                        <Run Text="\{" />
+                        <LineBreak />
+                        <Run Text="    //...other service injection" />
+                        <LineBreak />
+                        <Run Text="    " />
+                        <LineBreak />
+                        <Run Text="    collection.AddSingleton&lt;DialogManager&gt;();" />
+                        <LineBreak />
+                        <Run Text="}" />
+                    </controls:CodeTextBlock>
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        Classes="Small"
+                        Text="When showing a custom dialog, make sure to register all dialog views with its related DataContext type." />
+                    <controls:CodeTextBlock Language="cs">
+                        <Run Text="// example of extension method to register dialogs" />
+                        <LineBreak />
+                        <Run Text="public static IServiceProvider RegisterDialogs(this IServiceProvider service)" />
+                        <LineBreak />
+                        <Run Text="\{" />
+                        <LineBreak />
+                        <Run Text="    var dialogService = service.GetRequiredService&lt;DialogManager&gt;();" />
+                        <LineBreak />
+                        <Run Text="    dialogService.Register&lt;LoginContent, LoginViewModel&gt;();" />
+                        <LineBreak />
+                        <Run Text="    " />
+                        <LineBreak />
+                        <Run Text="    return service;" />
+                        <LineBreak />
+                        <Run Text="}" />
+                        <LineBreak />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="// in the method where the DI framework is setup" />
+                        <LineBreak />
+                        <Run Text="\{" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="// ..other code" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="    var serviceProvider = serviceCollection" />
+                        <LineBreak />
+                        <Run Text="        .BuildServiceProvider()" />
+                        <LineBreak />
+                        <Run Text="        .RegisterDialogs(); // to register all dialogs" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="// ..the rest of the code" />
+                        <LineBreak />
+                        <LineBreak />
+                        <Run Text="}" />
+                    </controls:CodeTextBlock>
+                </StackPanel>
+                <controls:ControlBlock Title="Alert Dialog" CSharp="{Binding AlertDialogCode}">
+                    <Grid
+                        Width="500"
+                        Height="500"
+                        Background="Blue">
+                        <TextBlock
+                            Margin="10"
+                            FontSize="24"
+                            Foreground="Red"
+                            Text="OtherView" />
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Yellow">
+                            <TextBlock
+                                Margin="10"
+                                FontSize="24"
+                                Text="MainView" />
+                            <Button
+                                HorizontalAlignment="Center"
+                                Classes="Outline"
+                                Command="{Binding ShowDialogCommand}"
+                                Content="Show Dialog" />
+                        </StackPanel>
+                        <shadui:PopupMask>
+                            <shadui:PopupMask.Hosts>
+                                <shadui:DialogHost Manager="{Binding UserControlManager}" />
+                            </shadui:PopupMask.Hosts>
+                        </shadui:PopupMask>
+                    </Grid>
+                </controls:ControlBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

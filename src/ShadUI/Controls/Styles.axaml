@@ -7,4 +7,5 @@
     <StyleInclude Source="avares://ShadUI/Controls/ScrollViewer/ScrollViewerStyles.axaml" />
     <StyleInclude Source="avares://ShadUI/Controls/Separator/SeparatorStyles.axaml" />
     <StyleInclude Source="avares://ShadUI/Controls/SimpleDropdown/SimpleDropdownStyles.axaml" />
+    <StyleInclude Source="avares://ShadUI/Controls/Popup/PopupMask.axaml" />
 </Styles>
