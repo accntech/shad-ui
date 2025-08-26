@@ -260,7 +260,7 @@ public class DialogHost : TemplatedControl
 
     private void ManagerOnDialogShown(object sender, DialogShownEventArgs e)
     {
-        if (Manager is null || Owner is null) return;
+        if (Manager is null) return;
 
         Dialog = e.Control;
         Dismissible = e.Options.Dismissible;
@@ -270,21 +270,23 @@ public class DialogHost : TemplatedControl
 
         IsDialogOpen = true;
         HasOpenDialog = true;
-        Owner.HasOpenDialog = true;
+        if (Owner is { })
+            Owner.HasOpenDialog = true;
     }
 
     private async void ManagerOnDialogClosed(object sender, DialogClosedEventArgs e)
     {
         try
         {
-            if (Manager is null || Owner is null) return;
+            if (Manager is null) return;
             if (e.Control != Dialog) return;
 
             IsDialogOpen = false;
             if (e.ReplaceExisting) return;
 
             HasOpenDialog = Manager.Dialogs.Count > 0;
-            Owner.HasOpenDialog = Manager.Dialogs.Count > 0;
+            if (Owner is { })
+                Owner.HasOpenDialog = Manager.Dialogs.Count > 0;
 
             await Task.Delay(200); // Allow animations to complete
             if (!HasOpenDialog) Dialog = null;

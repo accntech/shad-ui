@@ -34,6 +34,7 @@ namespace ShadUI.Demo;
 [Transient<ColorViewModel>]
 [Transient<DashboardViewModel>]
 [Transient<DialogViewModel>]
+[Transient<PoupMaskViewModel>]
 [Transient<InputViewModel>]
 [Transient<FormInputViewModel>]
 [Transient<NumericViewModel>]
