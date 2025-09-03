@@ -18,6 +18,7 @@ namespace ShadUI;
 /// </summary>
 [TemplatePart("PART_Root", typeof(Panel))]
 [TemplatePart("PART_TitleBarBackground", typeof(Control))]
+[TemplatePart("PART_FullScreenButton", typeof(Button))]
 [TemplatePart("PART_MaximizeButton", typeof(Button))]
 [TemplatePart("PART_MinimizeButton", typeof(Button))]
 [TemplatePart("PART_CloseButton", typeof(Button))]
@@ -268,6 +269,41 @@ public class Window : Avalonia.Controls.Window
         get => GetValue(SaveWindowStateProperty);
         set => SetValue(SaveWindowStateProperty, value);
     }
+    
+    /// <summary>
+    ///    The previous visible window state.
+    /// </summary>
+    public static readonly DirectProperty<Window, WindowState> PreviousVisibleWindowStateProperty =
+        AvaloniaProperty.RegisterDirect<Window, WindowState>(
+            nameof(PreviousVisibleWindowState),
+            o => o.PreviousVisibleWindowState);
+
+    private WindowState _previousVisibleWindowState = WindowState.Normal;
+    
+    /// <summary>
+    /// Gets the previous visible window state.
+    /// </summary>
+    public WindowState PreviousVisibleWindowState
+    {
+        get => _previousVisibleWindowState;
+        private set => SetAndRaise(PreviousVisibleWindowStateProperty, ref _previousVisibleWindowState, value);
+    }
+    
+    /// <summary>
+    /// Gets or sets a value indicating whether the window can be full-screened.
+    /// </summary>
+    public static readonly StyledProperty<bool> CanFullScreenProperty =
+        AvaloniaProperty.Register<Window, bool>(nameof(CanFullScreen));
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the window can be full-screened.
+    /// </summary>
+    public bool CanFullScreen
+    {
+        get => GetValue(CanFullScreenProperty);
+        set => SetValue(CanFullScreenProperty, value);
+        
+    }
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="Window" /> class.
@@ -303,8 +339,9 @@ public class Window : Avalonia.Controls.Window
             change is { OldValue: WindowState oldState, NewValue: WindowState newState })
         {
             _lastState = oldState;
-            OnWindowStateChanged(newState);
+            OnWindowStateChanged(oldState, newState);
         }
+        
 
         if (change.Property == SaveWindowStateProperty)
         {
@@ -330,7 +367,12 @@ public class Window : Avalonia.Controls.Window
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        OnWindowStateChanged(WindowState);
+        OnWindowStateChanged(_lastState, WindowState);
+        
+        if (e.NameScope.Find<Button>("PART_FullScreenButton") is { } fullscreen)
+        {
+            fullscreen.Click += OnFullScreenButtonClicked;
+        }
 
         if (e.NameScope.Get<Button>("PART_MaximizeButton") is { } maximize)
         {
@@ -368,11 +410,18 @@ public class Window : Avalonia.Controls.Window
             }
         }
     }
+    
+    private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
+    {
+        if (!CanFullScreen) return;
+        ToggleFullScreen();
+    }
 
     private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
     {
-        if (!CanMaximize || !CanResize || WindowState == WindowState.FullScreen) return;
-        WindowState = WindowState == WindowState.Maximized
+        var windowState = WindowState;
+        if (!CanMaximize || windowState == WindowState.FullScreen) return;
+        WindowState = windowState == WindowState.Maximized
             ? WindowState.Normal
             : WindowState.Maximized;
     }
@@ -437,10 +486,16 @@ public class Window : Avalonia.Controls.Window
         Win32Properties.AddWndProcHookCallback(this, new Win32Properties.CustomWndProcHookCallback(proc));
     }
 
-    private void OnWindowStateChanged(WindowState state)
+    private void OnWindowStateChanged(WindowState oldState, WindowState newState)
     {
         _snapLayoutEnabled = WindowState != WindowState.FullScreen && CanMaximize && CanResize;
-        switch (state)
+        
+        if (oldState != WindowState.Minimized)
+        {
+            PreviousVisibleWindowState = oldState;
+        }
+        
+        switch (newState)
         {
             case WindowState.FullScreen:
                 ToggleMaxButtonVisibility(false);
@@ -489,6 +544,16 @@ public class Window : Avalonia.Controls.Window
     public void RestoreWindowState()
     {
         WindowState = _lastState == WindowState.FullScreen ? WindowState.Maximized : _lastState;
+    }
+    
+    /// <summary>
+    /// Toggles the full screen mode.
+    /// </summary>
+    public void ToggleFullScreen()
+    {
+        WindowState = WindowState == WindowState.FullScreen
+            ? PreviousVisibleWindowState
+            : WindowState.FullScreen;
     }
 
     static Window()
