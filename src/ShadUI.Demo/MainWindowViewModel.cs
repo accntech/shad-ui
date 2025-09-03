@@ -23,6 +23,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     private readonly DateViewModel _dateViewModel;
     private readonly CheckBoxViewModel _checkBoxViewModel;
     private readonly DialogViewModel _dialogViewModel;
+    private readonly PoupMaskViewModel _poupMaskViewModel;
     private readonly TimeViewModel _timeViewModel;
     private readonly InputViewModel _inputViewModel;
     private readonly NumericViewModel _numericViewModel;
@@ -55,6 +56,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         DateViewModel dateViewModel,
         CheckBoxViewModel checkBoxViewModel,
         DialogViewModel dialogViewModel,
+        PoupMaskViewModel poupMaskViewModel,
         InputViewModel inputViewModel,
         NumericViewModel numericViewModel,
         MenuViewModel menuViewModel,
@@ -85,6 +87,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         _dateViewModel = dateViewModel;
         _checkBoxViewModel = checkBoxViewModel;
         _dialogViewModel = dialogViewModel;
+        _poupMaskViewModel= poupMaskViewModel;
         _inputViewModel = inputViewModel;
         _numericViewModel = numericViewModel;
         _menuViewModel = menuViewModel;
@@ -189,6 +192,16 @@ public sealed partial class MainWindowViewModel : ViewModelBase
 
     [RelayCommand]
     private void OpenDialogs()
+    {
+        SwitchPage(_dialogViewModel);
+    }
+    [RelayCommand]
+    private void OpenPoupMask()
+    {
+        SwitchPage(_poupMaskViewModel);
+    }
+    [RelayCommand]
+    private void OpenPopupMask()
     {
         SwitchPage(_dialogViewModel);
     }

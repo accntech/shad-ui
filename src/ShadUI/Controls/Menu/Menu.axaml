@@ -75,7 +75,7 @@
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
                             Opacity="0"
-                            OverlayInputPassThroughElement="{CompiledBinding $parent[Menu]}"
+                            OverlayInputPassThroughElement="{Binding RelativeSource={RelativeSource AncestorType=Control}}"
                             Placement="{TemplateBinding shadui:MenuItemAssist.PopupPlacement}"
                             VerticalOffset="{TemplateBinding shadui:MenuItemAssist.PopupVerticalOffset}">
                             <LayoutTransformControl

@@ -115,7 +115,7 @@
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
                             Opacity="0"
-                            OverlayInputPassThroughElement="{CompiledBinding $parent[Menu]}"
+                            OverlayInputPassThroughElement="{Binding RelativeSource={RelativeSource AncestorType=Control}}"
                             Placement="RightEdgeAlignedTop">
                             <LayoutTransformControl Name="LayoutTransform" RenderTransformOrigin="0%, 0%">
                                 <Border
