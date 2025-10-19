@@ -102,7 +102,7 @@
                                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                         Content="{TemplateBinding SelectionBoxItem}"
-                                        ContentTemplate="{TemplateBinding ItemTemplate}"
+                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                         Foreground="{DynamicResource ForegroundColor}"
                                         TextBlock.FontSize="{TemplateBinding FontSize}"
                                         TextBlock.FontWeight="{TemplateBinding FontWeight}"
