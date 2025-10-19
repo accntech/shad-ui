@@ -69,9 +69,7 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     ClipToBounds="True"
-                    CornerRadius="{OnPlatform '0',
-                                              Linux='10',
-                                              x:TypeArguments=CornerRadius}">
+                    CornerRadius="{TemplateBinding RootCornerRadius}">
                     <VisualLayerManager IsHitTestVisible="True">
                         <VisualLayerManager.ChromeOverlayLayer>
                             <ItemsControl ItemsSource="{CompiledBinding Hosts, RelativeSource={RelativeSource AncestorType={x:Type shadui:Window}}}">
@@ -93,84 +91,86 @@
                                             <Setter Property="BorderThickness" Value="0,0,0,0" />
                                         </Style>
                                     </Panel.Styles>
-                                    <StackPanel>
+                                    <StackPanel ClipToBounds="True">
                                         <LayoutTransformControl Name="LayoutTransform" RenderTransformOrigin="0%,0%">
-                                            <Panel Margin="0,-1,0,0">
-                                                <Border Name="PART_TitleBarBackground" IsVisible="{TemplateBinding ShowTitlebarBackground}" />
-                                                <DockPanel LastChildFill="True">
-                                                    <StackPanel
-                                                        DockPanel.Dock="Right"
-                                                        Orientation="Horizontal"
-                                                        Spacing="8">
-                                                        <StackPanel.Styles>
-                                                            <Style Selector="PathIcon">
-                                                                <Setter Property="Height" Value="10" />
-                                                                <Setter Property="Width" Value="10" />
-                                                            </Style>
-                                                        </StackPanel.Styles>
-                                                        <ContentPresenter
-                                                            Name="RightButtons"
-                                                            Margin="0,3,0,2"
-                                                            Content="{TemplateBinding RightWindowTitleBarContent}"
-                                                            IsVisible="{TemplateBinding RightWindowTitleBarContent,
-                                                                                        Converter={x:Static ObjectConverters.IsNotNull}}" />
-                                                        <StackPanel Name="ButtonsPanel" Orientation="Horizontal">
-                                                            <Button
-                                                                Name="PART_MinimizeButton"
-                                                                Margin="0,0,0,1"
-                                                                IsEnabled="{TemplateBinding CanMinimize}"
-                                                                IsVisible="{TemplateBinding CanMinimize}"
-                                                                Theme="{StaticResource WindowButtonStyle}">
-                                                                <PathIcon Name="MinimizeIcon" Data="{x:Static shadui:Icons.WindowMinimize}" />
-                                                            </Button>
-                                                            <Button
-                                                                Name="PART_MaximizeButton"
-                                                                Margin="0,0,0,1"
-                                                                IsVisible="{TemplateBinding CanMaximize}"
-                                                                Theme="{StaticResource WindowButtonStyle}">
-                                                                <Button.IsEnabled>
-                                                                    <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                                                        <Binding Path="$parent[shadui:Window].CanResize" />
-                                                                        <Binding Path="$parent[shadui:Window].CanMaximize" />
-                                                                    </MultiBinding>
-                                                                </Button.IsEnabled>
-                                                                <PathIcon
-                                                                    Name="MaximizeIcon"
-                                                                    Data="{x:Static shadui:Icons.WindowMaximize}"
-                                                                    IsHitTestVisible="False" />
-                                                            </Button>
-                                                            <Button
-                                                                Name="PART_CloseButton"
-                                                                Margin="0,0,0,1"
-                                                                Classes="Close"
-                                                                Theme="{StaticResource WindowButtonStyle}">
-                                                                <PathIcon
-                                                                    Name="CloseIcon"
-                                                                    Data="{x:Static shadui:Icons.WindowClose}"
-                                                                    Foreground="{CompiledBinding Foreground,
-                                                                                                 ElementName=PART_CloseButton}" />
-                                                            </Button>
+                                            <Border ClipToBounds="True" CornerRadius="{TemplateBinding RootCornerRadius, Converter={x:Static shadui:CornerRadiusConverters.TopOnly}}">
+                                                <Panel Margin="0,-1,0,0">
+                                                    <Border Name="PART_TitleBarBackground" IsVisible="{TemplateBinding ShowTitlebarBackground}" />
+                                                    <DockPanel LastChildFill="True">
+                                                        <StackPanel
+                                                            DockPanel.Dock="Right"
+                                                            Orientation="Horizontal"
+                                                            Spacing="8">
+                                                            <StackPanel.Styles>
+                                                                <Style Selector="PathIcon">
+                                                                    <Setter Property="Height" Value="10" />
+                                                                    <Setter Property="Width" Value="10" />
+                                                                </Style>
+                                                            </StackPanel.Styles>
+                                                            <ContentPresenter
+                                                                Name="RightButtons"
+                                                                Margin="0,3,0,2"
+                                                                Content="{TemplateBinding RightWindowTitleBarContent}"
+                                                                IsVisible="{TemplateBinding RightWindowTitleBarContent,
+                                                                                            Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                                            <StackPanel Name="ButtonsPanel" Orientation="Horizontal">
+                                                                <Button
+                                                                    Name="PART_MinimizeButton"
+                                                                    Margin="0,0,0,1"
+                                                                    IsEnabled="{TemplateBinding CanMinimize}"
+                                                                    IsVisible="{TemplateBinding CanMinimize}"
+                                                                    Theme="{StaticResource WindowButtonStyle}">
+                                                                    <PathIcon Name="MinimizeIcon" Data="{x:Static shadui:Icons.WindowMinimize}" />
+                                                                </Button>
+                                                                <Button
+                                                                    Name="PART_MaximizeButton"
+                                                                    Margin="0,0,0,1"
+                                                                    IsVisible="{TemplateBinding CanMaximize}"
+                                                                    Theme="{StaticResource WindowButtonStyle}">
+                                                                    <Button.IsEnabled>
+                                                                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                                                            <Binding Path="$parent[shadui:Window].CanResize" />
+                                                                            <Binding Path="$parent[shadui:Window].CanMaximize" />
+                                                                        </MultiBinding>
+                                                                    </Button.IsEnabled>
+                                                                    <PathIcon
+                                                                        Name="MaximizeIcon"
+                                                                        Data="{x:Static shadui:Icons.WindowMaximize}"
+                                                                        IsHitTestVisible="False" />
+                                                                </Button>
+                                                                <Button
+                                                                    Name="PART_CloseButton"
+                                                                    Margin="0,0,0,1"
+                                                                    Classes="Close"
+                                                                    Theme="{StaticResource WindowButtonStyle}">
+                                                                    <PathIcon
+                                                                        Name="CloseIcon"
+                                                                        Data="{x:Static shadui:Icons.WindowClose}"
+                                                                        Foreground="{CompiledBinding Foreground,
+                                                                                                     ElementName=PART_CloseButton}" />
+                                                                </Button>
+                                                            </StackPanel>
                                                         </StackPanel>
-                                                    </StackPanel>
-                                                    <StackPanel
-                                                        Name="AppTitlePanel"
-                                                        VerticalAlignment="Center"
-                                                        IsHitTestVisible="False"
-                                                        Orientation="Horizontal"
-                                                        Spacing="10">
-                                                        <ContentPresenter
-                                                            HorizontalAlignment="Left"
-                                                            Content="{TemplateBinding LogoContent}"
-                                                            IsHitTestVisible="False" />
-                                                        <TextBlock
+                                                        <StackPanel
+                                                            Name="AppTitlePanel"
                                                             VerticalAlignment="Center"
-                                                            FontSize="{TemplateBinding TitleFontSize}"
-                                                            FontWeight="{TemplateBinding TitleFontWeight}"
                                                             IsHitTestVisible="False"
-                                                            Text="{TemplateBinding Title}" />
-                                                    </StackPanel>
-                                                </DockPanel>
-                                            </Panel>
+                                                            Orientation="Horizontal"
+                                                            Spacing="10">
+                                                            <ContentPresenter
+                                                                HorizontalAlignment="Left"
+                                                                Content="{TemplateBinding LogoContent}"
+                                                                IsHitTestVisible="False" />
+                                                            <TextBlock
+                                                                VerticalAlignment="Center"
+                                                                FontSize="{TemplateBinding TitleFontSize}"
+                                                                FontWeight="{TemplateBinding TitleFontWeight}"
+                                                                IsHitTestVisible="False"
+                                                                Text="{TemplateBinding Title}" />
+                                                        </StackPanel>
+                                                    </DockPanel>
+                                                </Panel>
+                                            </Border>
                                         </LayoutTransformControl>
                                         <Panel
                                             Height="32"
