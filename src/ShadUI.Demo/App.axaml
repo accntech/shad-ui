@@ -1,13 +1,17 @@
 ﻿<Application
+    Name="ShadUI App"
+    RequestedThemeVariant="Default"
     x:Class="ShadUI.Demo.App"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:demo="clr-namespace:ShadUI.Demo"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
-    RequestedThemeVariant="Default">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.DataTemplates>
         <demo:ViewLocator />
     </Application.DataTemplates>
+    <NativeMenu.Menu>
+        <NativeMenu />
+    </NativeMenu.Menu>
     <TrayIcon.Icons>
         <TrayIcons>
             <TrayIcon Icon="/Assets/favicon.ico" ToolTipText="ShadUI App">
