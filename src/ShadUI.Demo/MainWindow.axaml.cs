@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using HotAvalonia;
@@ -44,5 +45,25 @@ public partial class MainWindow : Window
         {
             viewModel.TryCloseCommand.Execute(null);
         }
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        base.OnClosed(e);
+
+        // Dispose DialogHost
+        if (this.FindControl<DialogHost>("PART_DialogHost") is { } dialogHost)
+        {
+            dialogHost.Dispose();
+        }
+
+        // Dispose ViewModel
+        if (DataContext is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
+
+        // Clear DataContext
+        DataContext = null;
     }
 }

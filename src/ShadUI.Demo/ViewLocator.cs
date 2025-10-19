@@ -26,17 +26,17 @@ public class ViewLocator : IDataTemplate
         {
             var nameSpace = type.Namespace;
             if (nameSpace is null) return null;
-                
+
             var name = type.Name;
             var viewNameSpace = nameSpace.Replace("ViewModel", "View", StringComparison.Ordinal);
-            
+
             var viewName = name.Replace("ViewModel", "Page", StringComparison.Ordinal);
             var fullName = $"{viewNameSpace}.{viewName}";
-            
+
             var view = CurrentAssembly.GetType(fullName);
 
             if (view is not null) return view;
-            
+
             viewName = name.Replace("ViewModel", "Content", StringComparison.Ordinal);
             view = CurrentAssembly.GetType($"{viewNameSpace}.{viewName}");
 
@@ -47,6 +47,17 @@ public class ViewLocator : IDataTemplate
 
         var control = (Control)Activator.CreateInstance(viewType)!;
         control.DataContext = param;
+
+        // Hook up disposal: when view is unloaded, dispose the ViewModel
+        control.Unloaded += (s, e) =>
+        {
+            if (control.DataContext is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+            control.DataContext = null; // Break reference
+        };
+
         return control;
     }
 
