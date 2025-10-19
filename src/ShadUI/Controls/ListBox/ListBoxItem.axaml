@@ -8,9 +8,9 @@
                 Width="200"
                 Height="300"
                 Margin="24">
-                <ListBoxItem>Item 1</ListBoxItem>
+                <ListBoxItem shadui:ListBoxItemAssist.ShowCheckIcon="False">Item 1</ListBoxItem>
                 <ListBoxItem>Item 2</ListBoxItem>
-                <ListBoxItem>Item 3</ListBoxItem>
+                <ListBoxItem shadui:ListBoxItemAssist.ShowCheckIcon="False">Item 3</ListBoxItem>
                 <ListBoxItem>Item 4</ListBoxItem>
                 <ListBoxItem>Item 5</ListBoxItem>
                 <ListBoxItem>Item 6</ListBoxItem>
@@ -80,6 +80,7 @@
                             DockPanel.Dock="Right"
                             Foreground="{DynamicResource ForegroundColor}" />
                         <ContentPresenter
+                            Margin="{TemplateBinding Padding}"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Background="Transparent"
@@ -101,7 +102,7 @@
             <Setter Property="IsVisible" Value="False" />
         </Style>
         <Style Selector="^:selected /template/ PathIcon#CheckSelected">
-            <Setter Property="IsVisible" Value="True" />
+            <Setter Property="IsVisible" Value="{TemplateBinding (shadui:ListBoxItemAssist.ShowCheckIcon)}" />
         </Style>
         <Style Selector="^:selected:not(:pointerover) /template/ Border#SelectionBackground">
             <Setter Property="Opacity" Value="1" />
