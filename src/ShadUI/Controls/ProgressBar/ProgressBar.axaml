@@ -1,0 +1,99 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="clr-namespace:ShadUI.Converters">
+    <Design.PreviewWith>
+        <StackPanel Margin="20" Spacing="12">
+            <ProgressBar Width="200" Value="45" />
+            <ProgressBar Width="200" IsIndeterminate="True" />
+            <ProgressBar Width="200" Classes="Success" Value="70" />
+            <ProgressBar Width="200" Classes="Info" Value="40" />
+            <ProgressBar Width="200" Classes="Warning" Value="85" />
+            <ProgressBar Width="200" Classes="Error" ShowProgressText="True" Value="90" />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="ModernProgressBarStyle" TargetType="ProgressBar">
+        <Setter Property="CornerRadius" Value="{DynamicResource MdCornerRadius}" />
+        <Setter Property="Background" Value="{DynamicResource BorderColor30}" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid RowDefinitions="Auto, Auto">
+                    <TextBlock x:Name="PART_Text" 
+                               Grid.Row="0"
+                               IsVisible="{TemplateBinding ShowProgressText}"
+                               Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}{0:0}%}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Classes="Muted"
+                               Foreground="{TemplateBinding Foreground}"/>
+
+                    <Border Grid.Row="1" Height="12" ClipToBounds="True" CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid>
+                            <Border CornerRadius="{TemplateBinding CornerRadius}"
+                                Background="{TemplateBinding Background}" />
+
+                            <Border x:Name="PART_Indicator"
+                                    Background="{TemplateBinding Foreground}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Stretch"
+                                    Width="0">
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Width"
+                                                          Duration="0:0:0.5"
+                                                          Easing="CircularEaseOut" />
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+
+                            <Panel x:Name="IndeterminateRoot" Opacity="0">
+                                <Border x:Name="IndeterminateProgressBarIndicator"
+                                        Background="{TemplateBinding Foreground}"
+                                        CornerRadius="{TemplateBinding CornerRadius}"
+                                        Width="90"
+                                        Height="{TemplateBinding Height}" />
+                            </Panel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:indeterminate /template/ Panel#IndeterminateRoot">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <Style Selector="^:horizontal:indeterminate /template/ Border#IndeterminateProgressBarIndicator">
+            <Style.Animations>
+                <Animation IterationCount="Infinite" Duration="0:0:2">
+                    <KeyFrame KeyTime="0:0:0">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationStartPosition}" />
+                    </KeyFrame>
+                    <KeyFrame KeyTime="0:0:2">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.ContainerAnimationEndPosition}" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <Style Selector="^.Success">
+            <Setter Property="Foreground" Value="{DynamicResource SuccessColor}" />
+        </Style>
+        <Style Selector="^.Info">
+            <Setter Property="Foreground" Value="{DynamicResource InfoColor60}" />
+        </Style>
+        <Style Selector="^.Warning">
+            <Setter Property="Foreground" Value="{DynamicResource WarningColor60}" />
+        </Style>
+        <Style Selector="^.Error">
+            <Setter Property="Foreground" Value="{DynamicResource ErrorColor}" />
+        </Style>
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type ProgressBar}"
+                  BasedOn="{StaticResource ModernProgressBarStyle}"
+                  TargetType="ProgressBar" />
+</ResourceDictionary>

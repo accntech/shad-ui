@@ -44,6 +44,7 @@ namespace ShadUI.Demo;
 [Transient<ListBoxViewModel>]
 [Transient<SidebarViewModel>]
 [Transient<SliderViewModel>]
+[Transient<ProgressBarViewModel>]
 [Transient<SwitchViewModel>]
 [Transient<TabControlViewModel>]
 [Transient<TimeViewModel>]

@@ -1,0 +1,132 @@
+<UserControl x:Class="ShadUI.Demo.Views.ProgressBarPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
+             d:DesignHeight="2250"
+             d:DesignWidth="800"
+             x:DataType="viewModels:ProgressBarViewModel"
+             xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
+             xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI">
+    <DockPanel LastChildFill="True">
+        <StackPanel
+            MaxWidth="{StaticResource PageMaxWidth}"
+            Margin="{StaticResource PageMargin}"
+            DockPanel.Dock="Top"
+            Spacing="4">
+            <Grid ColumnDefinitions="* Auto">
+                <TextBlock Classes="h2" Text="ProgressBar" />
+                <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button
+                        Width="28"
+                        Height="28"
+                        Background="{DynamicResource GhostHoverColor}"
+                        Classes="Icon"
+                        Command="{Binding BackPageCommand}">
+                        <Viewbox Margin="6">
+                            <TextBlock Classes="LucideIcon" Text="&#57420;" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Width="28"
+                        Height="28"
+                        Background="{DynamicResource GhostHoverColor}"
+                        Classes="Icon"
+                        Command="{Binding NextPageCommand}">
+                        <Viewbox Margin="6">
+                            <TextBlock Classes="LucideIcon" Text="&#57421;" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <TextBlock
+                Classes="p"
+                Text="Loading slider to notify users."
+                TextWrapping="Wrap" />
+        </StackPanel>
+        <ScrollViewer>
+            <StackPanel
+                MaxWidth="{StaticResource PageMaxWidth}"
+                Margin="{StaticResource PageMargin}"
+                Spacing="32">
+                <controls:ControlBlock Title="Default ProgressBar" Xaml="{Binding DefaultProgressBar}">
+                    <StackPanel Spacing="15">
+						<ProgressBar ShowProgressText="True"
+                                 Width="300"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Value="90"/>
+
+						<ProgressBar ShowProgressText="False"
+                                 IsIndeterminate="True" 
+                                 Width="300"/>
+                    </StackPanel>
+                </controls:ControlBlock>
+
+                <controls:ControlBlock Title="Success ProgressBar" Xaml="{Binding SuccessProgressBar}">
+                    <StackPanel Spacing="15">
+                        <ProgressBar ShowProgressText="False"
+                                 Classes="Success"
+                                 Width="300"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Value="40"/>
+
+                        <ProgressBar ShowProgressText="False"
+                                 IsIndeterminate="True" 
+                                 Width="300" Classes="Success"/>
+                    </StackPanel>
+                </controls:ControlBlock>
+
+                <controls:ControlBlock Title="Information ProgressBar" Xaml="{Binding InfoProgressBar}">
+                    <StackPanel Spacing="15">
+                        <ProgressBar ShowProgressText="False"
+                                 Classes="Info"
+                                 Width="300"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Value="50"/>
+
+                        <ProgressBar ShowProgressText="False"
+                                 IsIndeterminate="True" 
+                                 Width="300" Classes="Info"/>
+                    </StackPanel>
+                </controls:ControlBlock>
+
+                <controls:ControlBlock Title="Warning ProgressBar" Xaml="{Binding WarningProgressBar}">
+                    <StackPanel Spacing="15">
+						<ProgressBar ShowProgressText="True"
+                                 Classes="Warning"
+                                 Width="300"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Value="60"/>
+
+                        <ProgressBar ShowProgressText="False"
+                                 IsIndeterminate="True" 
+                                 Width="300" Classes="Warning"/>
+                    </StackPanel>
+                </controls:ControlBlock>
+
+                <controls:ControlBlock Title="Error ProgressBar" Xaml="{Binding DangerProgressBar}">
+                    <StackPanel Spacing="15">
+						<ProgressBar ShowProgressText="False"
+                                 Classes="Error"
+                                 Width="300"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Value="70"/>
+
+                        <ProgressBar ShowProgressText="False"
+                                 IsIndeterminate="True" 
+                                 Width="300" Classes="Error"/>
+                    </StackPanel>
+                </controls:ControlBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

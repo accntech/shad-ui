@@ -32,6 +32,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     private readonly ComboBoxViewModel _comboBoxViewModel;
     private readonly SidebarViewModel _sidebarViewModel;
     private readonly SliderViewModel _sliderViewModel;
+    private readonly ProgressBarViewModel _progressBarViewModel;
     private readonly SwitchViewModel _switchViewModel;
     private readonly ToastViewModel _toastViewModel;
     private readonly ToggleViewModel _toggleViewModel;
@@ -65,6 +66,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         ComboBoxViewModel comboBoxViewModel,
         SidebarViewModel sidebarViewModel,
         SliderViewModel sliderViewModel,
+        ProgressBarViewModel progressBarViewModel,
         SwitchViewModel switchViewModel,
         TimeViewModel timeViewModel,
         ToastViewModel toastViewModel,
@@ -95,6 +97,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         _comboBoxViewModel = comboBoxViewModel;
         _sidebarViewModel = sidebarViewModel;
         _sliderViewModel = sliderViewModel;
+        _progressBarViewModel = progressBarViewModel;
         _switchViewModel = switchViewModel;
         _timeViewModel = timeViewModel;
         _toastViewModel = toastViewModel;
@@ -248,6 +251,12 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     private void OpenSliders()
     {
         SwitchPage(_sliderViewModel);
+    }
+
+    [RelayCommand]
+    private void OpenProgressBar()
+    {
+        SwitchPage(_progressBarViewModel);
     }
 
     [RelayCommand]

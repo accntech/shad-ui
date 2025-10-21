@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignHeight="450"
+    d:DesignHeight="4250"
     d:DesignWidth="800"
     x:DataType="viewModels:ToastViewModel"
     mc:Ignorable="d">
@@ -200,6 +200,37 @@
                                 HorizontalAlignment="Right"
                                 Classes="Primary"
                                 Command="{Binding ShowToastWithTypeCommand}"
+                                Content="Submit" />
+                        </shadui:Card.Footer>
+                    </shadui:Card>
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Toast with ProgressBar" CSharp="{Binding DynamicToastCodeWithProgressBar}">
+                    <shadui:Card HorizontalAlignment="Center">
+                        <shadui:Card.Header>
+                            <StackPanel>
+                                <shadui:CardTitle>Notification</shadui:CardTitle>
+                                <shadui:CardDescription>Send a notification to the client with progress bar</shadui:CardDescription>
+                            </StackPanel>
+                        </shadui:Card.Header>
+                        <StackPanel Spacing="15" HorizontalAlignment="Center">
+                            <StackPanel Spacing="10">
+								<CheckBox Content="Enable Progress Indeterminate" 
+                                    IsChecked="{Binding IsProgressIndeterminate}"/>
+
+                                <TextBox Watermark="Enter progress value" UseFloatingWatermark="True"
+                                         Text="{Binding ProgressValue}"/>
+                            </StackPanel>
+
+                            <ComboBox Width="225"
+                                shadui:ControlAssist.Label="Selected Notification"
+                                ItemsSource="{Binding NotificationsCollection, Mode=OneWay}"
+                                SelectedItem="{Binding SelectedNotificationWithProgressBar, Mode=TwoWay}" />
+                        </StackPanel>
+                        <shadui:Card.Footer>
+                            <Button
+                                HorizontalAlignment="Right"
+                                Classes="Primary"
+                                Command="{Binding ShowToastWithProgressBarCommand}"
                                 Content="Submit" />
                         </shadui:Card.Footer>
                     </shadui:Card>
