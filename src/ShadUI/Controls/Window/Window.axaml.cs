@@ -359,6 +359,7 @@ public class Window : Avalonia.Controls.Window
     }
 
     private Button? _maximizeButton;
+    private CornerRadius _lastCornerRadius;
 
     /// <summary>
     ///     Called when the template is applied.
@@ -396,19 +397,21 @@ public class Window : Avalonia.Controls.Window
             titleBar.PointerPressed += OnTitleBarPointerPressed;
             titleBar.DoubleTapped += OnMaximizeButtonClicked;
         }
-
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             if (e.NameScope.Get<Panel>("PART_Root") is { } rootPanel)
             {
                 this.AddResizeGrip(rootPanel);
             }
-
+        
             if (RootCornerRadius == default)
             {
                 RootCornerRadius = new CornerRadius(10);
             }
         }
+
+        _lastCornerRadius = RootCornerRadius;
     }
     
     private void OnFullScreenButtonClicked(object? sender, RoutedEventArgs args)
@@ -419,9 +422,9 @@ public class Window : Avalonia.Controls.Window
 
     private void OnMaximizeButtonClicked(object? sender, RoutedEventArgs args)
     {
-        var windowState = WindowState;
-        if (!CanMaximize || windowState == WindowState.FullScreen) return;
-        WindowState = windowState == WindowState.Maximized
+        if (!CanMaximize || !CanResize || WindowState == WindowState.FullScreen) return;
+        
+        WindowState = WindowState == WindowState.Maximized
             ? WindowState.Normal
             : WindowState.Maximized;
     }
@@ -499,16 +502,20 @@ public class Window : Avalonia.Controls.Window
         {
             case WindowState.FullScreen:
                 ToggleMaxButtonVisibility(false);
+                _lastCornerRadius = RootCornerRadius;
+                RootCornerRadius = new CornerRadius(0);
                 Margin = new Thickness(-1);
                 break;
             case WindowState.Maximized:
                 ToggleMaxButtonVisibility(CanMaximize);
-                Margin = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-                    ? new Thickness(0)
-                    : new Thickness(7);
+                RootCornerRadius = _lastCornerRadius;
+                Margin = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                    ? new Thickness(7)
+                    : new Thickness(0);
                 break;
             case WindowState.Normal:
                 ToggleMaxButtonVisibility(CanMaximize);
+                RootCornerRadius = _lastCornerRadius;
                 Margin = new Thickness(0);
                 break;
             default:

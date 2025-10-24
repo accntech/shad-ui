@@ -9,9 +9,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ShadUI.Demo.ViewModels;
 
-public abstract class ViewModelBase : ObservableObject, INotifyDataErrorInfo
+public abstract class ViewModelBase : ObservableObject, INotifyDataErrorInfo, IDisposable
 {
     private readonly Dictionary<string, List<string>> _errors = new();
+    private bool _disposed;
 
     public bool HasErrors => _errors.Count != 0;
 
@@ -97,5 +98,25 @@ public abstract class ViewModelBase : ObservableObject, INotifyDataErrorInfo
             var value = property.GetValue(this);
             ValidateProperty(value, property.Name);
         }
+    }
+
+    /// <summary>
+    ///     Disposes the ViewModel and cleans up resources. Override to add custom cleanup logic.
+    /// </summary>
+    public virtual void Dispose()
+    {
+        if (_disposed) return;
+
+        // Clear errors and event handlers
+        ClearAllErrors();
+        ErrorsChanged = null;
+
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
+
+    ~ViewModelBase()
+    {
+        Dispose();
     }
 }

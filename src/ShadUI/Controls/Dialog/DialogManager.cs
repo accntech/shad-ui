@@ -52,6 +52,18 @@ public sealed class DialogManager
 
     internal void CloseDialog(Control control)
     {
+        var context = control.DataContext;
+        if (context is not null)
+        {
+            var contextType = context.GetType();
+            OnSuccessCallbacks.Remove(contextType);
+            OnSuccessWithContextCallbacks.Remove(contextType);
+            OnSuccessAsyncCallbacks.Remove(contextType);
+            OnSuccessWithContextAsyncCallbacks.Remove(contextType);
+            OnCancelCallbacks.Remove(contextType);
+            OnCancelAsyncCallbacks.Remove(contextType);
+        }
+
         Dialogs.Remove(control);
 
         OnDialogClosed?.Invoke(this, new DialogClosedEventArgs
@@ -60,6 +72,11 @@ public sealed class DialogManager
             Control = control
         }
         );
+
+        if (control is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
     }
 
     internal void OpenLast()
@@ -162,8 +179,25 @@ public sealed class DialogManager
         Dialogs.Clear();
         OnSuccessAsyncCallbacks.Clear();
         OnSuccessCallbacks.Clear();
+        OnSuccessWithContextCallbacks.Clear();
+        OnSuccessWithContextAsyncCallbacks.Clear();
         OnCancelAsyncCallbacks.Clear();
         OnCancelCallbacks.Clear();
+    }
+
+    /// <summary>
+    ///     Clears all dialogs and callbacks. Use this to prevent memory leaks when closing windows.
+    /// </summary>
+    public void Dispose()
+    {
+        // Close all dialogs
+        var dialogs = Dialogs.Keys.ToList();
+        foreach (var dialog in dialogs)
+        {
+            CloseDialog(dialog);
+        }
+
+        RemoveAll();
     }
 
     internal event EventHandler<bool>? AllowDismissChanged;

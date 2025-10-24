@@ -19,8 +19,9 @@ namespace ShadUI;
 [TemplatePart("PART_DialogBackground", typeof(Border))]
 [TemplatePart("PART_TitleBar", typeof(Border))]
 [TemplatePart("PART_CloseButton", typeof(Button))]
-public class DialogHost : TemplatedControl
+public class DialogHost : TemplatedControl, IDisposable
 {
+    private bool _disposed;
     /// <summary>
     ///     Defines the <see cref="Owner" /> property.
     /// </summary>
@@ -301,5 +302,29 @@ public class DialogHost : TemplatedControl
 
         var firstDialog = Manager.Dialogs.First();
         Dismissible = firstDialog.Value.Dismissible || e;
+    }
+
+    /// <summary>
+    ///     Disposes the dialog host and cleans up event subscriptions to prevent memory leaks.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        if (Manager is not null)
+        {
+            DetachManagerEvents(Manager);
+        }
+
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Finalizer to ensure cleanup if Dispose is not called.
+    /// </summary>
+    ~DialogHost()
+    {
+        Dispose();
     }
 }
