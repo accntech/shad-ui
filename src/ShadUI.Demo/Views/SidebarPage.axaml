@@ -1,22 +1,22 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.SidebarPage"
+    x:DataType="viewModels:SidebarViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:converters="clr-namespace:ShadUI.Demo.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="viewModels:SidebarViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel LastChildFill="True">
         <StackPanel
-            MaxWidth="{StaticResource PageMaxWidth}"
-            Margin="{StaticResource PageMargin}"
             DockPanel.Dock="Top"
+            Margin="{StaticResource PageMargin}"
+            MaxWidth="{StaticResource PageMaxWidth}"
             Spacing="4">
             <Grid ColumnDefinitions="* Auto">
                 <TextBlock Classes="h2" Text="Sidebar" />
@@ -25,21 +25,21 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding BackPageCommand}">
+                        Command="{Binding BackPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57420;" />
                         </Viewbox>
                     </Button>
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding NextPageCommand}">
+                        Command="{Binding NextPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57421;" />
                         </Viewbox>
@@ -53,55 +53,55 @@
         </StackPanel>
         <ScrollViewer>
             <StackPanel
-                MaxWidth="{StaticResource PageMaxWidth}"
                 Margin="{StaticResource PageMargin}"
+                MaxWidth="{StaticResource PageMaxWidth}"
                 Spacing="32">
                 <controls:ControlBlock Title="Default" Xaml="{Binding DefaultCode}">
                     <Border
-                        Name="Border"
                         BorderBrush="{DynamicResource BorderColor}"
                         BorderThickness="1"
                         ClipToBounds="True"
-                        CornerRadius="{DynamicResource XlCornerRadius}">
+                        CornerRadius="{DynamicResource XlCornerRadius}"
+                        Name="Border">
                         <Grid ColumnDefinitions="Auto *">
                             <shadui:Sidebar
-                                Grid.Column="0"
-                                Width="255"
-                                Height="600"
-                                MinWidth="56"
-                                Padding="8"
                                 Background="{DynamicResource CardBackgroundColor}"
                                 BorderThickness="0,0,1,0"
                                 CornerRadius="{CompiledBinding #Border.CornerRadius,
                                                                Converter={x:Static shadui:CornerRadiusConverters.LeftOnly}}"
                                 Expanded="{Binding #Toggler.IsChecked}"
-                                ItemIconContentSpacing="12">
+                                Grid.Column="0"
+                                Height="600"
+                                ItemIconContentSpacing="12"
+                                MinWidth="56"
+                                Padding="8"
+                                Width="255">
                                 <shadui:Sidebar.Header>
                                     <Menu Classes="Single">
                                         <MenuItem
-                                            Margin="0,0,0,16"
+                                            Classes="NoPressedAnimation"
+                                            CornerRadius="{DynamicResource LgCornerRadius}"
                                             HorizontalAlignment="Stretch"
+                                            Margin="0,0,0,16"
                                             shadui:MenuItemAssist.PopupHorizontalOffset="4"
                                             shadui:MenuItemAssist.PopupPlacement="RightEdgeAlignedTop"
-                                            shadui:MenuItemAssist.PopupVerticalOffset="0"
-                                            Classes="NoPressedAnimation"
-                                            CornerRadius="{DynamicResource LgCornerRadius}">
+                                            shadui:MenuItemAssist.PopupVerticalOffset="0">
                                             <MenuItem.Header>
                                                 <Panel>
                                                     <Border
-                                                        Width="38"
-                                                        Height="36"
-                                                        Margin="0,-4"
                                                         Background="#1447E6"
                                                         CornerRadius="{DynamicResource LgCornerRadius}"
+                                                        Height="36"
                                                         IsVisible="{Binding !$parent[shadui:Sidebar].Expanded}"
-                                                        Opacity="{Binding !$parent[shadui:Sidebar].Expanded, Converter={x:Static converters:BooleanConverters.Opaque}}">
+                                                        Margin="0,-4"
+                                                        Opacity="{Binding !$parent[shadui:Sidebar].Expanded, Converter={x:Static converters:BooleanConverters.Opaque}}"
+                                                        Width="38">
                                                         <Border.Transitions>
                                                             <Transitions>
-                                                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                                             </Transitions>
                                                         </Border.Transitions>
-                                                        <Viewbox Width="16" Height="16">
+                                                        <Viewbox Height="16" Width="16">
                                                             <TextBlock
                                                                 Classes="LucideIcon"
                                                                 Foreground="White"
@@ -109,17 +109,17 @@
                                                         </Viewbox>
                                                     </Border>
                                                     <Grid
-                                                        Margin="0,4"
-                                                        HorizontalAlignment="Stretch"
                                                         ColumnDefinitions="Auto * Auto"
-                                                        IsVisible="{Binding $parent[shadui:Sidebar].Expanded}">
+                                                        HorizontalAlignment="Stretch"
+                                                        IsVisible="{Binding $parent[shadui:Sidebar].Expanded}"
+                                                        Margin="0,4">
                                                         <Border
-                                                            Width="36"
+                                                            Background="#1447E6"
+                                                            CornerRadius="{DynamicResource XlCornerRadius}"
                                                             Height="36"
                                                             Margin="0,0,8,0"
-                                                            Background="#1447E6"
-                                                            CornerRadius="{DynamicResource XlCornerRadius}">
-                                                            <Viewbox Width="16" Height="16">
+                                                            Width="36">
+                                                            <Viewbox Height="16" Width="16">
                                                                 <TextBlock
                                                                     Classes="LucideIcon"
                                                                     Foreground="White"
@@ -129,14 +129,14 @@
                                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                             <TextBlock Classes="Small" Text="Acme Inc" />
                                                             <TextBlock
-                                                                Margin="0,-4,0,0"
                                                                 Classes="Caption"
+                                                                Margin="0,-4,0,0"
                                                                 Text="Enterprise" />
                                                         </StackPanel>
                                                         <Viewbox
                                                             Grid.Column="2"
-                                                            Width="16"
-                                                            Height="16">
+                                                            Height="16"
+                                                            Width="16">
                                                             <TextBlock
                                                                 Classes="LucideIcon"
                                                                 Foreground="{DynamicResource ForegroundColor}"
@@ -148,19 +148,19 @@
                                             </MenuItem.Header>
                                             <shadui:MenuItemAssist.Label>
                                                 <TextBlock
-                                                    Width="220 "
                                                     Classes="Caption Muted"
-                                                    Text="Teams" />
+                                                    Text="Teams"
+                                                    Width="220 " />
                                             </shadui:MenuItemAssist.Label>
                                             <MenuItem Header="Acme Inc" InputGesture="Ctrl + F1">
                                                 <MenuItem.Icon>
                                                     <Border
-                                                        Width="24"
-                                                        Height="24"
-                                                        Padding="4"
                                                         BorderBrush="{DynamicResource BorderColor}"
                                                         BorderThickness="1"
-                                                        CornerRadius="{DynamicResource LgCornerRadius}">
+                                                        CornerRadius="{DynamicResource LgCornerRadius}"
+                                                        Height="24"
+                                                        Padding="4"
+                                                        Width="24">
                                                         <Viewbox>
                                                             <TextBlock
                                                                 Classes="LucideIcon"
@@ -173,12 +173,12 @@
                                             <MenuItem Header="Acme Corp." InputGesture="Ctrl + F2">
                                                 <MenuItem.Icon>
                                                     <Border
-                                                        Width="24"
-                                                        Height="24"
-                                                        Padding="4"
                                                         BorderBrush="{DynamicResource BorderColor}"
                                                         BorderThickness="1"
-                                                        CornerRadius="{DynamicResource LgCornerRadius}">
+                                                        CornerRadius="{DynamicResource LgCornerRadius}"
+                                                        Height="24"
+                                                        Padding="4"
+                                                        Width="24">
                                                         <Viewbox>
                                                             <TextBlock
                                                                 Classes="LucideIcon"
@@ -191,12 +191,12 @@
                                             <MenuItem Header="Saint Corp." InputGesture="Ctrl + F3">
                                                 <MenuItem.Icon>
                                                     <Border
-                                                        Width="24"
-                                                        Height="24"
-                                                        Padding="4"
                                                         BorderBrush="{DynamicResource BorderColor}"
                                                         BorderThickness="1"
-                                                        CornerRadius="{DynamicResource LgCornerRadius}">
+                                                        CornerRadius="{DynamicResource LgCornerRadius}"
+                                                        Height="24"
+                                                        Padding="4"
+                                                        Width="24">
                                                         <Viewbox>
                                                             <TextBlock
                                                                 Classes="LucideIcon"
@@ -210,12 +210,12 @@
                                             <MenuItem Header="Add team" InputGesture="Ctrl + A">
                                                 <MenuItem.Icon>
                                                     <Border
-                                                        Width="24"
-                                                        Height="24"
-                                                        Padding="4"
                                                         BorderBrush="{DynamicResource BorderColor}"
                                                         BorderThickness="1"
-                                                        CornerRadius="{DynamicResource LgCornerRadius}">
+                                                        CornerRadius="{DynamicResource LgCornerRadius}"
+                                                        Height="24"
+                                                        Padding="4"
+                                                        Width="24">
                                                         <Viewbox>
                                                             <TextBlock
                                                                 Classes="LucideIcon"
@@ -230,10 +230,10 @@
                                 </shadui:Sidebar.Header>
                                 <StackPanel Spacing="4">
                                     <TextBlock
-                                        Margin="8"
                                         Classes="Caption Muted"
                                         FontWeight="DemiBold"
                                         IsVisible="{Binding $parent[shadui:Sidebar].Expanded}"
+                                        Margin="8"
                                         Text="Projects" />
                                     <shadui:SidebarItem Content="Design Engineering">
                                         <shadui:SidebarItem.Icon>
@@ -290,13 +290,13 @@
                                 <shadui:Sidebar.Footer>
                                     <Menu Classes="Single">
                                         <MenuItem
-                                            Padding="8,0"
+                                            Classes="NoPressedAnimation"
+                                            CornerRadius="{DynamicResource LgCornerRadius}"
                                             HorizontalAlignment="Stretch"
+                                            Padding="8,0"
                                             shadui:MenuItemAssist.PopupHorizontalOffset="4"
                                             shadui:MenuItemAssist.PopupPlacement="RightEdgeAlignedBottom"
-                                            shadui:MenuItemAssist.PopupVerticalOffset="4"
-                                            Classes="NoPressedAnimation"
-                                            CornerRadius="{DynamicResource LgCornerRadius}">
+                                            shadui:MenuItemAssist.PopupVerticalOffset="4">
                                             <MenuItem.Header>
                                                 <Panel>
                                                     <shadui:Avatar
@@ -307,32 +307,32 @@
                                                         Source="../../Assets/user.png">
                                                         <shadui:Avatar.Transitions>
                                                             <Transitions>
-                                                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                                             </Transitions>
                                                         </shadui:Avatar.Transitions>
                                                     </shadui:Avatar>
                                                     <Grid
-                                                        Margin="0,8"
                                                         ColumnDefinitions="Auto * Auto"
-                                                        IsVisible="{Binding $parent[shadui:Sidebar].Expanded}">
+                                                        IsVisible="{Binding $parent[shadui:Sidebar].Expanded}"
+                                                        Margin="0,8">
                                                         <shadui:Avatar
-                                                            Width="36"
-                                                            Height="36"
-                                                            Margin="0,0,8,0"
                                                             CornerRadius="{DynamicResource XlCornerRadius}"
                                                             Fallback="CN"
-                                                            Source="../../Assets/user.png" />
+                                                            Height="36"
+                                                            Margin="0,0,8,0"
+                                                            Source="../../Assets/user.png"
+                                                            Width="36" />
                                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                             <TextBlock Classes="Small" Text="shadui" />
                                                             <TextBlock
-                                                                Margin="0,-4,0,0"
                                                                 Classes="Caption"
+                                                                Margin="0,-4,0,0"
                                                                 Text="m@example.com" />
                                                         </StackPanel>
                                                         <Viewbox
                                                             Grid.Column="2"
-                                                            Width="16"
-                                                            Height="16">
+                                                            Height="16"
+                                                            Width="16">
                                                             <TextBlock
                                                                 Classes="LucideIcon"
                                                                 Foreground="{DynamicResource ForegroundColor}"
@@ -343,21 +343,21 @@
                                             </MenuItem.Header>
                                             <shadui:MenuItemAssist.Label>
                                                 <Grid
-                                                    Width="220"
+                                                    ColumnDefinitions="Auto *"
                                                     HorizontalAlignment="Stretch"
-                                                    ColumnDefinitions="Auto *">
+                                                    Width="220">
                                                     <shadui:Avatar
-                                                        Width="36"
-                                                        Height="36"
-                                                        Margin="0,0,8,0"
                                                         CornerRadius="{DynamicResource XlCornerRadius}"
                                                         Fallback="CN"
-                                                        Source="../../Assets/user.png" />
+                                                        Height="36"
+                                                        Margin="0,0,8,0"
+                                                        Source="../../Assets/user.png"
+                                                        Width="36" />
                                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                         <TextBlock Classes="Small" Text="shadui" />
                                                         <TextBlock
-                                                            Margin="0,-4,0,0"
                                                             Classes="Caption"
+                                                            Margin="0,-4,0,0"
                                                             Text="m@example.com" />
                                                     </StackPanel>
                                                 </Grid>
@@ -365,7 +365,7 @@
                                             <Separator />
                                             <MenuItem Header="Upgrade to Pro">
                                                 <MenuItem.Icon>
-                                                    <Viewbox Width="16" Height="16">
+                                                    <Viewbox Height="16" Width="16">
                                                         <TextBlock
                                                             Classes="LucideIcon"
                                                             Foreground="{DynamicResource MutedColor}"
@@ -376,7 +376,7 @@
                                             <Separator />
                                             <MenuItem Header="Account">
                                                 <MenuItem.Icon>
-                                                    <Viewbox Width="16" Height="16">
+                                                    <Viewbox Height="16" Width="16">
                                                         <TextBlock
                                                             Classes="LucideIcon"
                                                             Foreground="{DynamicResource MutedColor}"
@@ -386,7 +386,7 @@
                                             </MenuItem>
                                             <MenuItem Header="Billing">
                                                 <MenuItem.Icon>
-                                                    <Viewbox Width="16" Height="16">
+                                                    <Viewbox Height="16" Width="16">
                                                         <TextBlock
                                                             Classes="LucideIcon"
                                                             Foreground="{DynamicResource MutedColor}"
@@ -396,7 +396,7 @@
                                             </MenuItem>
                                             <MenuItem Header="Notifications">
                                                 <MenuItem.Icon>
-                                                    <Viewbox Width="16" Height="16">
+                                                    <Viewbox Height="16" Width="16">
                                                         <TextBlock
                                                             Classes="LucideIcon"
                                                             Foreground="{DynamicResource MutedColor}"
@@ -407,7 +407,7 @@
                                             <Separator />
                                             <MenuItem Header="Log out">
                                                 <MenuItem.Icon>
-                                                    <Viewbox Width="16" Height="16">
+                                                    <Viewbox Height="16" Width="16">
                                                         <TextBlock
                                                             Classes="LucideIcon"
                                                             Foreground="{DynamicResource MutedColor}"
@@ -432,43 +432,43 @@
                                         Orientation="Horizontal"
                                         Spacing="16">
                                         <ToggleButton
-                                            Name="Toggler"
-                                            Width="28"
                                             Height="28"
-                                            Padding="6"
                                             HorizontalAlignment="Left"
+                                            Name="Toggler"
+                                            Padding="6"
+                                            Theme="{DynamicResource SideTogglerTheme}"
                                             VerticalAlignment="Top"
-                                            Theme="{DynamicResource SideTogglerTheme}">
+                                            Width="28">
                                             <Viewbox>
                                                 <TextBlock Classes="LucideIcon" Text="&#57646;" />
                                             </Viewbox>
                                         </ToggleButton>
                                         <Rectangle
-                                            Width="1"
+                                            Fill="{DynamicResource BorderColor}"
                                             Height="16"
                                             VerticalAlignment="Center"
-                                            Fill="{DynamicResource BorderColor}" />
+                                            Width="1" />
                                         <TextBlock
-                                            VerticalAlignment="Center"
                                             Classes="Small"
-                                            Text="Build your application" />
+                                            Text="Build your application"
+                                            VerticalAlignment="Center" />
                                     </StackPanel>
                                 </Border>
                                 <UniformGrid
-                                    Height="215"
-                                    Margin="16,0"
                                     ColumnSpacing="16"
                                     Columns="3"
                                     DockPanel.Dock="Top"
+                                    Height="215"
+                                    Margin="16,0"
                                     RowSpacing="16">
                                     <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource XlCornerRadius}" />
                                     <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource XlCornerRadius}" />
                                     <Border Background="{DynamicResource CardBackgroundColor}" CornerRadius="{DynamicResource XlCornerRadius}" />
                                 </UniformGrid>
                                 <Border
-                                    Margin="16,0,16,16"
                                     Background="{DynamicResource CardBackgroundColor}"
-                                    CornerRadius="{DynamicResource XlCornerRadius}" />
+                                    CornerRadius="{DynamicResource XlCornerRadius}"
+                                    Margin="16,0,16,16" />
                             </DockPanel>
                         </Grid>
                     </Border>

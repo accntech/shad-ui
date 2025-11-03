@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Panel Width="500" Height="500">
+        <Panel Height="500" Width="500">
             <CalendarButton HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Panel>
     </Design.PreviewWith>
-    <ControlTheme x:Key="{x:Type CalendarButton}" TargetType="CalendarButton">
+    <ControlTheme TargetType="CalendarButton" x:Key="{x:Type CalendarButton}">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
         <Setter Property="FontSize" Value="14" />
@@ -22,42 +22,42 @@
                 <Panel Name="RootPanel">
                     <Panel.Transitions>
                         <Transitions>
-                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                            <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                         </Transitions>
                     </Panel.Transitions>
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="HoverBackground"
                         Background="{DynamicResource GhostColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <ContentPresenter
-                        x:Name="ContentPresenter"
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         FontSize="{TemplateBinding FontSize}"
-                        Foreground="{TemplateBinding Foreground}" />
+                        Foreground="{TemplateBinding Foreground}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Margin="{TemplateBinding Padding}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        x:Name="ContentPresenter" />
                 </Panel>
             </ControlTemplate>
         </Setter>

@@ -1,84 +1,84 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Avalonia.Controls"
     xmlns:shadui="clr-namespace:ShadUI"
-    x:ClassModifier="internal">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Panel Width="500" Height="500">
+        <Panel Height="500" Width="500">
             <ColorSpectrum />
         </Panel>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="{x:Type ColorSpectrum}" TargetType="ColorSpectrum">
+    <ControlTheme TargetType="ColorSpectrum" x:Key="{x:Type ColorSpectrum}">
         <Setter Property="CornerRadius" Value="{DynamicResource XlCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ColorSpectrum}">
                     <Panel
-                        Name="PART_LayoutRoot"
                         HorizontalAlignment="Stretch"
+                        Name="PART_LayoutRoot"
                         VerticalAlignment="Stretch">
                         <Panel
-                            Name="PART_SizingPanel"
                             HorizontalAlignment="Stretch"
+                            Name="PART_SizingPanel"
                             VerticalAlignment="Stretch">
                             <Border ClipToBounds="True" CornerRadius="{TemplateBinding CornerRadius}">
                                 <Rectangle
-                                    Name="PART_SpectrumRectangle"
                                     HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
                                     IsHitTestVisible="False"
                                     IsVisible="{TemplateBinding Shape,
                                                                 Converter={x:Static shadui:BasicConverters.EnumToBoolConverter},
-                                                                ConverterParameter={x:Static controls:ColorSpectrumShape.Box}}" />
+                                                                ConverterParameter={x:Static controls:ColorSpectrumShape.Box}}"
+                                    Name="PART_SpectrumRectangle"
+                                    VerticalAlignment="Stretch" />
                             </Border>
                             <Border ClipToBounds="True" CornerRadius="{TemplateBinding CornerRadius}">
                                 <Rectangle
-                                    Name="PART_SpectrumOverlayRectangle"
                                     HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
                                     IsHitTestVisible="False"
                                     IsVisible="{TemplateBinding Shape,
                                                                 Converter={x:Static shadui:BasicConverters.EnumToBoolConverter},
-                                                                ConverterParameter={x:Static controls:ColorSpectrumShape.Box}}" />
+                                                                ConverterParameter={x:Static controls:ColorSpectrumShape.Box}}"
+                                    Name="PART_SpectrumOverlayRectangle"
+                                    VerticalAlignment="Stretch" />
                             </Border>
                             <Ellipse
+                                HorizontalAlignment="Stretch"
+                                IsHitTestVisible="False"
+                                IsVisible="{TemplateBinding Shape,
+                                                            Converter={x:Static shadui:BasicConverters.EnumToBoolConverter},
+                                                            ConverterParameter={x:Static controls:ColorSpectrumShape.Ring}}"
                                 Name="PART_SpectrumEllipse"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                IsHitTestVisible="False"
-                                IsVisible="{TemplateBinding Shape,
-                                                            Converter={x:Static shadui:BasicConverters.EnumToBoolConverter},
-                                                            ConverterParameter={x:Static controls:ColorSpectrumShape.Ring}}" />
+                                VerticalAlignment="Stretch" />
                             <Ellipse
-                                Name="PART_SpectrumOverlayEllipse"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
                                 IsHitTestVisible="False"
                                 IsVisible="{TemplateBinding Shape,
                                                             Converter={x:Static shadui:BasicConverters.EnumToBoolConverter},
-                                                            ConverterParameter={x:Static controls:ColorSpectrumShape.Ring}}" />
+                                                            ConverterParameter={x:Static controls:ColorSpectrumShape.Ring}}"
+                                Name="PART_SpectrumOverlayEllipse"
+                                VerticalAlignment="Stretch" />
                             <Border ClipToBounds="True" CornerRadius="{TemplateBinding CornerRadius}">
-                                <Canvas Name="PART_InputTarget" Background="Transparent">
+                                <Canvas Background="Transparent" Name="PART_InputTarget">
                                     <!--  Note: ToolTip.VerticalOffset is for touch devices to keep the tip above fingers  -->
                                     <Panel
                                         Name="PART_SelectionEllipsePanel"
                                         ToolTip.Placement="Top"
                                         ToolTip.VerticalOffset="-10">
                                         <Ellipse
-                                            Name="FocusEllipse"
+                                            HorizontalAlignment="Stretch"
+                                            IsHitTestVisible="False"
                                             Margin="-2"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            IsHitTestVisible="False"
-                                            StrokeThickness="2" />
+                                            Name="FocusEllipse"
+                                            StrokeThickness="2"
+                                            VerticalAlignment="Stretch" />
                                         <Ellipse
-                                            Name="SelectionEllipse"
                                             HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
                                             IsHitTestVisible="False"
-                                            StrokeThickness="2" />
+                                            Name="SelectionEllipse"
+                                            StrokeThickness="2"
+                                            VerticalAlignment="Stretch" />
                                         <ToolTip.Tip>
                                             <!--  Set in code-behind  -->
                                         </ToolTip.Tip>

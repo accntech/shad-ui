@@ -1,29 +1,29 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <StackPanel
             Margin="24"
             Orientation="Horizontal"
             Spacing="16">
             <shadui:Skeleton
-                Width="64"
+                CornerRadius="{DynamicResource FullCornerRadius}"
                 Height="64"
-                CornerRadius="{DynamicResource FullCornerRadius}" />
-            <StackPanel VerticalAlignment="Center" Spacing="8">
+                Width="64" />
+            <StackPanel Spacing="8" VerticalAlignment="Center">
                 <shadui:Skeleton
-                    Width="255"
                     Height="28"
-                    HorizontalAlignment="Left" />
+                    HorizontalAlignment="Left"
+                    Width="255" />
                 <shadui:Skeleton
-                    Width="200"
                     Height="20"
-                    HorizontalAlignment="Left" />
+                    HorizontalAlignment="Left"
+                    Width="200" />
             </StackPanel>
         </StackPanel>
     </Design.PreviewWith>
-    <ControlTheme x:Key="{x:Type shadui:Skeleton}" TargetType="shadui:Skeleton">
+    <ControlTheme TargetType="shadui:Skeleton" x:Key="{x:Type shadui:Skeleton}">
         <Setter Property="Background" Value="{DynamicResource PrimaryColor10}" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
         <Setter Property="Template">
@@ -33,7 +33,7 @@
         </Setter>
         <Style Selector="^ /template/ Border">
             <Style.Animations>
-                <Animation IterationCount="Infinite" Duration="0:0:2">
+                <Animation Duration="0:0:2" IterationCount="Infinite">
                     <KeyFrame Cue="0%">
                         <Setter Property="Opacity" Value="1.0" />
                     </KeyFrame>

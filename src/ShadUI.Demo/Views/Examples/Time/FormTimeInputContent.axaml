@@ -1,31 +1,31 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.Examples.Time.FormTimeInputContent"
+    x:DataType="time:FormTimeInputViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:ShadUI.Demo.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:time="clr-namespace:ShadUI.Demo.ViewModels.Examples.Time"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="time:FormTimeInputViewModel"
-    mc:Ignorable="d">
-    <shadui:Card HorizontalAlignment="Center" HasShadow="True">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <shadui:Card HasShadow="True" HorizontalAlignment="Center">
         <shadui:Card.Header>
             <shadui:CardTitle>Create a schedule</shadui:CardTitle>
         </shadui:Card.Header>
         <StackPanel Spacing="16">
             <shadui:TimeInput
+                Value="{Binding StartTime, Converter={x:Static converters:TimeOnlyToTimeSpanConverter.Instance}}"
                 Width="255"
                 shadui:ControlAssist.Hint="Set the beginning time"
-                shadui:ControlAssist.Label="Start Time"
-                Value="{Binding StartTime, Converter={x:Static converters:TimeOnlyToTimeSpanConverter.Instance}}" />
+                shadui:ControlAssist.Label="Start Time" />
             <shadui:TimeInput
+                Value="{Binding EndTime, Converter={x:Static converters:TimeOnlyToTimeSpanConverter.Instance}}"
                 Width="255"
                 shadui:ControlAssist.Hint="Set the cut-off time"
-                shadui:ControlAssist.Label="End Time"
-                Value="{Binding EndTime, Converter={x:Static converters:TimeOnlyToTimeSpanConverter.Instance}}" />
+                shadui:ControlAssist.Label="End Time" />
         </StackPanel>
         <shadui:Card.Footer>
             <Button Classes="Primary" Command="{Binding SubmitCommand}">

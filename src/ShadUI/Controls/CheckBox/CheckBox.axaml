@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="24">
             <StackPanel Spacing="16">
@@ -11,7 +11,7 @@
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    <ControlTheme x:Key="{x:Type CheckBox}" TargetType="CheckBox">
+    <ControlTheme TargetType="CheckBox" x:Key="{x:Type CheckBox}">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="Background" Value="{DynamicResource SelectionColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
@@ -29,47 +29,47 @@
                     Orientation="Horizontal"
                     Spacing="4">
                     <Border
-                        Name="Container"
-                        Width="18"
-                        Height="18"
-                        VerticalAlignment="Center"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Height="18"
+                        Name="Container"
+                        VerticalAlignment="Center"
+                        Width="18">
                         <Panel>
                             <Path
-                                Name="CheckMark"
-                                Margin="3"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
                                 Data="{x:Static shadui:Icons.Check}"
                                 Fill="{DynamicResource PrimaryForegroundColor}"
                                 FlowDirection="LeftToRight"
-                                Stretch="Uniform" />
-                            <Path
-                                Name="indeterminateMark"
-                                Margin="3"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
+                                Margin="3"
+                                Name="CheckMark"
+                                Stretch="Uniform"
+                                VerticalAlignment="Center" />
+                            <Path
                                 Data="{x:Static shadui:Icons.Minus}"
                                 Fill="{DynamicResource PrimaryForegroundColor}"
                                 FlowDirection="LeftToRight"
+                                HorizontalAlignment="Center"
                                 IsVisible="False"
-                                Stretch="Uniform" />
+                                Margin="3"
+                                Name="indeterminateMark"
+                                Stretch="Uniform"
+                                VerticalAlignment="Center" />
                         </Panel>
                     </Border>
                     <ContentPresenter
-                        Name="PART_ContentPresenter"
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         Content="{TemplateBinding Content}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                         IsVisible="{TemplateBinding Content,
                                                     Converter={x:Static ObjectConverters.IsNotNull}}"
+                        Margin="{TemplateBinding Padding}"
+                        Name="PART_ContentPresenter"
                         RecognizesAccessKey="True"
-                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                        TextElement.Foreground="{TemplateBinding Foreground}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                 </StackPanel>
             </ControlTemplate>
         </Setter>
@@ -77,7 +77,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>
@@ -106,8 +106,8 @@
                 <Setter Property="Transitions">
                     <Setter.Value>
                         <Transitions>
-                            <BrushTransition Property="Background" Duration="0:0:0.20" />
-                            <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                            <BrushTransition Duration="0:0:0.20" Property="Background" />
+                            <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                         </Transitions>
                     </Setter.Value>
                 </Setter>

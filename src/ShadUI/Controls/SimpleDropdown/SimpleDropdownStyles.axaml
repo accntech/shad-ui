@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="20">
             <!--  Add Controls for Previewer Here  -->
@@ -24,30 +24,30 @@
                     <Panel Name="RootPanel">
                         <Panel.Transitions>
                             <Transitions>
-                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                                <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                             </Transitions>
                         </Panel.Transitions>
                         <Border
-                            Name="PART_BaseBackground"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="{TemplateBinding CornerRadius}"
+                            Name="PART_BaseBackground"
                             Opacity="1">
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
                         <Border
-                            Name="PART_HoverBackground"
                             Background="{DynamicResource GhostColor}"
                             CornerRadius="{TemplateBinding CornerRadius}"
+                            Name="PART_HoverBackground"
                             Opacity="0">
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
@@ -57,23 +57,23 @@
                             CornerRadius="{TemplateBinding CornerRadius}">
                             <Grid Margin="{TemplateBinding Padding}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+                                    <ColumnDefinition SharedSizeGroup="A" Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <ContentPresenter
-                                    Margin="0,0,8,0"
                                     Content="{TemplateBinding shadui:ButtonAssist.Icon}"
                                     IsVisible="{TemplateBinding shadui:ButtonAssist.Icon,
-                                                                Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                                                Converter={x:Static ObjectConverters.IsNotNull}}"
+                                    Margin="0,0,8,0" />
                                 <ContentPresenter
-                                    Grid.Column="1"
-                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Content="{TemplateBinding Content}"
                                     FontSize="{TemplateBinding FontSize}"
                                     FontWeight="{TemplateBinding FontWeight}"
                                     Foreground="{TemplateBinding Foreground}"
-                                    RecognizesAccessKey="True" />
+                                    Grid.Column="1"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    RecognizesAccessKey="True"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                             </Grid>
                         </Border>
                     </Panel>

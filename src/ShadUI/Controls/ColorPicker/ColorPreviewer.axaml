@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
-    x:ClassModifier="internal">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="Common.axaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <ControlTheme x:Key="{x:Type ColorPreviewer}" TargetType="ColorPreviewer">
+    <ControlTheme TargetType="ColorPreviewer" x:Key="{x:Type ColorPreviewer}">
         <Setter Property="Height" Value="50" />
         <Setter Property="ClipToBounds" Value="False" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
@@ -16,94 +16,94 @@
                 <Panel>
                     <Grid ColumnDefinitions="Auto,*,Auto" IsVisible="{TemplateBinding IsAccentColorsVisible}">
                         <Grid
+                            ColumnDefinitions="*,*"
                             Grid.Column="0"
-                            Width="80"
                             Height="40"
                             VerticalAlignment="Center"
-                            ColumnDefinitions="*,*">
+                            Width="80">
                             <Border
+                                Background="{StaticResource ColorControlCheckeredBackgroundBrush}"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Background="{StaticResource ColorControlCheckeredBackgroundBrush}" />
+                                VerticalAlignment="Stretch" />
                             <Border
-                                Name="PART_AccentDecrement2Border"
-                                Grid.Column="0"
                                 Background="{TemplateBinding HsvColor,
                                                              Converter={x:Static shadui:BasicConverters.AccentColorConverter},
                                                              ConverterParameter='-2'}"
                                 CornerRadius="{TemplateBinding CornerRadius,
                                                                Converter={x:Static shadui:CornerRadiusConverters.LeftOnly}}"
+                                Grid.Column="0"
+                                Name="PART_AccentDecrement2Border"
                                 Tag="-2" />
                             <Border
-                                Name="PART_AccentDecrement1Border"
-                                Grid.Column="1"
                                 Background="{TemplateBinding HsvColor,
                                                              Converter={x:Static shadui:BasicConverters.AccentColorConverter},
                                                              ConverterParameter='-1'}"
+                                Grid.Column="1"
+                                Name="PART_AccentDecrement1Border"
                                 Tag="-1" />
                         </Grid>
                         <Grid
+                            ColumnDefinitions="*,*"
                             Grid.Column="2"
-                            Width="80"
                             Height="40"
                             VerticalAlignment="Center"
-                            ColumnDefinitions="*,*">
+                            Width="80">
                             <Border
+                                Background="{StaticResource ColorControlCheckeredBackgroundBrush}"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Background="{StaticResource ColorControlCheckeredBackgroundBrush}" />
+                                VerticalAlignment="Stretch" />
                             <Border
-                                Name="PART_AccentIncrement1Border"
-                                Grid.Column="0"
                                 Background="{TemplateBinding HsvColor,
                                                              Converter={x:Static shadui:BasicConverters.AccentColorConverter},
                                                              ConverterParameter='1'}"
+                                Grid.Column="0"
+                                Name="PART_AccentIncrement1Border"
                                 Tag="1" />
                             <Border
-                                Name="PART_AccentIncrement2Border"
-                                Grid.Column="1"
                                 Background="{TemplateBinding HsvColor,
                                                              Converter={x:Static shadui:BasicConverters.AccentColorConverter},
                                                              ConverterParameter='2'}"
                                 CornerRadius="{TemplateBinding CornerRadius,
                                                                Converter={x:Static shadui:CornerRadiusConverters.RightOnly}}"
+                                Grid.Column="1"
+                                Name="PART_AccentIncrement2Border"
                                 Tag="2" />
                         </Grid>
                         <Border
+                            BoxShadow="0 0 10 2 #BF000000"
+                            CornerRadius="{TemplateBinding CornerRadius}"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            BoxShadow="0 0 10 2 #BF000000"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                            VerticalAlignment="Stretch">
                             <Panel>
                                 <Border Background="{StaticResource ColorControlCheckeredBackgroundBrush}" CornerRadius="{TemplateBinding CornerRadius}" />
                                 <Border
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
                                     Background="{TemplateBinding HsvColor,
                                                                  Converter={x:Static shadui:BasicConverters.ToBrushConverter}}"
-                                    CornerRadius="{TemplateBinding CornerRadius}" />
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch" />
                             </Panel>
                         </Border>
                     </Grid>
                     <Border
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalAlignment="Stretch"
                         IsVisible="{TemplateBinding IsAccentColorsVisible,
-                                                    Converter={x:Static BoolConverters.Not}}">
+                                                    Converter={x:Static BoolConverters.Not}}"
+                        VerticalAlignment="Stretch">
                         <Panel>
                             <Border Background="{StaticResource ColorControlCheckeredBackgroundBrush}" CornerRadius="{TemplateBinding CornerRadius}" />
                             <Border
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
                                 Background="{TemplateBinding HsvColor,
                                                              Converter={x:Static shadui:BasicConverters.ToBrushConverter}}"
-                                CornerRadius="{TemplateBinding CornerRadius}" />
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
                         </Panel>
                     </Border>
                 </Panel>

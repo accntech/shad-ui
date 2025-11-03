@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
-    xmlns:system="clr-namespace:System;assembly=netstandard">
-    <ControlTheme x:Key="TopLevelMenuItem" TargetType="MenuItem">
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="MenuItem" x:Key="TopLevelMenuItem">
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="CornerRadius" Value="{DynamicResource MdCornerRadius}" />
         <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
@@ -17,88 +17,88 @@
                 <Panel Name="RootPanel">
                     <Panel.Transitions>
                         <Transitions>
-                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                            <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                         </Transitions>
                     </Panel.Transitions>
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="HoverBackground"
                         Background="{DynamicResource GhostColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Panel>
                         <Border
-                            Name="BorderContainer"
                             Background="Transparent"
                             ClipToBounds="True"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Name="BorderContainer">
                             <ContentPresenter
-                                Name="HeaderPresenter"
-                                Margin="{TemplateBinding Padding}"
-                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                 Content="{TemplateBinding Header}"
-                                FontFamily="{TemplateBinding FontFamily}">
+                                FontFamily="{TemplateBinding FontFamily}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                Name="HeaderPresenter"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}">
                                 <ContentPresenter.DataTemplates>
                                     <DataTemplate DataType="system:String">
                                         <TextBlock
-                                            Name="HeaderText"
                                             FontSize="14"
                                             FontWeight="Medium"
+                                            Name="HeaderText"
                                             Text="{CompiledBinding}" />
                                     </DataTemplate>
                                 </ContentPresenter.DataTemplates>
                             </ContentPresenter>
                         </Border>
                         <Popup
-                            Name="PART_Popup"
                             HorizontalOffset="{TemplateBinding shadui:MenuItemAssist.PopupHorizontalOffset}"
                             IsLightDismissEnabled="True"
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
+                            Name="PART_Popup"
                             Opacity="0"
                             OverlayInputPassThroughElement="{CompiledBinding $parent[Menu]}"
                             Placement="{TemplateBinding shadui:MenuItemAssist.PopupPlacement}"
                             VerticalOffset="{TemplateBinding shadui:MenuItemAssist.PopupVerticalOffset}">
                             <LayoutTransformControl
-                                Name="LayoutTransform"
                                 Margin="-1,0,0,0"
+                                Name="LayoutTransform"
                                 RenderTransformOrigin="50%, 0%">
                                 <Border
-                                    Margin="2,0,2,4"
-                                    shadui:ScrollEventAssist.PreventScrollPropagation="True"
                                     Background="{DynamicResource CardBackgroundColor}"
                                     BorderBrush="{DynamicResource BorderColor}"
                                     BorderThickness="1"
                                     BoxShadow="{DynamicResource Shadow}"
-                                    CornerRadius="{DynamicResource LgCornerRadius}">
+                                    CornerRadius="{DynamicResource LgCornerRadius}"
+                                    Margin="2,0,2,4"
+                                    shadui:ScrollEventAssist.PreventScrollPropagation="True">
                                     <StackPanel Margin="0,2">
-                                        <Border Padding="16,8" IsVisible="{TemplateBinding shadui:MenuItemAssist.Label, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                        <Border IsVisible="{TemplateBinding shadui:MenuItemAssist.Label, Converter={x:Static ObjectConverters.IsNotNull}}" Padding="16,8">
                                             <ContentPresenter Content="{TemplateBinding shadui:MenuItemAssist.Label}" FontFamily="{TemplateBinding FontFamily}" />
                                         </Border>
                                         <ScrollViewer>
                                             <ItemsPresenter
-                                                Name="ItemsPresenter"
                                                 Grid.IsSharedSizeScope="True"
-                                                ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                                ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                Name="ItemsPresenter" />
                                         </ScrollViewer>
                                     </StackPanel>
                                 </Border>
@@ -126,9 +126,9 @@
         <Style Selector="^:open /template/ LayoutTransformControl#LayoutTransform">
             <Style.Animations>
                 <Animation
+                    Duration="0:0:0.10"
                     Easing="SineEaseInOut"
-                    FillMode="Forward"
-                    Duration="0:0:0.10">
+                    FillMode="Forward">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.90" />
                         <Setter Property="ScaleTransform.ScaleX" Value="0.90" />
@@ -279,7 +279,7 @@
         </Style>
     </ControlTheme>
 
-    <ControlTheme x:Key="{x:Type Menu}" TargetType="Menu">
+    <ControlTheme TargetType="Menu" x:Key="{x:Type Menu}">
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
         <Setter Property="ItemContainerTheme" Value="{StaticResource TopLevelMenuItem}" />
@@ -287,17 +287,17 @@
             <ControlTemplate>
                 <LayoutTransformControl Name="LayoutTransform" RenderTransformOrigin="50%, 0%">
                     <Border
-                        Height="{TemplateBinding Height}"
-                        Padding="{TemplateBinding Padding}"
                         BorderBrush="{DynamicResource BorderColor}"
                         BorderThickness="0"
                         ClipToBounds="True"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Height="{TemplateBinding Height}"
+                        Padding="{TemplateBinding Padding}">
                         <ItemsPresenter
-                            Name="ItemsPresenter"
                             Grid.IsSharedSizeScope="True"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
-                            KeyboardNavigation.TabNavigation="Continue" />
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Name="ItemsPresenter" />
                     </Border>
                 </LayoutTransformControl>
             </ControlTemplate>
@@ -305,9 +305,9 @@
         <Style Selector="^[IsEnabled=True] /template/ LayoutTransformControl#LayoutTransform">
             <Style.Animations>
                 <Animation
+                    Duration="0:0:0.15"
                     Easing="SineEaseInOut"
-                    FillMode="Forward"
-                    Duration="0:0:0.15">
+                    FillMode="Forward">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="0.90" />
                         <Setter Property="ScaleTransform.ScaleX" Value="0.90" />
@@ -325,9 +325,9 @@
         <Style Selector="^[IsEnabled=False] /template/ LayoutTransformControl#LayoutTransform">
             <Style.Animations>
                 <Animation
+                    Duration="0:0:0.15"
                     Easing="SineEaseInOut"
-                    FillMode="Forward"
-                    Duration="0:0:0.15">
+                    FillMode="Forward">
                     <KeyFrame Cue="0%">
                         <Setter Property="ScaleTransform.ScaleY" Value="1" />
                         <Setter Property="ScaleTransform.ScaleX" Value="1" />

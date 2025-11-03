@@ -1,19 +1,19 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.Examples.Numeric.FormNumericContent"
+    x:DataType="numeric:FormNumericViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:numeric="clr-namespace:ShadUI.Demo.ViewModels.Examples.Numeric"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="numeric:FormNumericViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <shadui:Card
-        Width="350"
+        HasShadow="True"
         HorizontalAlignment="Center"
-        HasShadow="True">
+        Width="350">
         <shadui:Card.Header>
             <StackPanel Spacing="4">
                 <shadui:CardTitle FontSize="18">Age Verification</shadui:CardTitle>
@@ -22,11 +22,11 @@
         </shadui:Card.Header>
         <StackPanel Margin="0,0,0,36" Spacing="16">
             <NumericUpDown
-                shadui:ControlAssist.Hint="You must be at least 18 years old."
-                shadui:ControlAssist.Label="Age"
                 FormatString="N0"
+                Value="{Binding Age, Mode=TwoWay}"
                 Watermark="Enter your age"
-                Value="{Binding Age, Mode=TwoWay}" />
+                shadui:ControlAssist.Hint="You must be at least 18 years old."
+                shadui:ControlAssist.Label="Age" />
         </StackPanel>
         <shadui:Card.Footer>
             <Button Classes="Primary" Command="{Binding SubmitCommand}">Submit</Button>

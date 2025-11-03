@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadUI="clr-namespace:ShadUI">
+    xmlns:shadUI="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="shadUI|Badge, Button">
         <Style Selector="^.rounded-none">
             <Setter Property="CornerRadius" Value="0" />

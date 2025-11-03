@@ -1,44 +1,44 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.AboutContent"
+    x:DataType="viewModels:AboutViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="viewModels:AboutViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel Margin="0,24">
         <PathIcon
-            Width="48"
+            Data="{x:Static shadui:Icons.Logo}"
             Height="48"
             Margin="8,8,0,8"
-            Data="{x:Static shadui:Icons.Logo}" />
+            Width="48" />
         <TextBlock
-            Margin="0,24,0,8"
             Classes="h2"
+            Margin="0,24,0,8"
             Text="ShadUI"
             TextAlignment="Center" />
         <TextBlock
-            Width="400"
-            Margin="24,0"
             Classes="Small"
+            Margin="24,0"
             Text="ShadUI is an Avalonia-based Desktop UI Library inspired by shadcn/ui and Suki UI Library to deliver a modern, beautiful, and intuitive UI library for Avalonia."
             TextAlignment="Center"
-            TextWrapping="Wrap" />
+            TextWrapping="Wrap"
+            Width="400" />
         <TextBlock
-            Margin="8"
             Classes="Muted Small"
+            Margin="8"
             Text="{Binding AppVersion}"
             TextAlignment="Center" />
         <Button
-            Width="64"
-            Margin="0,36"
-            HorizontalAlignment="Center"
             Classes="Primary"
-            Command="{Binding CloseCommand}">
+            Command="{Binding CloseCommand}"
+            HorizontalAlignment="Center"
+            Margin="0,36"
+            Width="64">
             OK
         </Button>
     </StackPanel>

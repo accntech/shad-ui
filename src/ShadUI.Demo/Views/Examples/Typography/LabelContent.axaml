@@ -1,72 +1,105 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.Examples.Typography.LabelContent"
+    x:DataType="typography:LabelViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:typography="clr-namespace:ShadUI.Demo.ViewModels.Examples.Typography"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="typography:LabelViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel
-        MaxWidth="{StaticResource PageMaxWidth}"
         Margin="{StaticResource PageMargin}"
+        MaxWidth="{StaticResource PageMaxWidth}"
         Spacing="32">
         <controls:ControlBlock Title="h1" Xaml="{Binding H1Code}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="h1" Content="Taxing Laughter: The Joke Tax Chronicles" />
+                <Label
+                    Classes="h1"
+                    Content="Taxing Laughter: The Joke Tax Chronicles"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="h2" Xaml="{Binding H2Code}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="h2" Content="The People of the Kingdom" />
+                <Label
+                    Classes="h2"
+                    Content="The People of the Kingdom"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="h3" Xaml="{Binding H3Code}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="h3" Content="The Joke Tax" />
+                <Label
+                    Classes="h3"
+                    Content="The Joke Tax"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="h4" Xaml="{Binding H4Code}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="h4" Content="People stopped telling jokes" />
+                <Label
+                    Classes="h4"
+                    Content="People stopped telling jokes"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="p" Xaml="{Binding PCode}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="p" Content="The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax." />
+                <Label
+                    Classes="p"
+                    Content="The king, seeing how much happier his subjects were, realized the error of his ways and repealed the joke tax."
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="Lead" Xaml="{Binding LeadCode}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="Lead" Content="A modal dialog that interrupts the user with important content and expects a response." />
+                <Label
+                    Classes="Lead"
+                    Content="A modal dialog that interrupts the user with important content and expects a response."
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="Large" Xaml="{Binding LargeCode}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="Large" Content="Are you absolutely sure?" />
+                <Label
+                    Classes="Large"
+                    Content="Are you absolutely sure?"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="Small" Xaml="{Binding SmallCode}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="Small" Content="Email address" />
+                <Label
+                    Classes="Small"
+                    Content="Email address"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="Caption" Xaml="{Binding CaptionCode}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="Caption" Content="Username" />
+                <Label
+                    Classes="Caption"
+                    Content="Username"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="Muted" Xaml="{Binding MutedCode}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="Muted" Content="Enter your email address" />
+                <Label
+                    Classes="Muted"
+                    Content="Enter your email address"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
         <controls:ControlBlock Title="Error" Xaml="{Binding ErrorCode}">
             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                <Label Margin="0,8" Classes="Caption Error" Content="Invalid email address" />
+                <Label
+                    Classes="Caption Error"
+                    Content="Invalid email address"
+                    Margin="0,8" />
             </ScrollViewer>
         </controls:ControlBlock>
     </StackPanel>

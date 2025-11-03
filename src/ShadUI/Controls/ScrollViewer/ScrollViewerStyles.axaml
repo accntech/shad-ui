@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="ScrollViewer">
         <Setter Property="IsScrollInertiaEnabled" Value="True" />
         <Setter Property="Template">
@@ -10,21 +10,21 @@
                     <Panel Name="InnerPanel">
                         <Panel.Transitions>
                             <Transitions>
-                                <BrushTransition Property="OpacityMask" Duration="0:0:0.2" />
+                                <BrushTransition Duration="0:0:0.2" Property="OpacityMask" />
                             </Transitions>
                         </Panel.Transitions>
                         <ScrollContentPresenter
-                            Name="PART_ContentPresenter"
-                            Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
                             HorizontalSnapPointsAlignment="{TemplateBinding HorizontalSnapPointsAlignment}"
                             HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
+                            Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
                             ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}"
                             VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
                             VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}">
                             <ScrollContentPresenter.Transitions>
                                 <Transitions>
-                                    <BrushTransition Property="OpacityMask" Duration="0:0:0.2" />
+                                    <BrushTransition Duration="0:0:0.2" Property="OpacityMask" />
                                 </Transitions>
                             </ScrollContentPresenter.Transitions>
                             <ScrollContentPresenter.GestureRecognizers>
@@ -39,32 +39,32 @@
                         </ScrollContentPresenter>
                     </Panel>
                     <Grid
-                        Name="BasicScroll"
                         ColumnDefinitions="*,Auto"
+                        Name="BasicScroll"
                         RowDefinitions="*,Auto">
                         <ScrollBar
-                            Name="PART_HorizontalScrollBar"
-                            Grid.Row="1"
                             Grid.Column="0"
+                            Grid.Row="1"
+                            Name="PART_HorizontalScrollBar"
                             Orientation="Horizontal" />
                         <ScrollBar
-                            Name="PART_VerticalScrollBar"
-                            Grid.Row="0"
                             Grid.Column="1"
+                            Grid.Row="0"
+                            Name="PART_VerticalScrollBar"
                             Orientation="Vertical" />
                         <Panel
-                            Name="PART_ScrollBarsSeparator"
-                            Grid.Row="1"
+                            Background="Transparent"
                             Grid.Column="1"
-                            Background="Transparent" />
+                            Grid.Row="1"
+                            Name="PART_ScrollBarsSeparator" />
                     </Grid>
-                    <Panel Name="StackScrollPanel" IsVisible="False">
+                    <Panel IsVisible="False" Name="StackScrollPanel">
                         <ScrollBar
-                            Name="StackVerticalScrollBar"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
                             Classes="Stack"
-                            Orientation="Vertical" />
+                            HorizontalAlignment="Stretch"
+                            Name="StackVerticalScrollBar"
+                            Orientation="Vertical"
+                            VerticalAlignment="Stretch" />
                     </Panel>
                 </Panel>
             </ControlTemplate>

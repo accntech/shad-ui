@@ -1,19 +1,19 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.Examples.Input.FormInputContent"
+    x:DataType="input:FormInputViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:input="clr-namespace:ShadUI.Demo.ViewModels.Examples.Input"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="input:FormInputViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <shadui:Card
-        Width="350"
+        HasShadow="True"
         HorizontalAlignment="Center"
-        HasShadow="True">
+        Width="350">
         <shadui:Card.Header>
             <StackPanel Spacing="4">
                 <shadui:CardTitle FontSize="18">Create new account</shadui:CardTitle>
@@ -22,23 +22,23 @@
         </shadui:Card.Header>
         <StackPanel Spacing="16">
             <TextBox
-                shadui:ControlAssist.Hint="This is your public display name."
-                shadui:ControlAssist.Label="Email"
                 Classes="Clearable"
                 Text="{Binding Email, Mode=TwoWay}"
-                Watermark="user@example.com" />
+                Watermark="user@example.com"
+                shadui:ControlAssist.Hint="This is your public display name."
+                shadui:ControlAssist.Label="Email" />
             <TextBox
-                shadui:ControlAssist.Label="Password"
                 Classes="PasswordReveal"
                 PasswordChar="•"
                 Text="{Binding Password, Mode=TwoWay}"
-                Watermark="Enter password" />
+                Watermark="Enter password"
+                shadui:ControlAssist.Label="Password" />
             <TextBox
-                shadui:ControlAssist.Label="Confirm"
                 Classes="PasswordReveal"
                 PasswordChar="•"
                 Text="{Binding ConfirmPassword, Mode=TwoWay}"
-                Watermark="Confirm password" />
+                Watermark="Confirm password"
+                shadui:ControlAssist.Label="Confirm" />
         </StackPanel>
         <shadui:Card.Footer>
             <Button Classes="Primary" Command="{Binding SubmitCommand}">Submit</Button>

@@ -1,48 +1,48 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="12">
             <StackPanel Spacing="8">
                 <Button
+                    Content="Default"
                     Height="36"
                     Padding="16,8"
-                    shadui:ButtonAssist.ShowProgress="True"
-                    Content="Default" />
+                    shadui:ButtonAssist.ShowProgress="True" />
                 <Button
-                    shadui:ButtonAssist.ShowProgress="True"
                     Classes="Primary"
-                    Content="Primary" />
+                    Content="Primary"
+                    shadui:ButtonAssist.ShowProgress="True" />
                 <Button
-                    shadui:ButtonAssist.ShowProgress="True"
                     Classes="Secondary"
-                    Content="Secondary" />
+                    Content="Secondary"
+                    shadui:ButtonAssist.ShowProgress="True" />
                 <Button
-                    shadui:ButtonAssist.ShowProgress="True"
                     Classes="Destructive"
-                    Content="Destructive" />
+                    Content="Destructive"
+                    shadui:ButtonAssist.ShowProgress="True" />
                 <Button
-                    shadui:ButtonAssist.ShowProgress="True"
                     Classes="Outline"
-                    Content="Outline" />
+                    Content="Outline"
+                    shadui:ButtonAssist.ShowProgress="True" />
                 <Button
-                    shadui:ButtonAssist.ShowProgress="True"
                     Classes="Ghost"
-                    Content="Ghost">
+                    Content="Ghost"
+                    shadui:ButtonAssist.ShowProgress="True">
                     <shadui:ButtonAssist.Icon>
-                        <PathIcon Height="32" Data="{x:Static shadui:Icons.Cross}" />
+                        <PathIcon Data="{x:Static shadui:Icons.Cross}" Height="32" />
                     </shadui:ButtonAssist.Icon>
                 </Button>
                 <Button BorderBrush="{DynamicResource BorderColor}" Classes="Icon">
                     <shadui:ButtonAssist.Icon>
-                        <PathIcon Height="32" Data="{x:Static shadui:Icons.Cross}" />
+                        <PathIcon Data="{x:Static shadui:Icons.Cross}" Height="32" />
                     </shadui:ButtonAssist.Icon>
                 </Button>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    <ControlTheme x:Key="ButtonStyle" TargetType="Button">
+    <ControlTheme TargetType="Button" x:Key="ButtonStyle">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
@@ -58,74 +58,74 @@
                 <Panel Name="RootPanel">
                     <Panel.Transitions>
                         <Transitions>
-                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                            <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                         </Transitions>
                     </Panel.Transitions>
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="HoverBackground"
                         Background="{TemplateBinding shadui:ButtonAssist.HoverBackground}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="BorderContainer"
-                        Padding="{TemplateBinding Padding}"
                         Background="Transparent"
                         ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BorderContainer"
+                        Padding="{TemplateBinding Padding}"
                         TextElement.Foreground="{TemplateBinding Foreground}">
                         <StackPanel HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Orientation="Horizontal">
-                            <Viewbox Width="{TemplateBinding shadui:ButtonAssist.ShowProgress, Converter={x:Static shadui:BooleanConverters.ToZeroOrDouble}, ConverterParameter='24'}" Height="16">
+                            <Viewbox Height="16" Width="{TemplateBinding shadui:ButtonAssist.ShowProgress, Converter={x:Static shadui:BooleanConverters.ToZeroOrDouble}, ConverterParameter='24'}">
                                 <Viewbox.Transitions>
                                     <Transitions>
-                                        <DoubleTransition Property="Width" Duration="0:0:0.10" />
+                                        <DoubleTransition Duration="0:0:0.10" Property="Width" />
                                     </Transitions>
                                 </Viewbox.Transitions>
                                 <ContentPresenter Content="{TemplateBinding shadui:ButtonAssist.ShowProgress, Converter={x:Static shadui:BooleanConverters.ToLoading}}" />
                             </Viewbox>
                             <Viewbox
-                                Width="{TemplateBinding shadui:ButtonAssist.ShowProgress,
-                                                        Converter={x:Static shadui:BooleanConverters.ToDoubleOrZero},
-                                                        ConverterParameter='24'}"
                                 IsVisible="{TemplateBinding shadui:ButtonAssist.Icon,
                                                             Converter={x:Static ObjectConverters.IsNotNull}}"
                                 Opacity="{TemplateBinding shadui:ButtonAssist.ShowProgress,
-                                                          Converter={x:Static shadui:BooleanConverters.ToInverseOpacity}}">
+                                                          Converter={x:Static shadui:BooleanConverters.ToInverseOpacity}}"
+                                Width="{TemplateBinding shadui:ButtonAssist.ShowProgress,
+                                                        Converter={x:Static shadui:BooleanConverters.ToDoubleOrZero},
+                                                        ConverterParameter='24'}">
                                 <Viewbox.Transitions>
                                     <Transitions>
-                                        <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
-                                        <DoubleTransition Property="Width" Duration="0:0:0.10" />
+                                        <DoubleTransition Duration="0:0:0.15" Property="Opacity" />
+                                        <DoubleTransition Duration="0:0:0.10" Property="Width" />
                                     </Transitions>
                                 </Viewbox.Transitions>
-                                <ContentPresenter x:Name="Icon" Content="{TemplateBinding shadui:ButtonAssist.Icon}" />
+                                <ContentPresenter Content="{TemplateBinding shadui:ButtonAssist.Icon}" x:Name="Icon" />
                             </Viewbox>
                             <ContentPresenter
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Content="{TemplateBinding Content}"
                                 FontSize="{TemplateBinding FontSize}"
                                 FontWeight="SemiBold"
-                                RecognizesAccessKey="True" />
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                RecognizesAccessKey="True"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </StackPanel>
                     </Border>
                 </Panel>
@@ -282,7 +282,7 @@
         </Style>
     </ControlTheme>
     <ControlTheme
-        x:Key="{x:Type Button}"
         BasedOn="{StaticResource ButtonStyle}"
-        TargetType="Button" />
+        TargetType="Button"
+        x:Key="{x:Type Button}" />
 </ResourceDictionary>

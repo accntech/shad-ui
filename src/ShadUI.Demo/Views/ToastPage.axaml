@@ -1,21 +1,21 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.ToastPage"
+    x:DataType="viewModels:ToastViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="viewModels:ToastViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel LastChildFill="True">
         <StackPanel
-            MaxWidth="{StaticResource PageMaxWidth}"
-            Margin="{StaticResource PageMargin}"
             DockPanel.Dock="Top"
+            Margin="{StaticResource PageMargin}"
+            MaxWidth="{StaticResource PageMaxWidth}"
             Spacing="4">
             <Grid ColumnDefinitions="* Auto">
                 <TextBlock Classes="h2" Text="Toast" />
@@ -24,21 +24,21 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding BackPageCommand}">
+                        Command="{Binding BackPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57420;" />
                         </Viewbox>
                     </Button>
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding NextPageCommand}">
+                        Command="{Binding NextPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57421;" />
                         </Viewbox>
@@ -52,8 +52,8 @@
         </StackPanel>
         <ScrollViewer>
             <StackPanel
-                MaxWidth="{StaticResource PageMaxWidth}"
                 Margin="{StaticResource PageMargin}"
+                MaxWidth="{StaticResource PageMaxWidth}"
                 Spacing="32">
                 <StackPanel Orientation="Vertical" Spacing="8">
                     <TextBlock Classes="h4" Text="Installation" />
@@ -68,8 +68,8 @@
                         <Run Text="    &lt;toasts:ToastHost Manager=&quot;{Binding ToastManager}&quot; /&gt;" />
                     </controls:CodeTextBlock>
                     <TextBlock
-                        Margin="0,12,0,0"
                         Classes="Small"
+                        Margin="0,12,0,0"
                         Text="Resolve ToastManager using dependency injection framework for easy access. Make sure to have only one instance of ToastManager."
                         TextWrapping="Wrap" />
                     <controls:CodeTextBlock Language="cs">
@@ -86,103 +86,103 @@
                         <Run Text="}" />
                     </controls:CodeTextBlock>
                 </StackPanel>
-                <controls:ControlBlock Title="Simple" CSharp="{Binding SimpleToastCode}">
+                <controls:ControlBlock CSharp="{Binding SimpleToastCode}" Title="Simple">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowSimpleToastCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="With Title" CSharp="{Binding WithTitleToastCode}">
+                <controls:ControlBlock CSharp="{Binding WithTitleToastCode}" Title="With Title">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowToastWithTitleCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="With Action" CSharp="{Binding WithActionToastCode}">
+                <controls:ControlBlock CSharp="{Binding WithActionToastCode}" Title="With Action">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowToastWithActionCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="With Custom Delay" CSharp="{Binding WithDelayToastCode}">
+                <controls:ControlBlock CSharp="{Binding WithDelayToastCode}" Title="With Custom Delay">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowToastWithDelayCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Info Toast" CSharp="{Binding InfoToastCode}">
+                <controls:ControlBlock CSharp="{Binding InfoToastCode}" Title="Info Toast">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowInfoToastCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Success Toast" CSharp="{Binding SuccessToastCode}">
+                <controls:ControlBlock CSharp="{Binding SuccessToastCode}" Title="Success Toast">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowSuccessToastCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Warning Toast" CSharp="{Binding WarningToastCode}">
+                <controls:ControlBlock CSharp="{Binding WarningToastCode}" Title="Warning Toast">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowWarningToastCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Error Toast" CSharp="{Binding ErrorToastCode}">
+                <controls:ControlBlock CSharp="{Binding ErrorToastCode}" Title="Error Toast">
                     <StackPanel
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
                         Spacing="8">
                         <Button
-                            HorizontalAlignment="Center"
                             Classes="Outline"
                             Command="{Binding ShowErrorToastCommand}"
-                            Content="Show Toast" />
+                            Content="Show Toast"
+                            HorizontalAlignment="Center" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Dynamic Toast" CSharp="{Binding DynamicToastCode}">
+                <controls:ControlBlock CSharp="{Binding DynamicToastCode}" Title="Dynamic Toast">
                     <shadui:Card HorizontalAlignment="Center">
                         <shadui:Card.Header>
                             <StackPanel>
@@ -191,16 +191,16 @@
                             </StackPanel>
                         </shadui:Card.Header>
                         <ComboBox
-                            Width="225"
-                            shadui:ControlAssist.Label="Selected Notification"
                             ItemsSource="{Binding NotificationsCollection, Mode=OneWay}"
-                            SelectedItem="{Binding SelectedNotification, Mode=TwoWay}" />
+                            SelectedItem="{Binding SelectedNotification, Mode=TwoWay}"
+                            Width="225"
+                            shadui:ControlAssist.Label="Selected Notification" />
                         <shadui:Card.Footer>
                             <Button
-                                HorizontalAlignment="Right"
                                 Classes="Primary"
                                 Command="{Binding ShowToastWithTypeCommand}"
-                                Content="Submit" />
+                                Content="Submit"
+                                HorizontalAlignment="Right" />
                         </shadui:Card.Footer>
                     </shadui:Card>
                 </controls:ControlBlock>

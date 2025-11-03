@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
-    <ControlTheme x:Key="{x:Type shadui:CardDescription}" TargetType="{x:Type shadui:CardDescription}">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="{x:Type shadui:CardDescription}" x:Key="{x:Type shadui:CardDescription}">
         <Setter Property="TextBlock.Foreground" Value="{DynamicResource MutedColor}" />
         <Setter Property="TextBlock.FontSize" Value="12.8" />
         <Setter Property="Template">

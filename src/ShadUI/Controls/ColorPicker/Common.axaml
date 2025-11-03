@@ -1,19 +1,19 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:globalization="clr-namespace:System.Globalization;assembly=netstandard"
     xmlns:shadui="clr-namespace:ShadUI"
-    x:ClassModifier="internal">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <globalization:NumberFormatInfo x:Key="ColorViewComponentNumberFormat" NumberDecimalDigits="0" />
+    <globalization:NumberFormatInfo NumberDecimalDigits="0" x:Key="ColorViewComponentNumberFormat" />
 
     <VisualBrush
-        x:Key="ColorControlCheckeredBackgroundBrush"
         DestinationRect="0,0,8,8"
         Stretch="Uniform"
-        TileMode="Tile">
+        TileMode="Tile"
+        x:Key="ColorControlCheckeredBackgroundBrush">
         <VisualBrush.Visual>
-            <Image Width="8" Height="8">
+            <Image Height="8" Width="8">
                 <Image.Source>
                     <DrawingImage>
                         <DrawingImage.Drawing>
@@ -28,7 +28,7 @@
         </VisualBrush.Visual>
     </VisualBrush>
 
-    <ControlTheme x:Key="ColorViewColorModelRadioButtonTheme" TargetType="RadioButton">
+    <ControlTheme TargetType="RadioButton" x:Key="ColorViewColorModelRadioButtonTheme">
         <Setter Property="MinHeight" Value="36" />
         <Setter Property="MinWidth" Value="80" />
         <Setter Property="FontSize" Value="14" />
@@ -42,58 +42,58 @@
                 <Panel Name="RootPanel">
                     <Panel.Transitions>
                         <Transitions>
-                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                            <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                         </Transitions>
                     </Panel.Transitions>
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="HoverBackground"
                         Background="{DynamicResource BorderColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="SelectBackground"
                         Background="{DynamicResource PrimaryColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="SelectBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="PART_BorderContainer"
                         Background="Transparent"
                         ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="PART_BorderContainer"
                         TextElement.Foreground="{TemplateBinding Foreground}">
                         <ContentPresenter
+                            Content="{TemplateBinding Content}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Name="PART_ContentPresenter"
                             Padding="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
                             RecognizesAccessKey="True"
-                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                            TextElement.Foreground="{TemplateBinding Foreground}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </Border>
                 </Panel>
             </ControlTemplate>
@@ -133,37 +133,37 @@
         </Style>
     </ControlTheme>
 
-    <ControlTheme x:Key="ColorViewPaletteListBoxTheme" TargetType="ListBox">
+    <ControlTheme TargetType="ListBox" x:Key="ColorViewPaletteListBoxTheme">
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.IsScrollChainingEnabled" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    Name="border"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     ClipToBounds="{TemplateBinding ClipToBounds}"
-                    CornerRadius="{TemplateBinding CornerRadius}">
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Name="border">
                     <ScrollViewer
-                        Name="PART_ScrollViewer"
                         AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                         HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                         IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
                         IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                        Name="PART_ScrollViewer"
                         VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                         <ItemsPresenter
-                            Name="PART_ItemsPresenter"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
                             Margin="{TemplateBinding Padding}"
-                            ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            Name="PART_ItemsPresenter" />
                     </ScrollViewer>
                 </Border>
             </ControlTemplate>
         </Setter>
     </ControlTheme>
 
-    <ControlTheme x:Key="ColorViewPaletteListBoxItemTheme" TargetType="ListBoxItem">
+    <ControlTheme TargetType="ListBoxItem" x:Key="ColorViewPaletteListBoxItemTheme">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="1" />
@@ -180,24 +180,24 @@
                         ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}">
                         <ContentPresenter
-                            Name="PART_ContentPresenter"
-                            Padding="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             ClipToBounds="True"
                             Content="{TemplateBinding Content}"
-                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </Border>
                     <Border
-                        x:Name="BorderRectangle"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
                         BorderThickness="2"
                         CornerRadius="{TemplateBinding CornerRadius}"
-                        IsHitTestVisible="False">
+                        HorizontalAlignment="Stretch"
+                        IsHitTestVisible="False"
+                        VerticalAlignment="Stretch"
+                        x:Name="BorderRectangle">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
@@ -210,12 +210,12 @@
             <Setter Property="Opacity" Value="0" />
         </Style>
 
-        <Style x:DataType="Color" Selector="^:pointerover /template/ Border#BorderRectangle">
+        <Style Selector="^:pointerover /template/ Border#BorderRectangle" x:DataType="Color">
             <Setter Property="BorderBrush" Value="{Binding Converter={x:Static shadui:BasicConverters.ContrastBrushConverter}}" />
             <Setter Property="Opacity" Value="0.5" />
         </Style>
 
-        <Style x:DataType="Color" Selector="^:selected /template/ Border#BorderRectangle">
+        <Style Selector="^:selected /template/ Border#BorderRectangle" x:DataType="Color">
             <Setter Property="BorderBrush" Value="{Binding Converter={x:Static shadui:BasicConverters.ContrastBrushConverter}}" />
             <Setter Property="Opacity" Value="1" />
         </Style>

@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
-    x:ClassModifier="internal">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Panel Width="500" Height="500">
+        <Panel Height="500" Width="500">
             <CalendarItem HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Panel>
     </Design.PreviewWith>
-    <ControlTheme x:Key="{x:Type CalendarItem}" TargetType="CalendarItem">
+    <ControlTheme TargetType="CalendarItem" x:Key="{x:Type CalendarItem}">
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
@@ -18,13 +18,13 @@
             <ControlTemplate>
                 <Panel>
                     <Border
-                        Margin="2,0,2,4"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         BoxShadow="{DynamicResource Shadow}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
-                        <Border Margin="{TemplateBinding Padding}" CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Margin="2,0,2,4">
+                        <Border CornerRadius="{TemplateBinding CornerRadius}" Margin="{TemplateBinding Padding}">
                             <Grid ColumnDefinitions="Auto * Auto" RowDefinitions="Auto *">
                                 <Grid.Styles>
                                     <Style Selector="Button.CalendarHeader">
@@ -50,56 +50,56 @@
                                     </Style>
                                 </Grid.Styles>
                                 <Border
-                                    Grid.ColumnSpan="3"
-                                    Height="40"
-                                    VerticalAlignment="Top"
                                     Background="{TemplateBinding HeaderBackground}"
                                     CornerRadius="{TemplateBinding CornerRadius,
-                                                                   Converter={x:Static shadui:CornerRadiusConverters.TopOnly}}" />
+                                                                   Converter={x:Static shadui:CornerRadiusConverters.TopOnly}}"
+                                    Grid.ColumnSpan="3"
+                                    Height="40"
+                                    VerticalAlignment="Top" />
                                 <Button
-                                    Name="PART_PreviousButton"
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Width="26"
-                                    Height="26"
-                                    Margin="10,0,0,0"
-                                    HorizontalAlignment="Left"
                                     BorderBrush="{DynamicResource BorderColor}"
                                     Classes="Icon"
-                                    Opacity="0.5">
-                                    <PathIcon Height="9" Data="{x:Static shadui:Icons.ChevronLeft}" />
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Height="26"
+                                    HorizontalAlignment="Left"
+                                    Margin="10,0,0,0"
+                                    Name="PART_PreviousButton"
+                                    Opacity="0.5"
+                                    Width="26">
+                                    <PathIcon Data="{x:Static shadui:Icons.ChevronLeft}" Height="9" />
                                 </Button>
                                 <Button
-                                    Name="PART_HeaderButton"
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    Padding="16,8"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    shadui:ButtonAssist.HoverBackground="{DynamicResource GhostHoverColor}"
                                     Classes="CalendarHeader"
                                     FontSize="14"
-                                    FontWeight="Bold" />
-                                <Button
-                                    Name="PART_NextButton"
+                                    FontWeight="Bold"
+                                    Grid.Column="1"
                                     Grid.Row="0"
-                                    Grid.Column="2"
-                                    Width="26"
-                                    Height="26"
-                                    Margin="0,0,10,0"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Center"
+                                    Name="PART_HeaderButton"
+                                    Padding="16,8"
+                                    VerticalAlignment="Center"
+                                    shadui:ButtonAssist.HoverBackground="{DynamicResource GhostHoverColor}" />
+                                <Button
                                     BorderBrush="{DynamicResource BorderColor}"
                                     Classes="Icon"
-                                    Opacity="0.5">
-                                    <PathIcon Height="9" Data="{x:Static shadui:Icons.ChevronRight}" />
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    Height="26"
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,10,0"
+                                    Name="PART_NextButton"
+                                    Opacity="0.5"
+                                    Width="26">
+                                    <PathIcon Data="{x:Static shadui:Icons.ChevronRight}" Height="9" />
                                 </Button>
                                 <Grid
-                                    Name="PART_MonthView"
-                                    Grid.Row="1"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
+                                    Grid.Row="1"
+                                    IsVisible="False"
                                     Margin="6,-1,6,6"
-                                    IsVisible="False">
+                                    Name="PART_MonthView">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -120,12 +120,12 @@
                                     </Grid.ColumnDefinitions>
                                 </Grid>
                                 <Grid
-                                    Name="PART_YearView"
-                                    Grid.Row="1"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
+                                    Grid.Row="1"
+                                    IsVisible="False"
                                     Margin="6,-3,7,6"
-                                    IsVisible="False">
+                                    Name="PART_YearView">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -142,11 +142,11 @@
                         </Border>
                     </Border>
                     <Border
-                        Name="DisabledVisual"
-                        Margin="{TemplateBinding Padding}"
                         Background="{DynamicResource GhostColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         IsVisible="False"
+                        Margin="{TemplateBinding Padding}"
+                        Name="DisabledVisual"
                         Opacity="0.50" />
                 </Panel>
             </ControlTemplate>
@@ -160,8 +160,8 @@
             <Style Selector="^ /template/ Border#RootBorder">
                 <Setter Property="Transitions">
                     <Transitions>
-                        <BrushTransition Property="Background" Duration="0:0:0.2" />
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.2" />
+                        <BrushTransition Duration="0:0:0.2" Property="Background" />
+                        <BrushTransition Duration="0:0:0.2" Property="BorderBrush" />
                     </Transitions>
                 </Setter>
             </Style>
@@ -169,7 +169,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
                 <Setter Property="Transitions">
                     <Transitions>
-                        <BrushTransition Property="Foreground" Duration="0:0:0.3" />
+                        <BrushTransition Duration="0:0:0.3" Property="Foreground" />
                     </Transitions>
                 </Setter>
             </Style>
@@ -177,7 +177,7 @@
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
                 <Setter Property="Transitions">
                     <Transitions>
-                        <BrushTransition Property="Foreground" Duration="0:0:0.3" />
+                        <BrushTransition Duration="0:0:0.3" Property="Foreground" />
                     </Transitions>
                 </Setter>
             </Style>
@@ -200,11 +200,11 @@
         <Setter Property="DayTitleTemplate">
             <Template x:DataType="x:String">
                 <TextBlock
-                    Margin="0,4,0,4"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
                     Classes="Caption Muted"
-                    Text="{CompiledBinding}" />
+                    HorizontalAlignment="Center"
+                    Margin="0,4,0,4"
+                    Text="{CompiledBinding}"
+                    VerticalAlignment="Center" />
             </Template>
         </Setter>
 

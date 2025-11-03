@@ -1,15 +1,15 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Width="400" Padding="8">
+        <Border Padding="8" Width="400">
             <StackPanel Spacing="8">
                 <TabControl>
                     <TabItem Header="Preview">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource LgCornerRadius}">
+                            CornerRadius="{DynamicResource LgCornerRadius}"
+                            Height="100"
+                            Padding="12">
                             <TextBlock
                                 FontSize="20"
                                 Foreground="Black"
@@ -18,22 +18,22 @@
                     </TabItem>
                     <TabItem Header="Code">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource LgCornerRadius}" />
+                            CornerRadius="{DynamicResource LgCornerRadius}"
+                            Height="100"
+                            Padding="12" />
                     </TabItem>
                     <TabItem Header="Disabled" IsEnabled="False" />
                 </TabControl>
                 <TabControl>
                     <TabItem Header="Preview">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource LgCornerRadius}">
+                            CornerRadius="{DynamicResource LgCornerRadius}"
+                            Height="100"
+                            Padding="12">
                             <TextBlock
                                 FontSize="20"
                                 Foreground="Black"
@@ -42,11 +42,11 @@
                     </TabItem>
                     <TabItem Header="Code">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource LgCornerRadius}" />
+                            CornerRadius="{DynamicResource LgCornerRadius}"
+                            Height="100"
+                            Padding="12" />
                     </TabItem>
                     <TabItem Header="Disabled" IsEnabled="False" />
                 </TabControl>
@@ -54,7 +54,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="TabControlTheme" TargetType="TabControl">
+    <ControlTheme TargetType="TabControl" x:Key="TabControlTheme">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="Background" Value="{DynamicResource BackgroundColor}" />
         <Setter Property="ItemsPanel">
@@ -67,32 +67,32 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}">
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}">
                     <StackPanel Spacing="8">
                         <LayoutTransformControl
-                            Name="LayoutTransform"
+                            DockPanel.Dock="{TemplateBinding TabStripPlacement}"
                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                            DockPanel.Dock="{TemplateBinding TabStripPlacement}">
+                            Name="LayoutTransform">
                             <Border
-                                Padding="2,4,2,0"
-                                HorizontalAlignment="Left"
                                 Background="{DynamicResource TabItemsBackgroundColor}"
-                                CornerRadius="{DynamicResource LgCornerRadius}">
-                                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                CornerRadius="{DynamicResource LgCornerRadius}"
+                                HorizontalAlignment="Left"
+                                Padding="2,4,2,0">
+                                <ItemsPresenter ItemsPanel="{TemplateBinding ItemsPanel}" Name="PART_ItemsPresenter" />
                             </Border>
                         </LayoutTransformControl>
                         <ContentPresenter
-                            Name="PART_SelectedContentHost"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding SelectedContent}"
-                            ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Margin="{TemplateBinding Padding}"
+                            Name="PART_SelectedContentHost"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </StackPanel>
                 </Border>
             </ControlTemplate>
@@ -131,7 +131,7 @@
     </ControlTheme>
 
     <ControlTheme
-        x:Key="{x:Type TabControl}"
         BasedOn="{StaticResource TabControlTheme}"
-        TargetType="TabControl" />
+        TargetType="TabControl"
+        x:Key="{x:Type TabControl}" />
 </ResourceDictionary>

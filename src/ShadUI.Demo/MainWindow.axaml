@@ -1,50 +1,53 @@
 ﻿<shadui:Window
+    Height="768"
+    Icon="/Assets/favicon.ico"
+    SaveWindowState="True"
+    Title="ShadUI App"
+    TitleFontWeight="SemiBold"
+    Width="1024"
+    WindowStartupLocation="CenterScreen"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.MainWindow"
+    x:DataType="demo:MainWindowViewModel"
+    x:Name="Window"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:ShadUI.Demo.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:demo="clr-namespace:ShadUI.Demo"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
-    x:Name="Window"
-    Title="ShadUI App"
-    Width="1024"
-    Height="768"
-    d:DesignWidth="800"
-    x:DataType="demo:MainWindowViewModel"
-    Icon="/Assets/favicon.ico"
-    SaveWindowState="True"
-    TitleFontWeight="SemiBold"
-    WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <shadui:Window.LogoContent>
         <PathIcon
-            Width="14"
+            Data="{x:Static shadui:Icons.Logo}"
             Height="14"
             Margin="8,8,0,8"
-            Data="{x:Static shadui:Icons.Logo}" />
+            Width="14" />
     </shadui:Window.LogoContent>
     <shadui:Window.Hosts>
-        <shadui:DialogHost x:Name="PART_DialogHost" Manager="{Binding DialogManager}" Owner="{Binding RelativeSource={RelativeSource AncestorType=shadui:Window}}" />
+        <shadui:DialogHost
+            Manager="{Binding DialogManager}"
+            Owner="{Binding RelativeSource={RelativeSource AncestorType=shadui:Window}}"
+            x:Name="PART_DialogHost" />
     </shadui:Window.Hosts>
     <shadui:Window.RightWindowTitleBarContent>
         <StackPanel Orientation="Horizontal" Spacing="8">
             <Button
-                Width="30"
-                Height="30"
                 Background="{DynamicResource SidebarBackgroundColor}"
                 Command="{Binding SwitchThemeCommand}"
                 CornerRadius="{DynamicResource MdCornerRadius}"
-                ToolTip.Tip="Switch Theme">
+                Height="30"
+                ToolTip.Tip="Switch Theme"
+                Width="30">
                 <TextBlock Classes="LucideIcon" Text="{Binding CurrentTheme, Converter={x:Static converters:ThemeModeConverters.ToLucideIcon}}" />
             </Button>
             <Button
-                x:Name="FullscreenButton"
-                Width="30"
-                Height="30"
                 Background="{DynamicResource SidebarBackgroundColor}"
-                CornerRadius="{DynamicResource MdCornerRadius}">
+                CornerRadius="{DynamicResource MdCornerRadius}"
+                Height="30"
+                Width="30"
+                x:Name="FullscreenButton">
                 <Panel>
                     <TextBlock
                         Classes="LucideIcon"
@@ -61,26 +64,26 @@
     <Panel>
         <Grid ColumnDefinitions="Auto *">
             <shadui:Sidebar
-                Grid.Column="0"
-                Width="220"
-                MinWidth="60"
-                Padding="{Binding #Toggler.IsChecked, Converter={x:Static converters:BooleanConverters.SidebarPadding}}"
                 BorderBrush="{DynamicResource BorderColor30}"
                 BorderThickness="0,0,1,0"
                 CurrentRoute="{Binding CurrentRoute}"
-                Expanded="{Binding #Toggler.IsChecked}">
+                Expanded="{Binding #Toggler.IsChecked}"
+                Grid.Column="0"
+                MinWidth="60"
+                Padding="{Binding #Toggler.IsChecked, Converter={x:Static converters:BooleanConverters.SidebarPadding}}"
+                Width="220">
                 <shadui:Sidebar.ExpandEasing>
                     <shadui:EaseInOutBack BounceIntensity="Strong" />
                 </shadui:Sidebar.ExpandEasing>
                 <shadui:Sidebar.Header>
                     <ToggleButton
-                        Name="Toggler"
-                        Width="32"
-                        Height="32"
-                        Padding="8"
-                        HorizontalAlignment="{Binding #Toggler.IsChecked, Converter={x:Static converters:BooleanConverters.SidebarTogglerHorizontalAlignment}}"
                         CornerRadius="{DynamicResource LgCornerRadius}"
-                        Theme="{DynamicResource SideTogglerTheme}">
+                        Height="32"
+                        HorizontalAlignment="{Binding #Toggler.IsChecked, Converter={x:Static converters:BooleanConverters.SidebarTogglerHorizontalAlignment}}"
+                        Name="Toggler"
+                        Padding="8"
+                        Theme="{DynamicResource SideTogglerTheme}"
+                        Width="32">
                         <Viewbox>
                             <TextBlock Classes="LucideIcon" Text="&#57646;" />
                         </Viewbox>
@@ -132,8 +135,8 @@
                         </shadui:SidebarItem.Icon>
                     </shadui:SidebarItem>
                     <shadui:SidebarItemLabel
-                        Margin="8,20,8,8"
                         AsSeparator="True"
+                        Margin="8,20,8,8"
                         Text="Components" />
                     <shadui:SidebarItem
                         Command="{Binding OpenAvatarCommand}"
@@ -447,13 +450,13 @@
                 <shadui:Sidebar.Footer>
                     <Menu Classes="Single">
                         <MenuItem
-                            Padding="8,0"
+                            Classes="NoPressedAnimation"
+                            CornerRadius="{DynamicResource LgCornerRadius}"
                             HorizontalAlignment="Stretch"
+                            Padding="8,0"
                             shadui:MenuItemAssist.PopupHorizontalOffset="4"
                             shadui:MenuItemAssist.PopupPlacement="RightEdgeAlignedBottom"
-                            shadui:MenuItemAssist.PopupVerticalOffset="4"
-                            Classes="NoPressedAnimation"
-                            CornerRadius="{DynamicResource LgCornerRadius}">
+                            shadui:MenuItemAssist.PopupVerticalOffset="4">
                             <MenuItem.Header>
                                 <Panel>
                                     <shadui:Avatar
@@ -464,32 +467,32 @@
                                         Source="../../Assets/user.png">
                                         <shadui:Avatar.Transitions>
                                             <Transitions>
-                                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                             </Transitions>
                                         </shadui:Avatar.Transitions>
                                     </shadui:Avatar>
                                     <Grid
-                                        Margin="0,8"
                                         ColumnDefinitions="Auto * Auto"
-                                        IsVisible="{Binding $parent[shadui:Sidebar].Expanded}">
+                                        IsVisible="{Binding $parent[shadui:Sidebar].Expanded}"
+                                        Margin="0,8">
                                         <shadui:Avatar
-                                            Width="36"
-                                            Height="36"
-                                            Margin="0,0,8,0"
                                             CornerRadius="{DynamicResource XlCornerRadius}"
                                             Fallback="CN"
-                                            Source="../../Assets/user.png" />
+                                            Height="36"
+                                            Margin="0,0,8,0"
+                                            Source="../../Assets/user.png"
+                                            Width="36" />
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                             <TextBlock Classes="Small" Text="shadui" />
                                             <TextBlock
-                                                Margin="0,-4,0,0"
                                                 Classes="Caption"
+                                                Margin="0,-4,0,0"
                                                 Text="m@example.com" />
                                         </StackPanel>
                                         <Viewbox
                                             Grid.Column="2"
-                                            Width="16"
-                                            Height="16">
+                                            Height="16"
+                                            Width="16">
                                             <TextBlock
                                                 Classes="LucideIcon"
                                                 Foreground="{DynamicResource ForegroundColor}"
@@ -500,21 +503,21 @@
                             </MenuItem.Header>
                             <shadui:MenuItemAssist.Label>
                                 <Grid
-                                    Width="220"
+                                    ColumnDefinitions="Auto *"
                                     HorizontalAlignment="Stretch"
-                                    ColumnDefinitions="Auto *">
+                                    Width="220">
                                     <shadui:Avatar
-                                        Width="36"
-                                        Height="36"
-                                        Margin="0,0,8,0"
                                         CornerRadius="{DynamicResource XlCornerRadius}"
                                         Fallback="CN"
-                                        Source="../../Assets/user.png" />
+                                        Height="36"
+                                        Margin="0,0,8,0"
+                                        Source="../../Assets/user.png"
+                                        Width="36" />
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock Classes="Small" Text="shadui" />
                                         <TextBlock
-                                            Margin="0,-4,0,0"
                                             Classes="Caption"
+                                            Margin="0,-4,0,0"
                                             Text="m@example.com" />
                                     </StackPanel>
                                 </Grid>
@@ -522,7 +525,7 @@
                             <Separator />
                             <MenuItem Command="{Binding ShowAboutCommand}" Header="About">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -535,7 +538,7 @@
                                 CommandParameter="https://github.com/accntech/shad-ui?tab=readme-ov-file#readme"
                                 Header="Readme">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -548,7 +551,7 @@
                                 CommandParameter="https://github.com/accntech/shad-ui"
                                 Header="Source repository">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -562,7 +565,7 @@
                                 CommandParameter="https://github.com/accntech/shad-ui?tab=MIT-1-ov-file#readme"
                                 Header="MIT License">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -575,7 +578,7 @@
                                 CommandParameter="https://github.com/accntech/shad-ui?tab=coc-ov-file#readme"
                                 Header="Code of Conduct">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -588,7 +591,7 @@
                                 CommandParameter="https://github.com/accntech/shad-ui?tab=security-ov-file"
                                 Header="Security">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -601,7 +604,7 @@
                                 CommandParameter="https://github.com/accntech/shad-ui/activity"
                                 Header="Activity">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -612,7 +615,7 @@
                             <Separator />
                             <MenuItem Command="{Binding TryCloseCommand}" Header="Close application">
                                 <MenuItem.Icon>
-                                    <Viewbox Width="16" Height="16">
+                                    <Viewbox Height="16" Width="16">
                                         <TextBlock
                                             Classes="LucideIcon"
                                             Foreground="{DynamicResource MutedColor}"
@@ -624,7 +627,7 @@
                     </Menu>
                 </shadui:Sidebar.Footer>
             </shadui:Sidebar>
-            <TransitioningContentControl Grid.Column="1" Content="{Binding SelectedPage}" />
+            <TransitioningContentControl Content="{Binding SelectedPage}" Grid.Column="1" />
         </Grid>
         <shadui:ToastHost Manager="{Binding ToastManager}" />
     </Panel>

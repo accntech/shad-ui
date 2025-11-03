@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
-    <ControlTheme x:Key="{x:Type shadui:BreakpointView}" TargetType="shadui:BreakpointView">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="shadui:BreakpointView" x:Key="{x:Type shadui:BreakpointView}">
         <Setter Property="IsVisible">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static shadui:WidthToVisibilityConverter.Instance}">

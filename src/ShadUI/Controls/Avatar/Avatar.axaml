@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <shadui:Avatar Fallback="SH" />
     </Design.PreviewWith>
-    <ControlTheme x:Key="{x:Type shadui:Avatar}" TargetType="{x:Type shadui:Avatar}">
+    <ControlTheme TargetType="{x:Type shadui:Avatar}" x:Key="{x:Type shadui:Avatar}">
         <Setter Property="Width" Value="40" />
         <Setter Property="Height" Value="40" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
@@ -17,18 +17,18 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Border
-                        Width="{TemplateBinding Width}"
-                        Height="{TemplateBinding Width}"
                         ClipToBounds="True"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Height="{TemplateBinding Width}"
+                        Width="{TemplateBinding Width}">
                         <Panel Background="{TemplateBinding Background}">
                             <Image Source="{TemplateBinding Source}" />
                             <TextBlock
-                                VerticalAlignment="Center"
                                 IsVisible="{TemplateBinding Source,
                                                             Converter={x:Static ObjectConverters.IsNull}}"
                                 Text="{TemplateBinding Fallback}"
-                                TextAlignment="Center" />
+                                TextAlignment="Center"
+                                VerticalAlignment="Center" />
                         </Panel>
                     </Border>
                 </ControlTemplate>

@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
-    <ControlTheme x:Key="{x:Type shadui:SidebarItemLabel}" TargetType="{x:Type shadui:SidebarItemLabel}">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="{x:Type shadui:SidebarItemLabel}" x:Key="{x:Type shadui:SidebarItemLabel}">
         <Setter Property="Margin" Value="8" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Foreground" Value="{DynamicResource MutedColor}" />
@@ -13,14 +13,14 @@
             <ControlTemplate>
                 <Panel>
                     <TextBlock
-                        Name="Text"
-                        Margin="8,0"
                         FontFamily="{TemplateBinding FontFamily}"
                         FontSize="{TemplateBinding FontSize}"
                         FontWeight="{TemplateBinding FontWeight}"
                         Foreground="{TemplateBinding Foreground}"
+                        Margin="8,0"
+                        Name="Text"
                         Text="{TemplateBinding Text}" />
-                    <Separator Name="Separator" Background="{TemplateBinding Background}" />
+                    <Separator Background="{TemplateBinding Background}" Name="Separator" />
                 </Panel>
             </ControlTemplate>
         </Setter>

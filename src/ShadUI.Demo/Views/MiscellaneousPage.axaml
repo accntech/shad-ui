@@ -1,33 +1,33 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.MiscellaneousPage"
+    x:DataType="viewModels:MiscellaneousViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="viewModels:MiscellaneousViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel LastChildFill="True">
         <StackPanel
-            MaxWidth="{StaticResource PageMaxWidth}"
+            DockPanel.Dock="Top"
             Margin="{StaticResource PageMargin}"
-            DockPanel.Dock="Top">
+            MaxWidth="{StaticResource PageMaxWidth}">
             <Grid ColumnDefinitions="* Auto">
                 <TextBlock
-                    Grid.Column="0"
                     Classes="h2"
+                    Grid.Column="0"
                     Text="Miscellaneous" />
                 <Button
-                    Grid.Column="1"
-                    Width="28"
-                    Height="28"
                     Background="{DynamicResource GhostHoverColor}"
                     Classes="Icon"
-                    Command="{Binding BackPageCommand}">
+                    Command="{Binding BackPageCommand}"
+                    Grid.Column="1"
+                    Height="28"
+                    Width="28">
                     <Viewbox Margin="6">
                         <TextBlock Classes="LucideIcon" Text="&#57420;" />
                     </Viewbox>
@@ -40,21 +40,21 @@
         </StackPanel>
         <ScrollViewer>
             <StackPanel
-                MaxWidth="{StaticResource PageMaxWidth}"
                 Margin="{StaticResource PageMargin}"
+                MaxWidth="{StaticResource PageMaxWidth}"
                 Spacing="32">
                 <controls:ControlBlock Title="Busy Area" Xaml="{Binding BusyAreaCode}">
                     <Border
-                        Height="400"
                         BorderBrush="{DynamicResource BorderColor}"
                         BorderThickness="1"
-                        CornerRadius="{DynamicResource XlCornerRadius}">
+                        CornerRadius="{DynamicResource XlCornerRadius}"
+                        Height="400">
                         <Panel Margin="1">
                             <Button
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
                                 Classes="Outline"
-                                Command="{Binding ToggleBusyCommand}">
+                                Command="{Binding ToggleBusyCommand}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
                                 Load
                             </Button>
                             <shadui:BusyArea CornerRadius="{DynamicResource LgCornerRadius}" IsBusy="{Binding IsBusy}" />
@@ -62,30 +62,30 @@
                     </Border>
                 </controls:ControlBlock>
                 <controls:ControlBlock
-                    Title="ListBox"
                     CSharp="{Binding ListBox.CSharpCode}"
+                    Title="ListBox"
                     Xaml="{Binding ListBox.XamlCode}">
                     <ContentControl Content="{Binding ListBox}" />
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="Skeleton" Xaml="{Binding SkeletonCode}">
                     <StackPanel
-                        Margin="24"
                         HorizontalAlignment="Center"
+                        Margin="24"
                         Orientation="Horizontal"
                         Spacing="16">
                         <shadui:Skeleton
-                            Width="64"
+                            CornerRadius="{DynamicResource FullCornerRadius}"
                             Height="64"
-                            CornerRadius="{DynamicResource FullCornerRadius}" />
-                        <StackPanel VerticalAlignment="Center" Spacing="8">
+                            Width="64" />
+                        <StackPanel Spacing="8" VerticalAlignment="Center">
                             <shadui:Skeleton
-                                Width="255"
                                 Height="28"
-                                HorizontalAlignment="Left" />
+                                HorizontalAlignment="Left"
+                                Width="255" />
                             <shadui:Skeleton
-                                Width="200"
                                 Height="20"
-                                HorizontalAlignment="Left" />
+                                HorizontalAlignment="Left"
+                                Width="200" />
                         </StackPanel>
                     </StackPanel>
                 </controls:ControlBlock>

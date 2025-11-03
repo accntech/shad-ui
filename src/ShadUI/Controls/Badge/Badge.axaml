@@ -1,7 +1,7 @@
 <ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="16">
             <StackPanel Spacing="16">
@@ -62,36 +62,36 @@
                         <!--  Row 1  -->
                         <TextBlock
                             Grid.Column="0"
-                            VerticalAlignment="Center"
-                            Text="Status:" />
+                            Text="Status:"
+                            VerticalAlignment="Center" />
                         <shadui:Badge
-                            Grid.Row="0"
+                            Content="Online"
                             Grid.Column="2"
-                            Content="Online" />
+                            Grid.Row="0" />
 
                         <!--  Row 2  -->
                         <TextBlock
-                            Grid.Row="1"
                             Grid.Column="0"
-                            VerticalAlignment="Center"
-                            Text="Priority:" />
-                        <shadui:Badge
                             Grid.Row="1"
-                            Grid.Column="2"
+                            Text="Priority:"
+                            VerticalAlignment="Center" />
+                        <shadui:Badge
                             Classes="Destructive"
-                            Content="High" />
+                            Content="High"
+                            Grid.Column="2"
+                            Grid.Row="1" />
 
                         <!--  Row 3  -->
                         <TextBlock
-                            Grid.Row="2"
                             Grid.Column="0"
-                            VerticalAlignment="Center"
-                            Text="Version:" />
-                        <shadui:Badge
                             Grid.Row="2"
-                            Grid.Column="2"
+                            Text="Version:"
+                            VerticalAlignment="Center" />
+                        <shadui:Badge
                             Classes="Outline"
-                            Content="v2.1.0" />
+                            Content="v2.1.0"
+                            Grid.Column="2"
+                            Grid.Row="2" />
                     </Grid>
                 </StackPanel>
 
@@ -121,7 +121,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="BadgeControlTheme" TargetType="{x:Type shadui:Badge}">
+    <ControlTheme TargetType="{x:Type shadui:Badge}" x:Key="BadgeControlTheme">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Padding" Value="6,2" />
@@ -133,20 +133,20 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    Name="Container"
-                    Padding="{TemplateBinding Padding}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}">
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Name="Container"
+                    Padding="{TemplateBinding Padding}">
                     <ContentPresenter
-                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                         Content="{TemplateBinding Content}"
                         FontSize="{TemplateBinding FontSize}"
                         FontWeight="{TemplateBinding FontWeight}"
                         Foreground="{TemplateBinding Foreground}"
-                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        TextElement.Foreground="{TemplateBinding Foreground}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                 </Border>
             </ControlTemplate>
         </Setter>
@@ -183,7 +183,7 @@
     </ControlTheme>
 
     <ControlTheme
-        x:Key="{x:Type shadui:Badge}"
         BasedOn="{StaticResource BadgeControlTheme}"
-        TargetType="{x:Type shadui:Badge}" />
+        TargetType="{x:Type shadui:Badge}"
+        x:Key="{x:Type shadui:Badge}" />
 </ResourceDictionary>

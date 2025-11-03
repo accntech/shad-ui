@@ -1,20 +1,20 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.ComboBoxPage"
+    x:DataType="viewModels:ComboBoxViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="viewModels:ComboBoxViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel LastChildFill="True">
         <StackPanel
-            MaxWidth="{StaticResource PageMaxWidth}"
-            Margin="{StaticResource PageMargin}"
             DockPanel.Dock="Top"
+            Margin="{StaticResource PageMargin}"
+            MaxWidth="{StaticResource PageMaxWidth}"
             Spacing="4">
             <Grid ColumnDefinitions="* Auto">
                 <TextBlock Classes="h2" Text="ComboBox" />
@@ -23,21 +23,21 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding BackPageCommand}">
+                        Command="{Binding BackPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57420;" />
                         </Viewbox>
                     </Button>
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding NextPageCommand}">
+                        Command="{Binding NextPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57421;" />
                         </Viewbox>
@@ -51,12 +51,12 @@
         </StackPanel>
         <ScrollViewer>
             <StackPanel
-                MaxWidth="{StaticResource PageMaxWidth}"
                 Margin="{StaticResource PageMargin}"
+                MaxWidth="{StaticResource PageMaxWidth}"
                 Spacing="32">
                 <controls:ControlBlock Title="Select" Xaml="{Binding SelectComboBoxCode}">
                     <StackPanel Spacing="8">
-                        <ComboBox Width="255" SelectedIndex="0">
+                        <ComboBox SelectedIndex="0" Width="255">
                             <ComboBoxItem>Angular</ComboBoxItem>
                             <ComboBoxItem>Astro</ComboBoxItem>
                             <ComboBoxItem>Lit</ComboBoxItem>
@@ -75,13 +75,13 @@
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="Disabled" Xaml="{Binding SelectComboBoxDisabledCode}">
                     <ComboBox
-                        Width="255"
                         IsEnabled="False"
-                        PlaceholderText="Select a framework" />
+                        PlaceholderText="Select a framework"
+                        Width="255" />
                 </controls:ControlBlock>
                 <controls:ControlBlock
-                    Title="Form Validation"
                     CSharp="{Binding Form.CSharpCode}"
+                    Title="Form Validation"
                     Xaml="{Binding Form.XamlCode}">
                     <ContentControl Content="{Binding Form}" />
                 </controls:ControlBlock>

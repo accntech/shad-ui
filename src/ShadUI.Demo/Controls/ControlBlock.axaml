@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
-    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <StackPanel Spacing="32">
             <controls:ControlBlock Title="Basic Tab">
@@ -28,7 +28,7 @@
             </controls:ControlBlock>
         </StackPanel>
     </Design.PreviewWith>
-    <ControlTheme x:Key="TabItemTheme" TargetType="TabItem">
+    <ControlTheme TargetType="TabItem" x:Key="TabItemTheme">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundLeadColor}" />
@@ -38,41 +38,41 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    Name="PART_LayoutRoot"
-                    Padding="{TemplateBinding Padding}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}">
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Name="PART_LayoutRoot"
+                    Padding="{TemplateBinding Padding}">
                     <StackPanel>
                         <ContentPresenter
-                            Name="PART_HeaderPresenter"
-                            Padding="16,8"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            HorizontalContentAlignment="Center"
                             Content="{TemplateBinding Header}"
                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                             Foreground="{TemplateBinding Foreground}"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            Name="PART_HeaderPresenter"
+                            Padding="16,8"
                             TextBlock.FontSize="{TemplateBinding FontSize}"
                             TextBlock.FontWeight="{TemplateBinding FontWeight}"
-                            TextBlock.Foreground="{TemplateBinding Foreground}">
+                            TextBlock.Foreground="{TemplateBinding Foreground}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <ContentPresenter.Transitions>
                                 <Transitions>
-                                    <BrushTransition Property="Foreground" Duration="0:0:0.1" />
+                                    <BrushTransition Duration="0:0:0.1" Property="Foreground" />
                                 </Transitions>
                             </ContentPresenter.Transitions>
                         </ContentPresenter>
                         <Border
-                            Name="PART_Underline"
-                            Height="2"
-                            Margin="16,0"
                             Background="{DynamicResource PrimaryColor}"
                             CornerRadius="{DynamicResource FullCornerRadius}"
+                            Height="2"
+                            Margin="16,0"
+                            Name="PART_Underline"
                             Opacity="0">
                             <Border.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                    <DoubleTransition Duration="0:0:0.3" Property="Opacity" />
                                 </Transitions>
                             </Border.Transitions>
                         </Border>
@@ -108,7 +108,7 @@
             </Style>
         </Style>
     </ControlTheme>
-    <ControlTheme x:Key="TabControlTheme" TargetType="TabControl">
+    <ControlTheme TargetType="TabControl" x:Key="TabControlTheme">
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0,16" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
@@ -116,23 +116,23 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}">
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}">
                     <DockPanel>
-                        <LayoutTransformControl Name="PART_LayoutTransform" DockPanel.Dock="{TemplateBinding TabStripPlacement}">
-                            <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                        <LayoutTransformControl DockPanel.Dock="{TemplateBinding TabStripPlacement}" Name="PART_LayoutTransform">
+                            <ItemsPresenter ItemsPanel="{TemplateBinding ItemsPanel}" Name="PART_ItemsPresenter" />
                         </LayoutTransformControl>
                         <ContentPresenter
-                            Name="PART_SelectedContentHost"
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding SelectedContent}"
-                            ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                            ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Margin="{TemplateBinding Padding}"
+                            Name="PART_SelectedContentHost"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </DockPanel>
                 </Border>
             </ControlTemplate>
@@ -169,20 +169,20 @@
             </Style>
         </Style>
     </ControlTheme>
-    <ControlTheme x:Key="{x:Type controls:ControlBlock}" TargetType="controls:ControlBlock">
+    <ControlTheme TargetType="controls:ControlBlock" x:Key="{x:Type controls:ControlBlock}">
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel Spacing="16">
                     <StackPanel IsVisible="{TemplateBinding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                         <TextBlock
-                            Margin="16,0,0,0"
                             Classes="h4"
+                            Margin="16,0,0,0"
                             Text="{TemplateBinding Title}" />
                     </StackPanel>
                     <TabControl Theme="{StaticResource TabControlTheme}">
                         <TabControl.Items>
                             <TabItem Header="Preview" Theme="{StaticResource TabItemTheme}">
-                                <shadui:Card Padding="48" Background="{DynamicResource WindowBackgroundColor}">
+                                <shadui:Card Background="{DynamicResource WindowBackgroundColor}" Padding="48">
                                     <ContentPresenter Content="{TemplateBinding Content}" />
                                 </shadui:Card>
                             </TabItem>

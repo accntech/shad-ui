@@ -1,47 +1,47 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <shadui:BusyArea
-            Width="140"
             Height="300"
-            IsBusy="True">
+            IsBusy="True"
+            Width="140">
             Busy...
         </shadui:BusyArea>
     </Design.PreviewWith>
-    <ControlTheme x:Key="{x:Type shadui:BusyArea}" TargetType="shadui:BusyArea">
+    <ControlTheme TargetType="shadui:BusyArea" x:Key="{x:Type shadui:BusyArea}">
         <Setter Property="LoadingSize" Value="32" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
                     <Border
-                        Name="AreaBackground"
-                        Width="{TemplateBinding Width}"
-                        Height="{TemplateBinding Height}"
                         Background="{DynamicResource BusyAreaOverlayColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
-                        Opacity="0">
+                        Height="{TemplateBinding Height}"
+                        Name="AreaBackground"
+                        Opacity="0"
+                        Width="{TemplateBinding Width}">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.4" />
+                                <DoubleTransition Duration="0:0:0.4" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <StackPanel
-                        Name="Content"
                         HorizontalAlignment="Center"
+                        Name="Content"
                         VerticalAlignment="Center">
                         <StackPanel.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.4" />
+                                <DoubleTransition Duration="0:0:0.4" Property="Opacity" />
                             </Transitions>
                         </StackPanel.Transitions>
-                        <Viewbox Width="{TemplateBinding LoadingSize}" Height="{TemplateBinding LoadingSize}">
+                        <Viewbox Height="{TemplateBinding LoadingSize}" Width="{TemplateBinding LoadingSize}">
                             <ContentPresenter Content="{TemplateBinding IsBusy, Converter={x:Static shadui:BooleanConverters.ToLoading}}" />
                         </Viewbox>
-                        <ContentPresenter HorizontalContentAlignment="Center" Content="{TemplateBinding Content}" />
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalContentAlignment="Center" />
                     </StackPanel>
                     <Panel.Styles>
                         <Style Selector="shadui|BusyArea[IsBusy=True]">

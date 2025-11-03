@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border Padding="24">
-            <shadui:Card VerticalAlignment="Center" HasShadow="True">
+            <shadui:Card HasShadow="True" VerticalAlignment="Center">
                 <shadui:Card.Header>
                     <StackPanel>
                         <shadui:CardTitle>Create project</shadui:CardTitle>
@@ -12,11 +12,11 @@
                     </StackPanel>
                 </shadui:Card.Header>
                 <StackPanel Spacing="16">
-                    <TextBox shadui:ControlAssist.Label="Name" Watermark="Name of your project" />
+                    <TextBox Watermark="Name of your project" shadui:ControlAssist.Label="Name" />
                     <ComboBox
+                        SelectedIndex="0"
                         Width="300"
-                        shadui:ControlAssist.Label="Framework"
-                        SelectedIndex="0">
+                        shadui:ControlAssist.Label="Framework">
                         <ComboBox.Items>
                             <ComboBoxItem>Next.js</ComboBoxItem>
                             <ComboBoxItem>React</ComboBoxItem>
@@ -28,15 +28,15 @@
                 <shadui:Card.Footer>
                     <DockPanel>
                         <Button
-                            Margin="0,20,0,0"
+                            Classes="Outline"
                             HorizontalAlignment="Left"
-                            Classes="Outline">
+                            Margin="0,20,0,0">
                             Cancel
                         </Button>
                         <Button
-                            Margin="0,20,0,0"
+                            Classes="Primary"
                             HorizontalAlignment="Right"
-                            Classes="Primary">
+                            Margin="0,20,0,0">
                             Deploy
                         </Button>
                     </DockPanel>
@@ -45,7 +45,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="CardControlTheme" TargetType="{x:Type shadui:Card}">
+    <ControlTheme TargetType="{x:Type shadui:Card}" x:Key="CardControlTheme">
         <Setter Property="Padding" Value="24" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
@@ -55,23 +55,23 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Border
-                        Name="OuterBorder"
-                        Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
-                        Margin="{TemplateBinding Margin}">
+                        Margin="{TemplateBinding Margin}"
+                        Name="OuterBorder"
+                        Width="{TemplateBinding Width}">
                         <Border
-                            Name="Container"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="{TemplateBinding CornerRadius}">
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Name="Container">
                             <Grid Margin="{TemplateBinding Padding}" RowDefinitions="Auto * Auto">
                                 <ContentPresenter
-                                    Grid.Row="0"
-                                    Margin="0,0,0,24"
                                     Content="{TemplateBinding Header}"
+                                    Grid.Row="0"
                                     IsVisible="{TemplateBinding Header,
-                                                                Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                                                Converter={x:Static ObjectConverters.IsNotNull}}"
+                                    Margin="0,0,0,24" />
                                 <ScrollViewer
                                     Grid.Row="1"
                                     HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
@@ -79,11 +79,11 @@
                                     <ContentPresenter Content="{TemplateBinding Content}" />
                                 </ScrollViewer>
                                 <ContentPresenter
-                                    Grid.Row="2"
-                                    Margin="0,24,0,0"
                                     Content="{TemplateBinding Footer}"
+                                    Grid.Row="2"
                                     IsVisible="{TemplateBinding Footer,
-                                                                Converter={x:Static ObjectConverters.IsNotNull}}" />
+                                                                Converter={x:Static ObjectConverters.IsNotNull}}"
+                                    Margin="0,24,0,0" />
                             </Grid>
                         </Border>
                     </Border>
@@ -100,7 +100,7 @@
         </Style>
     </ControlTheme>
     <ControlTheme
-        x:Key="{x:Type shadui:Card}"
         BasedOn="{StaticResource CardControlTheme}"
-        TargetType="{x:Type shadui:Card}" />
+        TargetType="{x:Type shadui:Card}"
+        x:Key="{x:Type shadui:Card}" />
 </ResourceDictionary>

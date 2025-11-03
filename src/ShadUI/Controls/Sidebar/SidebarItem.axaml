@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
-    xmlns:system="clr-namespace:System;assembly=netstandard">
-    <ControlTheme x:Key="{x:Type shadui:SidebarItem}" TargetType="{x:Type shadui:SidebarItem}">
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="{x:Type shadui:SidebarItem}" x:Key="{x:Type shadui:SidebarItem}">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="SharedSizeGroup" Value="{Binding $parent[shadui:Sidebar].DefaultItemsSharedSizeGroup}" />
@@ -22,64 +22,64 @@
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel Name="RootPanel" Background="Transparent">
+                <Panel Background="Transparent" Name="RootPanel">
                     <Panel.Transitions>
                         <Transitions>
-                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                            <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                         </Transitions>
                     </Panel.Transitions>
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="HoverBackground"
                         Background="{DynamicResource GhostHoverColor}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="SelectedBackground"
                         Background="{DynamicResource GhostColor}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="SelectedBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="PART_BorderContainer"
-                        Padding="{TemplateBinding Padding}"
                         ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="PART_BorderContainer"
+                        Padding="{TemplateBinding Padding}"
                         TextElement.Foreground="{TemplateBinding Foreground}">
                         <Grid Name="Grid">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" SharedSizeGroup="{TemplateBinding SharedSizeGroup}" />
+                                <ColumnDefinition SharedSizeGroup="{TemplateBinding SharedSizeGroup}" Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <ContentControl Grid.Column="0" Content="{TemplateBinding Icon}" />
+                            <ContentControl Content="{TemplateBinding Icon}" Grid.Column="0" />
                             <Panel Grid.Column="1" Width="{TemplateBinding Spacing}">
                                 <Panel.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.And}">
@@ -89,17 +89,17 @@
                                 </Panel.IsVisible>
                             </Panel>
                             <ContentPresenter
-                                Name="PART_ContentPresenter"
+                                Content="{TemplateBinding Content}"
                                 Grid.Column="2"
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Content="{TemplateBinding Content}"
+                                Name="PART_ContentPresenter"
                                 RecognizesAccessKey="True"
                                 TextBlock.FontSize="{TemplateBinding FontSize}"
                                 TextBlock.FontWeight="{TemplateBinding FontWeight}"
                                 TextBlock.MaxLines="{TemplateBinding TextBlock.MaxLines}"
                                 TextBlock.TextTrimming="{TemplateBinding TextBlock.TextTrimming}"
-                                TextBlock.TextWrapping="{TemplateBinding TextBlock.TextWrapping}">
+                                TextBlock.TextWrapping="{TemplateBinding TextBlock.TextWrapping}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                                 <ContentPresenter.DataTemplates>
                                     <DataTemplate DataType="system:String">
                                         <TextBlock Text="{CompiledBinding}" />

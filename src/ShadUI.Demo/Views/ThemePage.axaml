@@ -1,20 +1,20 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.ThemePage"
+    x:DataType="viewModels:ThemeViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="viewModels:ThemeViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel LastChildFill="True">
         <StackPanel
-            MaxWidth="{StaticResource PageMaxWidth}"
-            Margin="{StaticResource PageMargin}"
             DockPanel.Dock="Top"
+            Margin="{StaticResource PageMargin}"
+            MaxWidth="{StaticResource PageMaxWidth}"
             Spacing="4">
             <Grid ColumnDefinitions="* Auto">
                 <TextBlock Classes="h2" Text="Theming" />
@@ -23,21 +23,21 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding BackPageCommand}">
+                        Command="{Binding BackPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57420;" />
                         </Viewbox>
                     </Button>
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding NextPageCommand}">
+                        Command="{Binding NextPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57421;" />
                         </Viewbox>
@@ -51,8 +51,8 @@
         </StackPanel>
         <ScrollViewer>
             <StackPanel
-                MaxWidth="{StaticResource PageMaxWidth}"
                 Margin="{StaticResource PageMargin}"
+                MaxWidth="{StaticResource PageMaxWidth}"
                 Spacing="32">
                 <StackPanel Spacing="16">
                     <TextBlock Classes="h4" Text="Basic Colors" />
@@ -60,39 +60,39 @@
                         <StackPanel Spacing="16">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+                                    <ColumnDefinition SharedSizeGroup="A" Width="Auto" />
+                                    <ColumnDefinition SharedSizeGroup="B" Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="0"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Color" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="1"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Hex Code" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="2"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Resource Name" />
                             </Grid>
                             <Separator />
-                            <controls:ThemeColor Title="ForegroundColor" Background="{DynamicResource ForegroundColor}" />
-                            <controls:ThemeColor Title="ForegroundLeadColor" Background="{DynamicResource ForegroundLeadColor}" />
-                            <controls:ThemeColor Title="BackgroundColor" Background="{DynamicResource BackgroundColor}" />
-                            <controls:ThemeColor Title="MutedColor" Background="{DynamicResource MutedColor}" />
-                            <controls:ThemeColor Title="BorderColor" Background="{DynamicResource BorderColor}" />
-                            <controls:ThemeColor Title="BorderColor60" Background="{DynamicResource BorderColor60}" />
-                            <controls:ThemeColor Title="BorderColor30" Background="{DynamicResource BorderColor30}" />
-                            <controls:ThemeColor Title="OutlineColor" Background="{DynamicResource OutlineColor}" />
-                            <controls:ThemeColor Title="GhostColor" Background="{DynamicResource GhostColor}" />
-                            <controls:ThemeColor Title="GhostHoverColor" Background="{DynamicResource GhostHoverColor}" />
-                            <controls:ThemeColor Title="GhostHoverColor50" Background="{DynamicResource GhostHoverColor50}" />
-                            <controls:ThemeColor Title="SelectionColor" Background="{DynamicResource SelectionColor}" />
+                            <controls:ThemeColor Background="{DynamicResource ForegroundColor}" Title="ForegroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource ForegroundLeadColor}" Title="ForegroundLeadColor" />
+                            <controls:ThemeColor Background="{DynamicResource BackgroundColor}" Title="BackgroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource MutedColor}" Title="MutedColor" />
+                            <controls:ThemeColor Background="{DynamicResource BorderColor}" Title="BorderColor" />
+                            <controls:ThemeColor Background="{DynamicResource BorderColor60}" Title="BorderColor60" />
+                            <controls:ThemeColor Background="{DynamicResource BorderColor30}" Title="BorderColor30" />
+                            <controls:ThemeColor Background="{DynamicResource OutlineColor}" Title="OutlineColor" />
+                            <controls:ThemeColor Background="{DynamicResource GhostColor}" Title="GhostColor" />
+                            <controls:ThemeColor Background="{DynamicResource GhostHoverColor}" Title="GhostHoverColor" />
+                            <controls:ThemeColor Background="{DynamicResource GhostHoverColor50}" Title="GhostHoverColor50" />
+                            <controls:ThemeColor Background="{DynamicResource SelectionColor}" Title="SelectionColor" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -102,40 +102,40 @@
                         <StackPanel Spacing="16">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+                                    <ColumnDefinition SharedSizeGroup="A" Width="Auto" />
+                                    <ColumnDefinition SharedSizeGroup="B" Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="0"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Color" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="1"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Hex Code" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="2"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Resource Name" />
                             </Grid>
                             <Separator />
-                            <controls:ThemeColor Title="PrimaryColor" Background="{DynamicResource PrimaryColor}" />
-                            <controls:ThemeColor Title="PrimaryColor75" Background="{DynamicResource PrimaryColor75}" />
-                            <controls:ThemeColor Title="PrimaryColor50" Background="{DynamicResource PrimaryColor50}" />
-                            <controls:ThemeColor Title="PrimaryColor10" Background="{DynamicResource PrimaryColor10}" />
-                            <controls:ThemeColor Title="PrimaryForegroundColor" Background="{DynamicResource PrimaryForegroundColor}" />
-                            <controls:ThemeColor Title="SecondaryColor" Background="{DynamicResource SecondaryColor}" />
-                            <controls:ThemeColor Title="SecondaryColor75" Background="{DynamicResource SecondaryColor75}" />
-                            <controls:ThemeColor Title="SecondaryColor50" Background="{DynamicResource SecondaryColor50}" />
-                            <controls:ThemeColor Title="SecondaryForegroundColor" Background="{DynamicResource SecondaryForegroundColor}" />
-                            <controls:ThemeColor Title="DestructiveColor" Background="{DynamicResource DestructiveColor}" />
-                            <controls:ThemeColor Title="DestructiveColor75" Background="{DynamicResource DestructiveColor75}" />
-                            <controls:ThemeColor Title="DestructiveColor50" Background="{DynamicResource DestructiveColor50}" />
-                            <controls:ThemeColor Title="DestructiveForegroundColor" Background="{DynamicResource DestructiveForegroundColor}" />
+                            <controls:ThemeColor Background="{DynamicResource PrimaryColor}" Title="PrimaryColor" />
+                            <controls:ThemeColor Background="{DynamicResource PrimaryColor75}" Title="PrimaryColor75" />
+                            <controls:ThemeColor Background="{DynamicResource PrimaryColor50}" Title="PrimaryColor50" />
+                            <controls:ThemeColor Background="{DynamicResource PrimaryColor10}" Title="PrimaryColor10" />
+                            <controls:ThemeColor Background="{DynamicResource PrimaryForegroundColor}" Title="PrimaryForegroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource SecondaryColor}" Title="SecondaryColor" />
+                            <controls:ThemeColor Background="{DynamicResource SecondaryColor75}" Title="SecondaryColor75" />
+                            <controls:ThemeColor Background="{DynamicResource SecondaryColor50}" Title="SecondaryColor50" />
+                            <controls:ThemeColor Background="{DynamicResource SecondaryForegroundColor}" Title="SecondaryForegroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource DestructiveColor}" Title="DestructiveColor" />
+                            <controls:ThemeColor Background="{DynamicResource DestructiveColor75}" Title="DestructiveColor75" />
+                            <controls:ThemeColor Background="{DynamicResource DestructiveColor50}" Title="DestructiveColor50" />
+                            <controls:ThemeColor Background="{DynamicResource DestructiveForegroundColor}" Title="DestructiveForegroundColor" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -145,47 +145,47 @@
                         <StackPanel Spacing="16">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+                                    <ColumnDefinition SharedSizeGroup="A" Width="Auto" />
+                                    <ColumnDefinition SharedSizeGroup="B" Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="0"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Color" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="1"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Hex Code" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="2"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Resource Name" />
                             </Grid>
                             <Separator />
-                            <controls:ThemeColor Title="InfoColor" Background="{DynamicResource InfoColor}" />
-                            <controls:ThemeColor Title="InfoColor60" Background="{DynamicResource InfoColor60}" />
-                            <controls:ThemeColor Title="InfoColor20" Background="{DynamicResource InfoColor20}" />
-                            <controls:ThemeColor Title="InfoColor10" Background="{DynamicResource InfoColor10}" />
-                            <controls:ThemeColor Title="InfoColor5" Background="{DynamicResource InfoColor5}" />
-                            <controls:ThemeColor Title="SuccessColor" Background="{DynamicResource SuccessColor}" />
-                            <controls:ThemeColor Title="SuccessColor60" Background="{DynamicResource SuccessColor60}" />
-                            <controls:ThemeColor Title="SuccessColor20" Background="{DynamicResource SuccessColor20}" />
-                            <controls:ThemeColor Title="SuccessColor10" Background="{DynamicResource SuccessColor10}" />
-                            <controls:ThemeColor Title="SuccessColor5" Background="{DynamicResource SuccessColor5}" />
-                            <controls:ThemeColor Title="WarningColor" Background="{DynamicResource WarningColor}" />
-                            <controls:ThemeColor Title="WarningColor60" Background="{DynamicResource WarningColor60}" />
-                            <controls:ThemeColor Title="WarningColor20" Background="{DynamicResource WarningColor20}" />
-                            <controls:ThemeColor Title="WarningColor10" Background="{DynamicResource WarningColor10}" />
-                            <controls:ThemeColor Title="WarningColor5" Background="{DynamicResource WarningColor5}" />
-                            <controls:ThemeColor Title="ErrorColor" Background="{DynamicResource ErrorColor}" />
-                            <controls:ThemeColor Title="ErrorColor60" Background="{DynamicResource ErrorColor60}" />
-                            <controls:ThemeColor Title="ErrorColor20" Background="{DynamicResource ErrorColor20}" />
-                            <controls:ThemeColor Title="ErrorColor10" Background="{DynamicResource ErrorColor10}" />
-                            <controls:ThemeColor Title="ErrorColor5" Background="{DynamicResource ErrorColor5}" />
+                            <controls:ThemeColor Background="{DynamicResource InfoColor}" Title="InfoColor" />
+                            <controls:ThemeColor Background="{DynamicResource InfoColor60}" Title="InfoColor60" />
+                            <controls:ThemeColor Background="{DynamicResource InfoColor20}" Title="InfoColor20" />
+                            <controls:ThemeColor Background="{DynamicResource InfoColor10}" Title="InfoColor10" />
+                            <controls:ThemeColor Background="{DynamicResource InfoColor5}" Title="InfoColor5" />
+                            <controls:ThemeColor Background="{DynamicResource SuccessColor}" Title="SuccessColor" />
+                            <controls:ThemeColor Background="{DynamicResource SuccessColor60}" Title="SuccessColor60" />
+                            <controls:ThemeColor Background="{DynamicResource SuccessColor20}" Title="SuccessColor20" />
+                            <controls:ThemeColor Background="{DynamicResource SuccessColor10}" Title="SuccessColor10" />
+                            <controls:ThemeColor Background="{DynamicResource SuccessColor5}" Title="SuccessColor5" />
+                            <controls:ThemeColor Background="{DynamicResource WarningColor}" Title="WarningColor" />
+                            <controls:ThemeColor Background="{DynamicResource WarningColor60}" Title="WarningColor60" />
+                            <controls:ThemeColor Background="{DynamicResource WarningColor20}" Title="WarningColor20" />
+                            <controls:ThemeColor Background="{DynamicResource WarningColor10}" Title="WarningColor10" />
+                            <controls:ThemeColor Background="{DynamicResource WarningColor5}" Title="WarningColor5" />
+                            <controls:ThemeColor Background="{DynamicResource ErrorColor}" Title="ErrorColor" />
+                            <controls:ThemeColor Background="{DynamicResource ErrorColor60}" Title="ErrorColor60" />
+                            <controls:ThemeColor Background="{DynamicResource ErrorColor20}" Title="ErrorColor20" />
+                            <controls:ThemeColor Background="{DynamicResource ErrorColor10}" Title="ErrorColor10" />
+                            <controls:ThemeColor Background="{DynamicResource ErrorColor5}" Title="ErrorColor5" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -195,39 +195,39 @@
                         <StackPanel Spacing="16">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+                                    <ColumnDefinition SharedSizeGroup="A" Width="Auto" />
+                                    <ColumnDefinition SharedSizeGroup="B" Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="0"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Color" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="1"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Hex Code" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="2"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Resource Name" />
                             </Grid>
                             <Separator />
-                            <controls:ThemeColor Title="BusyAreaOverlayColor" Background="{DynamicResource BusyAreaOverlayColor}" />
-                            <controls:ThemeColor Title="CardBackgroundColor" Background="{DynamicResource CardBackgroundColor}" />
-                            <controls:ThemeColor Title="DialogOverlayColor" Background="{DynamicResource DialogOverlayColor}" />
-                            <controls:ThemeColor Title="DialogBackgroundColor" Background="{DynamicResource DialogBackgroundColor}" />
-                            <controls:ThemeColor Title="TitleBarBackgroundColor" Background="{DynamicResource TitleBarBackgroundColor}" />
-                            <controls:ThemeColor Title="WindowBackgroundColor" Background="{DynamicResource WindowBackgroundColor}" />
-                            <controls:ThemeColor Title="WindowButtonHoverColor" Background="{DynamicResource WindowButtonHoverColor}" />
-                            <controls:ThemeColor Title="SidebarBackgroundColor" Background="{DynamicResource SidebarBackgroundColor}" />
-                            <controls:ThemeColor Title="SwitchBackgroundColor" Background="{DynamicResource SwitchBackgroundColor}" />
-                            <controls:ThemeColor Title="SwitchForegroundColor" Background="{DynamicResource SwitchForegroundColor}" />
-                            <controls:ThemeColor Title="TabItemSelectedColor" Background="{DynamicResource TabItemSelectedColor}" />
-                            <controls:ThemeColor Title="TabItemsBackgroundColor" Background="{DynamicResource TabItemsBackgroundColor}" />
+                            <controls:ThemeColor Background="{DynamicResource BusyAreaOverlayColor}" Title="BusyAreaOverlayColor" />
+                            <controls:ThemeColor Background="{DynamicResource CardBackgroundColor}" Title="CardBackgroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource DialogOverlayColor}" Title="DialogOverlayColor" />
+                            <controls:ThemeColor Background="{DynamicResource DialogBackgroundColor}" Title="DialogBackgroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource TitleBarBackgroundColor}" Title="TitleBarBackgroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource WindowBackgroundColor}" Title="WindowBackgroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource WindowButtonHoverColor}" Title="WindowButtonHoverColor" />
+                            <controls:ThemeColor Background="{DynamicResource SidebarBackgroundColor}" Title="SidebarBackgroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource SwitchBackgroundColor}" Title="SwitchBackgroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource SwitchForegroundColor}" Title="SwitchForegroundColor" />
+                            <controls:ThemeColor Background="{DynamicResource TabItemSelectedColor}" Title="TabItemSelectedColor" />
+                            <controls:ThemeColor Background="{DynamicResource TabItemsBackgroundColor}" Title="TabItemsBackgroundColor" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -237,67 +237,67 @@
                         <StackPanel Spacing="16">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+                                    <ColumnDefinition SharedSizeGroup="A" Width="Auto" />
+                                    <ColumnDefinition SharedSizeGroup="B" Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="0"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Corner" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="1"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Size" />
                                 <TextBlock
+                                    Classes="Small Muted"
                                     Grid.Column="2"
                                     Margin="8,0"
-                                    Classes="Small Muted"
                                     Text="Resource Name" />
                             </Grid>
                             <Separator />
                             <controls:ThemeCornerRadius
-                                Title="SmCornerRadius"
                                 BoxHeight="36"
                                 BoxWidth="36"
-                                CornerRadius="{DynamicResource SmCornerRadius}" />
+                                CornerRadius="{DynamicResource SmCornerRadius}"
+                                Title="SmCornerRadius" />
                             <controls:ThemeCornerRadius
-                                Title="MdCornerRadius"
                                 BoxHeight="40"
                                 BoxWidth="40"
-                                CornerRadius="{DynamicResource MdCornerRadius}" />
+                                CornerRadius="{DynamicResource MdCornerRadius}"
+                                Title="MdCornerRadius" />
                             <controls:ThemeCornerRadius
-                                Title="LgCornerRadius"
                                 BoxHeight="44"
                                 BoxWidth="44"
-                                CornerRadius="{DynamicResource LgCornerRadius}" />
+                                CornerRadius="{DynamicResource LgCornerRadius}"
+                                Title="LgCornerRadius" />
                             <controls:ThemeCornerRadius
-                                Title="XlCornerRadius"
                                 BoxHeight="52"
                                 BoxWidth="52"
-                                CornerRadius="{DynamicResource XlCornerRadius}" />
+                                CornerRadius="{DynamicResource XlCornerRadius}"
+                                Title="XlCornerRadius" />
                             <controls:ThemeCornerRadius
-                                Title="2XlCornerRadius"
                                 BoxHeight="60"
                                 BoxWidth="60"
-                                CornerRadius="{DynamicResource 2XlCornerRadius}" />
+                                CornerRadius="{DynamicResource 2XlCornerRadius}"
+                                Title="2XlCornerRadius" />
                             <controls:ThemeCornerRadius
-                                Title="3XlCornerRadius"
                                 BoxHeight="72"
                                 BoxWidth="72"
-                                CornerRadius="{DynamicResource 3XlCornerRadius}" />
+                                CornerRadius="{DynamicResource 3XlCornerRadius}"
+                                Title="3XlCornerRadius" />
                             <controls:ThemeCornerRadius
-                                Title="4XlCornerRadius"
                                 BoxHeight="84"
                                 BoxWidth="84"
-                                CornerRadius="{DynamicResource 4XlCornerRadius}" />
+                                CornerRadius="{DynamicResource 4XlCornerRadius}"
+                                Title="4XlCornerRadius" />
                             <controls:ThemeCornerRadius
-                                Title="FullCornerRadius"
                                 BoxHeight="92"
                                 BoxWidth="92"
-                                CornerRadius="{DynamicResource FullCornerRadius}" />
+                                CornerRadius="{DynamicResource FullCornerRadius}"
+                                Title="FullCornerRadius" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>

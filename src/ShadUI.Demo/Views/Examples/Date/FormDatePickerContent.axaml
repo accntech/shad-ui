@@ -1,24 +1,24 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.Examples.Date.FormDatePickerContent"
+    x:DataType="date:FormDatePickerViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:date="clr-namespace:ShadUI.Demo.ViewModels.Examples.Date"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="date:FormDatePickerViewModel"
-    mc:Ignorable="d">
-    <shadui:Card HorizontalAlignment="Center" HasShadow="True">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <shadui:Card HasShadow="True" HorizontalAlignment="Center">
         <shadui:Card.Header>
             <shadui:CardTitle>Add Birthday</shadui:CardTitle>
         </shadui:Card.Header>
         <CalendarDatePicker
+            SelectedDate="{Binding SelectedDate}"
             Width="240"
             shadui:ControlAssist.Hint="Your date of birth is used to calculate your age."
-            shadui:ControlAssist.Label="Date of birth"
-            SelectedDate="{Binding SelectedDate}" />
+            shadui:ControlAssist.Label="Date of birth" />
         <shadui:Card.Footer>
             <Button Classes="Primary" Command="{Binding SubmitCommand}">
                 Submit

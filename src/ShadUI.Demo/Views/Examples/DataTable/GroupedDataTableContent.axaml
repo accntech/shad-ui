@@ -1,21 +1,21 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.Examples.DataTable.GroupedDataTableContent"
+    x:DataType="dataTable:GroupedDataTableViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dataTable="clr-namespace:ShadUI.Demo.ViewModels.Examples.DataTable"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="dataTable:GroupedDataTableViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid RowDefinitions="Auto *">
         <DataGrid
-            Grid.Row="1"
             AutoGenerateColumns="False"
             CanUserReorderColumns="True"
             CanUserResizeColumns="True"
             CanUserSortColumns="True"
+            Grid.Row="1"
             GridLinesVisibility="All"
             HeadersVisibility="Column"
             IsReadOnly="True"
@@ -23,35 +23,35 @@
             SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    Width="*"
-                    MinWidth="120"
-                    x:DataType="dataTable:Person"
                     Binding="{Binding FirstName}"
-                    Header="First Name" />
-                <DataGridTextColumn
-                    Width="*"
+                    Header="First Name"
                     MinWidth="120"
-                    x:DataType="dataTable:Person"
+                    Width="*"
+                    x:DataType="dataTable:Person" />
+                <DataGridTextColumn
                     Binding="{Binding LastName}"
-                    Header="Last Name" />
-                <DataGridTextColumn
-                    Width="Auto"
-                    MinWidth="80"
-                    x:DataType="dataTable:Person"
-                    Binding="{Binding Age}"
-                    Header="Age" />
-                <DataGridTextColumn
-                    Width="*"
-                    MinWidth="100"
-                    x:DataType="dataTable:Person"
-                    Binding="{Binding State}"
-                    Header="State" />
-                <DataGridTextColumn
-                    Width="*"
+                    Header="Last Name"
                     MinWidth="120"
-                    x:DataType="dataTable:Person"
+                    Width="*"
+                    x:DataType="dataTable:Person" />
+                <DataGridTextColumn
+                    Binding="{Binding Age}"
+                    Header="Age"
+                    MinWidth="80"
+                    Width="Auto"
+                    x:DataType="dataTable:Person" />
+                <DataGridTextColumn
+                    Binding="{Binding State}"
+                    Header="State"
+                    MinWidth="100"
+                    Width="*"
+                    x:DataType="dataTable:Person" />
+                <DataGridTextColumn
                     Binding="{Binding City}"
-                    Header="City" />
+                    Header="City"
+                    MinWidth="120"
+                    Width="*"
+                    x:DataType="dataTable:Person" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

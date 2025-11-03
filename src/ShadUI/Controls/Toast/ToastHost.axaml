@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
-    <ControlTheme x:Key="ToastHostTheme" TargetType="shadui:ToastHost">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="shadui:ToastHost" x:Key="ToastHostTheme">
         <Setter Property="Margin" Value="5" />
         <Setter Property="ItemsPanel">
             <ItemsPanelTemplate>
@@ -16,7 +16,7 @@
         </Setter>
     </ControlTheme>
     <ControlTheme
-        x:Key="{x:Type shadui:ToastHost}"
         BasedOn="{StaticResource ToastHostTheme}"
-        TargetType="shadui:ToastHost" />
+        TargetType="shadui:ToastHost"
+        x:Key="{x:Type shadui:ToastHost}" />
 </ResourceDictionary>

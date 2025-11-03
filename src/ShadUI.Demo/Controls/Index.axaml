@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="CodeTextBlock.axaml" />

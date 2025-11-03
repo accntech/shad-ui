@@ -30,8 +30,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
-                <ResourceInclude x:Key="Light" Source="Themes/Light.axaml" />
-                <ResourceInclude x:Key="Dark" Source="Themes/Dark.axaml" />
+                <ResourceInclude Source="Themes/Light.axaml" x:Key="Light" />
+                <ResourceInclude Source="Themes/Dark.axaml" x:Key="Dark" />
             </ResourceDictionary.ThemeDictionaries>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Controls/Index.axaml" />

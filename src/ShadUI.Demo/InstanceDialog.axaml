@@ -1,25 +1,25 @@
 ﻿<shadui:Window
-    x:Class="ShadUI.Demo.InstanceDialog"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
-    Title="ShadUI App"
-    Width="400"
-    Height="224"
     CanMaximize="False"
     CanMinimize="False"
     CanResize="False"
+    Height="224"
     ShowBottomBorder="False"
+    Title="ShadUI App"
+    Width="400"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    x:Class="ShadUI.Demo.InstanceDialog"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <shadui:Window.LogoContent>
         <PathIcon
-            Width="14"
+            Data="{x:Static shadui:Icons.Logo}"
             Height="14"
             Margin="8,8,0,8"
-            Data="{x:Static shadui:Icons.Logo}" />
+            Width="14" />
     </shadui:Window.LogoContent>
     <StackPanel Margin="24,16" Spacing="8">
         <TextBlock Classes="Large" Text="Stop" />
@@ -28,10 +28,10 @@
             Text="An instance of ShadUI app is already running on this computer. You can only run one instance at a time."
             TextWrapping="Wrap" />
         <Button
-            Margin="0,24"
-            HorizontalAlignment="Right"
             Classes="Primary"
             Click="OnClose"
-            Content="Close" />
+            Content="Close"
+            HorizontalAlignment="Right"
+            Margin="0,24" />
     </StackPanel>
 </shadui:Window>

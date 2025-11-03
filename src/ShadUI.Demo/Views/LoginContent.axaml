@@ -1,30 +1,30 @@
 ﻿<UserControl
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.LoginContent"
+    x:DataType="viewModels:LoginViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    x:DataType="viewModels:LoginViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel
-        Width="275"
         Margin="24"
-        Spacing="16">
+        Spacing="16"
+        Width="275">
         <TextBlock Classes="h4" Text="Sign In" />
         <TextBox
-            shadui:ControlAssist.Label="Email"
-            shadui:ElementAssist.FocusOnLoad="True"
             Classes="Clearable"
             Text="{Binding Email, Mode=TwoWay}"
-            Watermark="user@example.com" />
+            Watermark="user@example.com"
+            shadui:ControlAssist.Label="Email"
+            shadui:ElementAssist.FocusOnLoad="True" />
         <TextBox
-            shadui:ControlAssist.Label="Password"
             Classes="PasswordReveal"
             PasswordChar="•"
             Text="{Binding Password, Mode=TwoWay}"
-            Watermark="Enter password" />
+            Watermark="Enter password"
+            shadui:ControlAssist.Label="Password" />
         <StackPanel Margin="0,24,0,0" Spacing="16">
             <Button
                 Classes="Primary"

@@ -1,51 +1,51 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
     xmlns:system="clr-namespace:System;assembly=netstandard"
-    x:ClassModifier="internal">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <StackPanel
-            Width="225"
             Margin="12"
-            Spacing="8">
+            Spacing="8"
+            Width="225">
             <AutoCompleteBox
+                Watermark="Search here..."
                 Width="225"
                 shadui:ControlAssist.Hint="This is test"
-                shadui:ControlAssist.Label="Search"
-                Watermark="Search here...">
+                shadui:ControlAssist.Label="Search">
                 <AutoCompleteBox.InnerRightContent>
                     <PathIcon
-                        Width="16"
                         Data="{x:Static shadui:Icons.Search}"
-                        Opacity="0.75" />
+                        Opacity="0.75"
+                        Width="16" />
                 </AutoCompleteBox.InnerRightContent>
             </AutoCompleteBox>
             <AutoCompleteBox
-                Width="225"
-                shadui:ControlAssist.Hint="This is test"
-                shadui:ControlAssist.Label="Search"
-                shadui:ElementAssist.Classes="Clearable"
                 Text="xxx"
-                Watermark="Search here...">
-                <AutoCompleteBox.InnerRightContent>
-                    <PathIcon
-                        Width="16"
-                        Data="{x:Static shadui:Icons.Search}"
-                        Opacity="0.75" />
-                </AutoCompleteBox.InnerRightContent>
-            </AutoCompleteBox>
-            <AutoCompleteBox
+                Watermark="Search here..."
                 Width="225"
                 shadui:ControlAssist.Hint="This is test"
                 shadui:ControlAssist.Label="Search"
-                shadui:ControlAssist.ShowProgress="True"
-                Watermark="Search here...">
+                shadui:ElementAssist.Classes="Clearable">
                 <AutoCompleteBox.InnerRightContent>
                     <PathIcon
-                        Width="16"
                         Data="{x:Static shadui:Icons.Search}"
-                        Opacity="0.75" />
+                        Opacity="0.75"
+                        Width="16" />
+                </AutoCompleteBox.InnerRightContent>
+            </AutoCompleteBox>
+            <AutoCompleteBox
+                Watermark="Search here..."
+                Width="225"
+                shadui:ControlAssist.Hint="This is test"
+                shadui:ControlAssist.Label="Search"
+                shadui:ControlAssist.ShowProgress="True">
+                <AutoCompleteBox.InnerRightContent>
+                    <PathIcon
+                        Data="{x:Static shadui:Icons.Search}"
+                        Opacity="0.75"
+                        Width="16" />
                 </AutoCompleteBox.InnerRightContent>
 
                 <DataValidationErrors.Error>
@@ -56,31 +56,31 @@
     </Design.PreviewWith>
 
     <StreamGeometry x:Key="TextBoxClearButtonData">M13.71,12.29c.39.39.39,1.03,0,1.42-.2.19-.45.29-.71.29s-.51-.1-.71-.29l-5.29-5.29L1.71,13.71c-.2.19-.45.29-.71.29s-.51-.1-.71-.29c-.39-.39-.39-1.03,0-1.42l5.29-5.29L.29,1.71C-.1,1.32-.1.68.29.29.68-.1,1.32-.1,1.71.29l5.29,5.29L12.29.29c.39-.39,1.03-.39,1.42,0,.39.39.39,1.03,0,1.42l-5.29,5.29,5.29,5.29Z</StreamGeometry>
-    <ControlTheme x:Key="ClearButtonTheme" TargetType="Button">
+    <ControlTheme TargetType="Button" x:Key="ClearButtonTheme">
         <Setter Property="Cursor" Value="Arrow" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
-                        Padding="4"
                         Background="Transparent"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="4">
                         <Path
-                            x:Name="PART_GlyphElement"
-                            Width="10"
-                            Height="10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
                             Data="{StaticResource TextBoxClearButtonData}"
                             Fill="{DynamicResource ForegroundColor}"
-                            Stretch="Uniform" />
+                            Height="10"
+                            HorizontalAlignment="Center"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center"
+                            Width="10"
+                            x:Name="PART_GlyphElement" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </ControlTheme>
 
-    <ControlTheme x:Key="AutoCompleteBoxItem" TargetType="ListBoxItem">
+    <ControlTheme TargetType="ListBoxItem" x:Key="AutoCompleteBoxItem">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="Padding" Value="10,8" />
         <Setter Property="Margin" Value="1" />
@@ -92,41 +92,41 @@
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel MinHeight="{TemplateBinding MinHeight}" Margin="{TemplateBinding Margin}">
+                <Panel Margin="{TemplateBinding Margin}" MinHeight="{TemplateBinding MinHeight}">
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1" />
                     <Border
-                        Name="HoverBackground"
                         Background="{DynamicResource GhostHoverColor}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0" />
                     <Border
-                        Name="SelectionBackground"
                         Background="{DynamicResource GhostColor}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="SelectionBackground"
                         Opacity="0" />
                     <ContentPresenter
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                         Content="{TemplateBinding Content}"
-                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Margin="{TemplateBinding Padding}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                 </Panel>
             </ControlTemplate>
         </Setter>
         <Style Selector="^ /template/ Border">
             <Setter Property="Transitions">
                 <Transitions>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                 </Transitions>
             </Setter>
         </Style>
@@ -147,7 +147,7 @@
         </Style>
     </ControlTheme>
 
-    <ControlTheme x:Key="{x:Type AutoCompleteBox}" TargetType="AutoCompleteBox">
+    <ControlTheme TargetType="AutoCompleteBox" x:Key="{x:Type AutoCompleteBox}">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Background" Value="{DynamicResource SelectionColor}" />
@@ -165,19 +165,14 @@
                     <DataValidationErrors>
                         <StackPanel>
                             <TextBlock
-                                Name="Label"
-                                Margin="0,0,0,6"
                                 Classes="Small"
                                 Cursor="Arrow"
                                 IsVisible="{TemplateBinding shadui:ControlAssist.Label,
                                                             Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,0,0,6"
+                                Name="Label"
                                 Text="{TemplateBinding Watermark}" />
                             <TextBox
-                                Name="PART_TextBox"
-                                Padding="{TemplateBinding Padding}"
-                                shadui:ControlAssist.MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}"
-                                shadui:ControlAssist.ShowProgress="{TemplateBinding shadui:ControlAssist.ShowProgress}"
-                                shadui:ElementAssist.Classes="{TemplateBinding shadui:ElementAssist.Classes}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -190,36 +185,40 @@
                                 FontWeight="{TemplateBinding FontWeight}"
                                 InnerLeftContent="{TemplateBinding InnerLeftContent}"
                                 InnerRightContent="{TemplateBinding InnerRightContent}"
-                                Watermark="{TemplateBinding Watermark}" />
+                                Name="PART_TextBox"
+                                Padding="{TemplateBinding Padding}"
+                                Watermark="{TemplateBinding Watermark}"
+                                shadui:ControlAssist.MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}"
+                                shadui:ControlAssist.ShowProgress="{TemplateBinding shadui:ControlAssist.ShowProgress}"
+                                shadui:ElementAssist.Classes="{TemplateBinding shadui:ElementAssist.Classes}" />
                             <TextBlock
-                                Margin="0,4,0,0"
                                 Classes="Caption Muted"
                                 Cursor="Arrow"
                                 IsVisible="{TemplateBinding shadui:ControlAssist.Hint,
                                                             Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,4,0,0"
                                 Text="{TemplateBinding shadui:ControlAssist.Hint}" />
                         </StackPanel>
                     </DataValidationErrors>
                     <Popup
-                        Name="PART_Popup"
-                        MinWidth="{CompiledBinding #PART_TextBox.Bounds.Width}"
-                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
                         IsLightDismissEnabled="True"
+                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                        MinWidth="{CompiledBinding #PART_TextBox.Bounds.Width}"
+                        Name="PART_Popup"
                         PlacementTarget="PART_TextBox"
                         VerticalOffset="5">
                         <LayoutTransformControl Name="LayoutTransform" RenderTransformOrigin="50%, 0%">
                             <Border
-                                MinWidth="{CompiledBinding #PART_TextBox.Bounds.Width}"
-                                Margin="2,0,2,4"
-                                shadui:ScrollEventAssist.PreventScrollPropagation="True"
                                 Background="{DynamicResource CardBackgroundColor}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BoxShadow="{DynamicResource Shadow}"
                                 ClipToBounds="True"
-                                CornerRadius="{TemplateBinding CornerRadius}">
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Margin="2,0,2,4"
+                                MinWidth="{CompiledBinding #PART_TextBox.Bounds.Width}"
+                                shadui:ScrollEventAssist.PreventScrollPropagation="True">
                                 <ListBox
-                                    Name="PART_SelectingItemsControl"
                                     Background="Transparent"
                                     BorderThickness="0"
                                     FontFamily="{TemplateBinding FontFamily}"
@@ -227,6 +226,7 @@
                                     Foreground="{TemplateBinding Foreground}"
                                     ItemContainerTheme="{StaticResource AutoCompleteBoxItem}"
                                     ItemTemplate="{TemplateBinding ItemTemplate}"
+                                    Name="PART_SelectingItemsControl"
                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
                                     <ListBox.ItemsPanel>
@@ -245,7 +245,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>
@@ -255,7 +255,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>
@@ -279,9 +279,9 @@
             <Style Selector="^ /template/ LayoutTransformControl#LayoutTransform">
                 <Style.Animations>
                     <Animation
+                        Duration="0:0:0.15"
                         Easing="SineEaseInOut"
-                        FillMode="Forward"
-                        Duration="0:0:0.15">
+                        FillMode="Forward">
                         <KeyFrame Cue="0%">
                             <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
                             <Setter Property="ScaleTransform.ScaleX" Value="0.9" />

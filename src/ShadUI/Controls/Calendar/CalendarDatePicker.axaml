@@ -1,17 +1,17 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
     xmlns:system="clr-namespace:System;assembly=netstandard"
-    x:ClassModifier="internal">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Panel Width="500" Height="700">
+        <Panel Height="700" Width="500">
             <StackPanel
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Spacing="16">
+                Spacing="16"
+                VerticalAlignment="Center">
                 <CalendarDatePicker Width="240" />
-                <CalendarDatePicker Width="240" IsEnabled="False" />
+                <CalendarDatePicker IsEnabled="False" Width="240" />
                 <CalendarDatePicker Width="240" shadui:ControlAssist.ReadOnly="True" />
                 <CalendarDatePicker
                     Width="240"
@@ -30,7 +30,7 @@
         </Panel>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="InnerTextBoxTheme" TargetType="TextBox">
+    <ControlTheme TargetType="TextBox" x:Key="InnerTextBoxTheme">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="LineHeight" Value="20" />
         <Setter Property="BorderThickness" Value="1" />
@@ -48,37 +48,37 @@
             <ControlTemplate>
                 <StackPanel Background="Transparent" Focusable="False">
                     <Border
-                        Height="{TemplateBinding shadui:ControlAssist.Height}"
-                        MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Height="{TemplateBinding shadui:ControlAssist.Height}"
+                        MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}">
                         <Grid
+                            ColumnDefinitions="Auto * Auto"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            ColumnDefinitions="Auto * Auto">
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <ContentPresenter
+                                Content="{TemplateBinding InnerLeftContent}"
                                 Grid.Column="0"
-                                VerticalAlignment="Center"
-                                Content="{TemplateBinding InnerLeftContent}" />
+                                VerticalAlignment="Center" />
                             <ScrollViewer
-                                Grid.Column="1"
                                 AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                                 BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+                                Grid.Column="1"
                                 HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                                 IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
                                 VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                                 <Panel Name="PART_TextContainer">
                                     <TextBlock
-                                        Name="watermark"
-                                        Margin="{TemplateBinding Padding}"
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Margin="{TemplateBinding Padding}"
+                                        Name="watermark"
                                         Opacity="0.5"
                                         Text="{TemplateBinding Watermark}"
                                         TextAlignment="{TemplateBinding TextAlignment}"
-                                        TextWrapping="{TemplateBinding TextWrapping}">
+                                        TextWrapping="{TemplateBinding TextWrapping}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                         <TextBlock.IsVisible>
                                             <MultiBinding Converter="{x:Static BoolConverters.And}">
                                                 <CompiledBinding
@@ -93,14 +93,13 @@
                                         </TextBlock.IsVisible>
                                     </TextBlock>
                                     <TextPresenter
-                                        Name="PART_TextPresenter"
-                                        Margin="{TemplateBinding Padding}"
-                                        VerticalAlignment="Center"
                                         CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
                                         CaretBrush="{TemplateBinding CaretBrush}"
                                         CaretIndex="{TemplateBinding CaretIndex}"
                                         LetterSpacing="{TemplateBinding LetterSpacing}"
                                         LineHeight="{TemplateBinding LineHeight}"
+                                        Margin="{TemplateBinding Padding}"
+                                        Name="PART_TextPresenter"
                                         PasswordChar="{TemplateBinding PasswordChar}"
                                         RevealPassword="{TemplateBinding RevealPassword}"
                                         SelectionBrush="{TemplateBinding SelectionBrush}"
@@ -110,7 +109,8 @@
                                         Text="{TemplateBinding Text,
                                                                Mode=TwoWay}"
                                         TextAlignment="{TemplateBinding TextAlignment}"
-                                        TextWrapping="{TemplateBinding TextWrapping}" />
+                                        TextWrapping="{TemplateBinding TextWrapping}"
+                                        VerticalAlignment="Center" />
                                 </Panel>
                                 <ScrollViewer.Styles>
                                     <Style Selector="ScrollContentPresenter#PART_ContentPresenter">
@@ -119,15 +119,15 @@
                                 </ScrollViewer.Styles>
                             </ScrollViewer>
                             <Path
-                                Name="PART_Icon"
-                                Grid.Column="2"
-                                Height="16"
-                                Margin="0,4,16,4"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
                                 Data="{x:Static shadui:Icons.Calendar}"
                                 Fill="{DynamicResource MutedColor}"
-                                Stretch="Uniform" />
+                                Grid.Column="2"
+                                Height="16"
+                                HorizontalAlignment="Center"
+                                Margin="0,4,16,4"
+                                Name="PART_Icon"
+                                Stretch="Uniform"
+                                VerticalAlignment="Center" />
                         </Grid>
                     </Border>
                 </StackPanel>
@@ -146,8 +146,8 @@
             </Style>
         </Style>
     </ControlTheme>
-    <ControlTheme x:Key="DatePickerToggle" TargetType="ToggleButton" />
-    <ControlTheme x:Key="{x:Type CalendarDatePicker}" TargetType="CalendarDatePicker">
+    <ControlTheme TargetType="ToggleButton" x:Key="DatePickerToggle" />
+    <ControlTheme TargetType="CalendarDatePicker" x:Key="{x:Type CalendarDatePicker}">
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -165,30 +165,28 @@
                 <DataValidationErrors>
                     <StackPanel Background="Transparent" Spacing="4">
                         <TextBlock
-                            Name="PART_Label"
-                            Margin="0,0,0,6"
                             Classes="Small"
                             IsVisible="{TemplateBinding shadui:ControlAssist.Label,
                                                         Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Margin="0,0,0,6"
+                            Name="PART_Label"
                             Text="{TemplateBinding shadui:ControlAssist.Label}" />
                         <Panel>
                             <Border
-                                Name="PART_Background"
                                 Background="{DynamicResource GhostColor}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
                                 IsVisible="{TemplateBinding shadui:ControlAssist.ReadOnly}"
+                                Name="PART_Background"
                                 Opacity="0">
                                 <Border.Transitions>
                                     <Transitions>
-                                        <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                        <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                     </Transitions>
                                 </Border.Transitions>
                             </Border>
                             <TextBox
-                                Name="PART_TextBox"
-                                Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -197,32 +195,30 @@
                                 IsHitTestVisible="{TemplateBinding shadui:ControlAssist.ReadOnly,
                                                                    Converter={x:Static BoolConverters.Not}}"
                                 IsReadOnly="{TemplateBinding shadui:ControlAssist.ReadOnly}"
+                                Name="PART_TextBox"
+                                Padding="{TemplateBinding Padding}"
                                 Theme="{StaticResource InnerTextBoxTheme}"
                                 UseFloatingWatermark="False"
                                 Watermark="{TemplateBinding Watermark}" />
                             <Border
-                                Width="40"
-                                HorizontalAlignment="Right"
                                 Background="Transparent"
                                 CornerRadius="{TemplateBinding CornerRadius}"
+                                HorizontalAlignment="Right"
                                 IsVisible="{TemplateBinding shadui:ControlAssist.ReadOnly,
-                                                            Converter={x:Static BoolConverters.Not}}" />
+                                                            Converter={x:Static BoolConverters.Not}}"
+                                Width="40" />
                             <Popup
-                                Name="PART_Popup"
-                                MinWidth="{CompiledBinding Bounds.Width,
-                                                           RelativeSource={RelativeSource TemplatedParent}}"
                                 IsLightDismissEnabled="True"
                                 IsOpen="{TemplateBinding IsDropDownOpen,
                                                          Mode=TwoWay}"
+                                MinWidth="{CompiledBinding Bounds.Width,
+                                                           RelativeSource={RelativeSource TemplatedParent}}"
+                                Name="PART_Popup"
                                 Placement="BottomEdgeAlignedLeft"
                                 PlacementTarget="{CompiledBinding #PART_TextBox}"
                                 VerticalOffset="5">
                                 <LayoutTransformControl Name="PART_LayoutTransform" RenderTransformOrigin="50%, 0%">
                                     <Calendar
-                                        Name="PART_Calendar"
-                                        Margin="-2,0,0,0"
-                                        shadui:ElementAssist.FocusOnLoad="True"
-                                        shadui:ScrollEventAssist.PreventScrollPropagation="True"
                                         CornerRadius="{TemplateBinding CornerRadius}"
                                         DisplayDate="{TemplateBinding DisplayDate}"
                                         DisplayDateEnd="{TemplateBinding DisplayDateEnd}"
@@ -230,17 +226,21 @@
                                         FirstDayOfWeek="{TemplateBinding FirstDayOfWeek}"
                                         FontFamily="{TemplateBinding FontFamily}"
                                         IsTodayHighlighted="{TemplateBinding IsTodayHighlighted}"
+                                        Margin="-2,0,0,0"
+                                        Name="PART_Calendar"
                                         SelectedDate="{CompiledBinding RelativeSource={RelativeSource TemplatedParent},
                                                                        Path=SelectedDate,
-                                                                       Mode=TwoWay}" />
+                                                                       Mode=TwoWay}"
+                                        shadui:ElementAssist.FocusOnLoad="True"
+                                        shadui:ScrollEventAssist.PreventScrollPropagation="True" />
                                 </LayoutTransformControl>
                             </Popup>
                         </Panel>
                         <TextBlock
-                            Name="PART_Hint"
                             Classes="Caption Muted"
                             IsVisible="{TemplateBinding shadui:ControlAssist.Hint,
                                                         Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Name="PART_Hint"
                             Text="{TemplateBinding shadui:ControlAssist.Hint}"
                             TextWrapping="Wrap" />
                     </StackPanel>
@@ -254,9 +254,9 @@
             <Style Selector="^ /template/ LayoutTransformControl#PART_LayoutTransform">
                 <Style.Animations>
                     <Animation
+                        Duration="0:0:0.15"
                         Easing="SineEaseInOut"
-                        FillMode="Forward"
-                        Duration="0:0:0.15">
+                        FillMode="Forward">
                         <KeyFrame Cue="0%">
                             <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
                             <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
@@ -278,7 +278,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>

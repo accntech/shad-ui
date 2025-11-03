@@ -1,23 +1,23 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:ClassModifier="internal">
-    <ControlTheme x:Key="{x:Type Label}" TargetType="Label">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="Label" x:Key="{x:Type Label}">
         <Setter Property="Padding" Value="3" />
         <Setter Property="Template">
             <ControlTemplate>
                 <ContentPresenter
-                    Name="PART_ContentPresenter"
-                    Padding="{TemplateBinding Padding}"
-                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     Content="{TemplateBinding Content}"
                     ContentTemplate="{TemplateBinding ContentTemplate}"
                     CornerRadius="{TemplateBinding CornerRadius}"
-                    RecognizesAccessKey="True" />
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    Name="PART_ContentPresenter"
+                    Padding="{TemplateBinding Padding}"
+                    RecognizesAccessKey="True"
+                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
             </ControlTemplate>
         </Setter>
 

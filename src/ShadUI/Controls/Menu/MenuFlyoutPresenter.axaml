@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
+    x:ClassModifier="internal"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:ClassModifier="internal">
-    <ControlTheme x:Key="{x:Type MenuFlyoutPresenter}" TargetType="MenuFlyoutPresenter">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="MenuFlyoutPresenter" x:Key="{x:Type MenuFlyoutPresenter}">
         <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
@@ -15,17 +15,17 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
-                    Name="LayoutRoot"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding CornerRadius}">
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Name="LayoutRoot">
                     <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                         <ItemsPresenter
-                            Margin="{TemplateBinding Padding}"
                             Grid.IsSharedSizeScope="True"
                             ItemsPanel="{TemplateBinding ItemsPanel}"
-                            KeyboardNavigation.TabNavigation="Continue" />
+                            KeyboardNavigation.TabNavigation="Continue"
+                            Margin="{TemplateBinding Padding}" />
                     </ScrollViewer>
                 </Border>
             </ControlTemplate>

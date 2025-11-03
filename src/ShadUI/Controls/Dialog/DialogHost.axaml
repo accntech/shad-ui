@@ -1,50 +1,50 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
-    <ControlTheme x:Key="DialogHostTheme" TargetType="shadui:DialogHost">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="shadui:DialogHost" x:Key="DialogHostTheme">
         <Setter Property="CornerRadius" Value="{DynamicResource XlCornerRadius}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
                     <Border
-                        Name="PART_DialogBackground"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
                         Background="{DynamicResource DialogOverlayColor}"
-                        Opacity="0">
+                        HorizontalAlignment="Stretch"
+                        Name="PART_DialogBackground"
+                        Opacity="0"
+                        VerticalAlignment="Stretch">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.15" />
+                                <DoubleTransition Duration="0:0:0.15" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="PART_TitleBar"
+                        Background="Transparent"
                         Height="32"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Background="Transparent"
-                        IsVisible="False" />
+                        IsVisible="False"
+                        Name="PART_TitleBar"
+                        VerticalAlignment="Top" />
                     <Border
-                        Name="DialogContent"
-                        MinWidth="{TemplateBinding DialogMinWidth}"
-                        MaxWidth="{TemplateBinding DialogMaxWidth}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
                         Background="{DynamicResource DialogBackgroundColor}"
                         BorderBrush="{DynamicResource BorderColor}"
                         BorderThickness="1"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalAlignment="Center"
+                        MaxWidth="{TemplateBinding DialogMaxWidth}"
+                        MinWidth="{TemplateBinding DialogMinWidth}"
+                        Name="DialogContent"
+                        VerticalAlignment="Center">
                         <Border.Transitions>
                             <Transitions>
-                                <ThicknessTransition Property="Margin" Duration="0:0:0.15">
+                                <ThicknessTransition Duration="0:0:0.15" Property="Margin">
                                     <ThicknessTransition.Easing>
                                         <CircularEaseOut />
                                     </ThicknessTransition.Easing>
                                 </ThicknessTransition>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.1" />
-                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.15">
+                                <DoubleTransition Duration="0:0:0.1" Property="Opacity" />
+                                <TransformOperationsTransition Duration="0:0:0.15" Property="RenderTransform">
                                     <TransformOperationsTransition.Easing>
                                         <CircularEaseOut />
                                     </TransformOperationsTransition.Easing>
@@ -55,27 +55,27 @@
                             <!--  add border for proper clip  -->
                             <Border ClipToBounds="True" CornerRadius="{TemplateBinding CornerRadius}">
                                 <ContentControl
-                                    Name="PART_DialogContainer"
                                     Content="{TemplateBinding Dialog}"
-                                    KeyboardNavigation.TabNavigation="Cycle" />
+                                    KeyboardNavigation.TabNavigation="Cycle"
+                                    Name="PART_DialogContainer" />
                             </Border>
                             <Button
-                                Name="PART_CloseButton"
-                                Width="24"
-                                Height="24"
-                                Margin="8"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
                                 CornerRadius="{DynamicResource MdCornerRadius}"
                                 Cursor="Arrow"
                                 Focusable="False"
+                                Height="24"
+                                HorizontalAlignment="Right"
                                 HotKey="Escape"
-                                IsVisible="{TemplateBinding Dismissible}">
+                                IsVisible="{TemplateBinding Dismissible}"
+                                Margin="8"
+                                Name="PART_CloseButton"
+                                VerticalAlignment="Top"
+                                Width="24">
                                 <PathIcon
-                                    Width="10"
-                                    Height="10"
                                     Data="{x:Static shadui:Icons.WindowClose}"
-                                    Foreground="{DynamicResource ForegroundColor}" />
+                                    Foreground="{DynamicResource ForegroundColor}"
+                                    Height="10"
+                                    Width="10" />
                             </Button>
                         </Panel>
                     </Border>
@@ -128,7 +128,7 @@
         </Style>
     </ControlTheme>
     <ControlTheme
-        x:Key="{x:Type shadui:DialogHost}"
         BasedOn="{StaticResource DialogHostTheme}"
-        TargetType="shadui:DialogHost" />
+        TargetType="shadui:DialogHost"
+        x:Key="{x:Type shadui:DialogHost}" />
 </ResourceDictionary>

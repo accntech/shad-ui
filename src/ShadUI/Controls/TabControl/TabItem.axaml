@@ -1,15 +1,15 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Width="400" Padding="8">
+        <Border Padding="8" Width="400">
             <StackPanel Spacing="8">
                 <TabControl>
                     <TabItem Header="Preview">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource MdCornerRadius}">
+                            CornerRadius="{DynamicResource MdCornerRadius}"
+                            Height="100"
+                            Padding="12">
                             <TextBlock
                                 FontSize="20"
                                 Foreground="Black"
@@ -18,22 +18,22 @@
                     </TabItem>
                     <TabItem Header="Code">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource MdCornerRadius}" />
+                            CornerRadius="{DynamicResource MdCornerRadius}"
+                            Height="100"
+                            Padding="12" />
                     </TabItem>
                     <TabItem Header="Disabled" IsEnabled="False" />
                 </TabControl>
                 <TabControl>
                     <TabItem Header="Preview">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource MdCornerRadius}">
+                            CornerRadius="{DynamicResource MdCornerRadius}"
+                            Height="100"
+                            Padding="12">
                             <TextBlock
                                 FontSize="20"
                                 Foreground="Black"
@@ -42,11 +42,11 @@
                     </TabItem>
                     <TabItem Header="Code">
                         <Border
-                            Height="100"
-                            Padding="12"
                             BorderBrush="{DynamicResource BorderColor}"
                             BorderThickness="1"
-                            CornerRadius="{DynamicResource MdCornerRadius}" />
+                            CornerRadius="{DynamicResource MdCornerRadius}"
+                            Height="100"
+                            Padding="12" />
                     </TabItem>
                     <TabItem Header="Disabled" IsEnabled="False" />
                 </TabControl>
@@ -54,7 +54,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+    <ControlTheme TargetType="TabItem" x:Key="{x:Type TabItem}">
         <Setter Property="Background" Value="{DynamicResource TabItemsBackgroundColor}" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Medium" />
@@ -68,37 +68,37 @@
             <ControlTemplate>
                 <Panel>
                     <Border
-                        x:Name="SelectedBorder"
-                        Margin="2,0,2,4"
                         Background="{DynamicResource TabItemSelectedColor}"
                         BoxShadow="{DynamicResource Shadow}"
                         CornerRadius="{TemplateBinding CornerRadius}"
-                        Opacity="0">
+                        Margin="2,0,2,4"
+                        Opacity="0"
+                        x:Name="SelectedBorder">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Margin="2,0,2,4"
                         ClipToBounds="True"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Margin="2,0,2,4">
                         <ContentPresenter
-                            Name="ContentPresenter"
-                            Padding="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Content="{TemplateBinding Header}"
                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                             Foreground="{TemplateBinding Foreground}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Name="ContentPresenter"
                             Opacity="{TemplateBinding Opacity}"
-                            RecognizesAccessKey="True">
+                            Padding="{TemplateBinding Padding}"
+                            RecognizesAccessKey="True"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                             <ContentPresenter.Transitions>
                                 <Transitions>
-                                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                 </Transitions>
                             </ContentPresenter.Transitions>
                         </ContentPresenter>

@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
-    <ControlTheme x:Key="ComboBoxItemTheme" TargetType="ComboBoxItem">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="ComboBoxItem" x:Key="ComboBoxItemTheme">
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="Padding" Value="10,8" />
         <Setter Property="Margin" Value="1" />
@@ -14,44 +14,44 @@
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Panel MinHeight="{TemplateBinding MinHeight}" Margin="{TemplateBinding Margin}">
+                <Panel Margin="{TemplateBinding Margin}" MinHeight="{TemplateBinding MinHeight}">
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1" />
                     <Border
-                        Name="HoverBackground"
                         Background="{DynamicResource GhostHoverColor}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0" />
                     <Border
-                        Name="SelectionBackground"
                         Background="{DynamicResource GhostColor}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="SelectionBackground"
                         Opacity="0" />
-                    <DockPanel Margin="{TemplateBinding Padding}" LastChildFill="True">
+                    <DockPanel LastChildFill="True" Margin="{TemplateBinding Padding}">
                         <PathIcon
-                            Name="CheckSelected"
-                            Width="12"
-                            Height="12"
-                            Margin="4,0,0,0"
                             Data="{x:Static shadui:Icons.Check}"
                             DockPanel.Dock="Right"
-                            Foreground="{DynamicResource ForegroundColor}" />
+                            Foreground="{DynamicResource ForegroundColor}"
+                            Height="12"
+                            Margin="4,0,0,0"
+                            Name="CheckSelected"
+                            Width="12" />
                         <ContentPresenter
-                            Name="PART_ContentPresenter"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding Content}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
-                            CornerRadius="{TemplateBinding CornerRadius}" />
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Name="PART_ContentPresenter"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </DockPanel>
                 </Panel>
             </ControlTemplate>
@@ -59,7 +59,7 @@
         <Style Selector="^ /template/ Border">
             <Setter Property="Transitions">
                 <Transitions>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                    <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                 </Transitions>
             </Setter>
         </Style>
@@ -87,7 +87,7 @@
     </ControlTheme>
 
     <ControlTheme
-        x:Key="{x:Type ComboBoxItem}"
         BasedOn="{StaticResource ComboBoxItemTheme}"
-        TargetType="ComboBoxItem" />
+        TargetType="ComboBoxItem"
+        x:Key="{x:Type ComboBoxItem}" />
 </ResourceDictionary>

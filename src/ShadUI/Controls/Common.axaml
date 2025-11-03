@@ -1,30 +1,30 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StreamGeometry x:Key="XIconData">M13.71,12.29c.39.39.39,1.03,0,1.42-.2.19-.45.29-.71.29s-.51-.1-.71-.29l-5.29-5.29L1.71,13.71c-.2.19-.45.29-.71.29s-.51-.1-.71-.29c-.39-.39-.39-1.03,0-1.42l5.29-5.29L.29,1.71C-.1,1.32-.1.68.29.29.68-.1,1.32-.1,1.71.29l5.29,5.29L12.29.29c.39-.39,1.03-.39,1.42,0,.39.39.39,1.03,0,1.42l-5.29,5.29,5.29,5.29Z</StreamGeometry>
 
-    <ControlTheme x:Key="ClearButtonTheme" TargetType="Button">
+    <ControlTheme TargetType="Button" x:Key="ClearButtonTheme">
         <Setter Property="Cursor" Value="Arrow" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
-                        Padding="4"
                         Background="Transparent"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="4">
                         <Path
-                            Width="10"
-                            Height="10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
                             Data="{StaticResource XIconData}"
                             Fill="{DynamicResource ForegroundColor}"
-                            Stretch="Uniform" />
+                            Height="10"
+                            HorizontalAlignment="Center"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center"
+                            Width="10" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </ControlTheme>
 
-    <ControlTheme x:Key="InputBoxTheme" TargetType="TextBox">
+    <ControlTheme TargetType="TextBox" x:Key="InputBoxTheme">
         <Setter Property="MinWidth" Value="32" />
         <Setter Property="CornerRadius" Value="{DynamicResource MdCornerRadius}" />
         <Setter Property="Padding" Value="8,0" />
@@ -40,30 +40,30 @@
             <ControlTemplate>
                 <Panel>
                     <Border
-                        Name="Background"
                         Background="{DynamicResource PrimaryColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="Background"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Height="{TemplateBinding Height}"
-                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        Height="{TemplateBinding Height}"
+                        Padding="{TemplateBinding Padding}">
                         <Panel Name="PART_TextContainer">
                             <TextBlock
-                                Name="watermark"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Name="watermark"
                                 Opacity="0.5"
                                 Text="{TemplateBinding Watermark}"
                                 TextAlignment="{TemplateBinding TextAlignment}"
-                                TextWrapping="{TemplateBinding TextWrapping}">
+                                TextWrapping="{TemplateBinding TextWrapping}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                 <TextBlock.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                                         <CompiledBinding
@@ -78,14 +78,13 @@
                                 </TextBlock.IsVisible>
                             </TextBlock>
                             <TextPresenter
-                                Name="PART_TextPresenter"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
                                 CaretBrush="{TemplateBinding CaretBrush}"
                                 CaretIndex="{TemplateBinding CaretIndex}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 LetterSpacing="{TemplateBinding LetterSpacing}"
                                 LineHeight="{TemplateBinding LineHeight}"
+                                Name="PART_TextPresenter"
                                 PasswordChar="{TemplateBinding PasswordChar}"
                                 RevealPassword="{TemplateBinding RevealPassword}"
                                 SelectionBrush="{TemplateBinding SelectionBrush}"
@@ -95,7 +94,8 @@
                                 Text="{TemplateBinding Text,
                                                        Mode=TwoWay}"
                                 TextAlignment="{TemplateBinding TextAlignment}"
-                                TextWrapping="{TemplateBinding TextWrapping}" />
+                                TextWrapping="{TemplateBinding TextWrapping}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                         </Panel>
                     </Border>
                 </Panel>

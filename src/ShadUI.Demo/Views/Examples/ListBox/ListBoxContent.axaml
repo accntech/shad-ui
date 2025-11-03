@@ -1,32 +1,32 @@
 ﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.Examples.ListBox.ListBoxContent"
+    x:DataType="listBox:ListBoxViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:ShadUI.Demo.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:listBox="clr-namespace:ShadUI.Demo.ViewModels.Examples.ListBox"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    x:DataType="listBox:ListBoxViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <shadui:Card
-        Width="350"
+        HasShadow="True"
         HorizontalAlignment="Center"
-        HasShadow="True">
+        Width="350">
         <shadui:Card.Header>
             <StackPanel Spacing="4">
                 <shadui:CardTitle FontSize="18">Favorite Web Framework</shadui:CardTitle>
                 <shadui:CardDescription>Select your best ever web framework</shadui:CardDescription>
                 <ComboBox
-                    Width="164"
-                    Margin="0,16,0,0"
                     HorizontalAlignment="Left"
-                    shadui:ControlAssist.Label="Selection Mode"
                     ItemsSource="{Binding SelectionModes}"
+                    Margin="0,16,0,0"
                     PlaceholderText="Select a mode"
-                    SelectedValue="{Binding SelectionMode}" />
+                    SelectedValue="{Binding SelectionMode}"
+                    Width="164"
+                    shadui:ControlAssist.Label="Selection Mode" />
             </StackPanel>
         </shadui:Card.Header>
         <ListBox

@@ -1,20 +1,20 @@
 ﻿<UserControl
+    d:DesignWidth="800"
+    mc:Ignorable="d"
     x:Class="ShadUI.Demo.Views.InputPage"
+    x:DataType="viewModels:InputViewModel"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
-    d:DesignWidth="800"
-    x:DataType="viewModels:InputViewModel"
-    mc:Ignorable="d">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel LastChildFill="True">
         <StackPanel
-            MaxWidth="{StaticResource PageMaxWidth}"
-            Margin="{StaticResource PageMargin}"
             DockPanel.Dock="Top"
+            Margin="{StaticResource PageMargin}"
+            MaxWidth="{StaticResource PageMaxWidth}"
             Spacing="4">
             <Grid ColumnDefinitions="* Auto">
                 <TextBlock Classes="h2" Text="Input" />
@@ -23,21 +23,21 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding BackPageCommand}">
+                        Command="{Binding BackPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57420;" />
                         </Viewbox>
                     </Button>
                     <Button
-                        Width="28"
-                        Height="28"
                         Background="{DynamicResource GhostHoverColor}"
                         Classes="Icon"
-                        Command="{Binding NextPageCommand}">
+                        Command="{Binding NextPageCommand}"
+                        Height="28"
+                        Width="28">
                         <Viewbox Margin="6">
                             <TextBlock Classes="LucideIcon" Text="&#57421;" />
                         </Viewbox>
@@ -51,78 +51,78 @@
         </StackPanel>
         <ScrollViewer>
             <StackPanel
-                MaxWidth="{StaticResource PageMaxWidth}"
                 Margin="{StaticResource PageMargin}"
+                MaxWidth="{StaticResource PageMaxWidth}"
                 Spacing="32">
                 <controls:ControlBlock Title="Default" Xaml="{Binding DefaultInputCode}">
                     <StackPanel>
-                        <TextBox Width="225" Watermark="Email" />
+                        <TextBox Watermark="Email" Width="225" />
                     </StackPanel>
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="Disabled" Xaml="{Binding DisabledCode}">
                     <TextBox
-                        Width="225"
                         IsEnabled="False"
-                        Watermark="Email" />
+                        Watermark="Email"
+                        Width="225" />
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="With Label" Xaml="{Binding WithLabelCode}">
                     <TextBox
-                        Width="225"
                         Classes="Clearable"
                         UseFloatingWatermark="True"
-                        Watermark="Email" />
+                        Watermark="Email"
+                        Width="225" />
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="With Custom Label" Xaml="{Binding WithCustomLabelCode}">
                     <TextBox
-                        Width="225"
-                        shadui:ControlAssist.Label="Email"
                         Classes="Clearable"
-                        Watermark="user@example.com" />
+                        Watermark="user@example.com"
+                        Width="225"
+                        shadui:ControlAssist.Label="Email" />
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="Search Box" Xaml="{Binding SearchBoxCode}">
                     <TextBox
-                        Width="225"
-                        shadui:ControlAssist.ShowProgress="{Binding IsSearching}"
                         Classes="Clearable"
                         Text="{Binding SearchString, Mode=TwoWay}"
-                        Watermark="Search here...">
+                        Watermark="Search here..."
+                        Width="225"
+                        shadui:ControlAssist.ShowProgress="{Binding IsSearching}">
                         <TextBox.InnerRightContent>
                             <PathIcon
-                                Width="16"
                                 Data="{x:Static shadui:Icons.Search}"
-                                Opacity="0.75" />
+                                Opacity="0.75"
+                                Width="16" />
                         </TextBox.InnerRightContent>
                     </TextBox>
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="Auto Complete Box" Xaml="{Binding AutoCompleteBoxCode}">
                     <AutoCompleteBox
-                        Width="225"
-                        shadui:ControlAssist.Hint="Your favorite web framework"
-                        shadui:ControlAssist.Label="Search a framework"
-                        shadui:ElementAssist.Classes="Clearable"
                         Classes="Clearable"
                         FilterMode="Contains"
                         ItemsSource="{Binding WebFrameworks}"
-                        Watermark="Search here...">
+                        Watermark="Search here..."
+                        Width="225"
+                        shadui:ControlAssist.Hint="Your favorite web framework"
+                        shadui:ControlAssist.Label="Search a framework"
+                        shadui:ElementAssist.Classes="Clearable">
                         <AutoCompleteBox.InnerRightContent>
                             <PathIcon
-                                Width="16"
                                 Data="{x:Static shadui:Icons.Search}"
-                                Opacity="0.75" />
+                                Opacity="0.75"
+                                Width="16" />
                         </AutoCompleteBox.InnerRightContent>
                     </AutoCompleteBox>
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="Text Area" Xaml="{Binding TextAreaCode}">
                     <TextBox
+                        AcceptsReturn="True"
+                        Watermark="Enter a long description here..."
                         Width="225"
                         shadui:ControlAssist.Height="300"
-                        shadui:ControlAssist.Label="Description"
-                        AcceptsReturn="True"
-                        Watermark="Enter a long description here..." />
+                        shadui:ControlAssist.Label="Description" />
                 </controls:ControlBlock>
                 <controls:ControlBlock
-                    Title="Form Validation"
                     CSharp="{Binding InputForm.CSharpCode}"
+                    Title="Form Validation"
                     Xaml="{Binding InputForm.XamlCode}">
                     <ContentControl Content="{Binding InputForm}" />
                 </controls:ControlBlock>

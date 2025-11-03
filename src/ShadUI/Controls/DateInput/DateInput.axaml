@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
-    xmlns:system="clr-namespace:System;assembly=netstandard">
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="avares://ShadUI/Controls/Common.axaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -10,12 +10,12 @@
         <Border Height="500" Padding="24">
             <StackPanel Spacing="8">
                 <shadui:DateInput
-                    Width="255"
                     HorizontalAlignment="Left"
+                    Width="255"
                     shadui:ElementAssist.FocusOnLoad="True" />
                 <shadui:DateInput shadui:ControlAssist.Label="Start date" />
                 <shadui:DateInput shadui:ControlAssist.Hint="Set end date" shadui:ControlAssist.Label="End date" />
-                <shadui:DateInput shadui:ControlAssist.Label="Disable" IsEnabled="False" />
+                <shadui:DateInput IsEnabled="False" shadui:ControlAssist.Label="Disable" />
                 <shadui:DateInput Width="255">
                     <DataValidationErrors.Error>
                         <system:Exception />
@@ -24,7 +24,7 @@
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    <ControlTheme x:Key="{x:Type shadui:DateInput}" TargetType="{x:Type shadui:DateInput}">
+    <ControlTheme TargetType="{x:Type shadui:DateInput}" x:Key="{x:Type shadui:DateInput}">
         <Setter Property="Padding" Value="4" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Background" Value="{DynamicResource SelectionColor}" />
@@ -37,65 +37,65 @@
             <ControlTemplate>
                 <StackPanel Background="Transparent" Focusable="False">
                     <TextBlock
-                        Name="Label"
-                        Margin="0,0,0,6"
                         Classes="Small"
                         IsVisible="{TemplateBinding shadui:ControlAssist.Label,
                                                     Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                        Margin="0,0,0,6"
+                        Name="Label"
                         Text="{TemplateBinding shadui:ControlAssist.Label}" />
                     <DataValidationErrors Focusable="False">
                         <StackPanel>
                             <Border
-                                Name="Container"
-                                Padding="{TemplateBinding Padding}"
-                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}">
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                Name="Container"
+                                Padding="{TemplateBinding Padding}"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}">
                                 <Grid ColumnDefinitions="* Auto * Auto *">
                                     <TextBox
-                                        Name="PART_MonthTextBox"
-                                        Grid.Column="0"
-                                        shadui:ElementAssist.FocusOnLoad="{TemplateBinding shadui:ElementAssist.FocusOnLoad}"
                                         Background="Transparent"
                                         Cursor="IBeam"
+                                        Grid.Column="0"
                                         MaxLength="2"
+                                        Name="PART_MonthTextBox"
                                         Text="{TemplateBinding MonthString,
                                                                Mode=TwoWay}"
                                         Theme="{StaticResource InputBoxTheme}"
-                                        Watermark="mm" />
+                                        Watermark="mm"
+                                        shadui:ElementAssist.FocusOnLoad="{TemplateBinding shadui:ElementAssist.FocusOnLoad}" />
                                     <TextBlock
+                                        FontSize="18"
                                         Grid.Column="1"
                                         Margin="8,0,8,2"
-                                        VerticalAlignment="Center"
-                                        FontSize="18">
+                                        VerticalAlignment="Center">
                                         /
                                     </TextBlock>
                                     <TextBox
-                                        Name="PART_DayTextBox"
-                                        Grid.Column="2"
                                         Background="Transparent"
                                         Cursor="IBeam"
+                                        Grid.Column="2"
                                         MaxLength="2"
+                                        Name="PART_DayTextBox"
                                         Text="{TemplateBinding DayString,
                                                                Mode=TwoWay}"
                                         Theme="{StaticResource InputBoxTheme}"
                                         Watermark="dd" />
                                     <TextBlock
+                                        FontSize="18"
                                         Grid.Column="3"
                                         Margin="8,0,8,2"
-                                        VerticalAlignment="Center"
-                                        FontSize="18">
+                                        VerticalAlignment="Center">
                                         /
                                     </TextBlock>
                                     <TextBox
-                                        Name="PART_YearTextBox"
-                                        Grid.Column="4"
                                         Background="Transparent"
                                         Cursor="IBeam"
+                                        Grid.Column="4"
                                         MaxLength="4"
+                                        Name="PART_YearTextBox"
                                         Text="{TemplateBinding YearString,
                                                                Mode=TwoWay}"
                                         Theme="{StaticResource InputBoxTheme}"
@@ -103,11 +103,11 @@
                                 </Grid>
                             </Border>
                             <TextBlock
-                                Name="PART_Hint"
-                                Margin="0,4,0,0"
                                 Classes="Caption Muted"
                                 IsVisible="{TemplateBinding shadui:ControlAssist.Hint,
                                                             Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,4,0,0"
+                                Name="PART_Hint"
                                 Text="{TemplateBinding shadui:ControlAssist.Hint}" />
                         </StackPanel>
                     </DataValidationErrors>
@@ -118,7 +118,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>
@@ -128,7 +128,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>

@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
-    <ControlTheme x:Key="SpinnerRepeatButton" TargetType="RepeatButton">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="RepeatButton" x:Key="SpinnerRepeatButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Padding" Value="12,8" />
@@ -11,39 +11,39 @@
             <ControlTemplate>
                 <Panel>
                     <Border
-                        Name="BaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="BaseBackground"
                         Opacity="1">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="HoverBackground"
                         Background="{DynamicResource GhostHoverColor}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="HoverBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <ContentPresenter
-                        Name="ContentPresenter"
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                         Content="{TemplateBinding Content}"
-                        RecognizesAccessKey="True">
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Margin="{TemplateBinding Padding}"
+                        Name="ContentPresenter"
+                        RecognizesAccessKey="True"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                         <ContentPresenter.Transitions>
                             <Transitions>
-                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                                <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                             </Transitions>
                         </ContentPresenter.Transitions>
                     </ContentPresenter>
@@ -63,7 +63,7 @@
             <Setter Property="RenderTransform" Value="scale(0.95, 0.95)" />
         </Style>
     </ControlTheme>
-    <ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+    <ControlTheme TargetType="ButtonSpinner" x:Key="{x:Type ButtonSpinner}">
         <Setter Property="Background" Value="{DynamicResource SelectionColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -75,71 +75,71 @@
             <ControlTemplate>
                 <Panel>
                     <Border
-                        Name="border"
-                        Margin="{TemplateBinding Padding}"
-                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{TemplateBinding CornerRadius}">
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        Margin="{TemplateBinding Padding}"
+                        Name="border"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
                         <Border ClipToBounds="True" CornerRadius="{TemplateBinding CornerRadius}">
                             <DockPanel>
                                 <StackPanel
-                                    Name="SpinnerPanel"
                                     DockPanel.Dock="Right"
                                     IsVisible="{TemplateBinding ShowButtonSpinner}"
+                                    Name="SpinnerPanel"
                                     Orientation="Horizontal"
                                     TabIndex="2">
                                     <Rectangle
-                                        Name="LeftBorder"
-                                        Width="1"
+                                        Fill="{DynamicResource BorderColor}"
                                         HorizontalAlignment="Center"
-                                        Fill="{DynamicResource BorderColor}" />
+                                        Name="LeftBorder"
+                                        Width="1" />
                                     <RepeatButton
-                                        Name="PART_IncreaseButton"
                                         IsTabStop="{TemplateBinding IsTabStop}"
+                                        Name="PART_IncreaseButton"
                                         Theme="{StaticResource SpinnerRepeatButton}">
                                         <Path
-                                            Width="12"
-                                            Height="8"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
                                             Data="{x:Static shadui:Icons.ChevronUp}"
                                             Fill="{TemplateBinding Foreground}"
-                                            Stretch="Uniform" />
-                                    </RepeatButton>
-                                    <Rectangle
-                                        Width="1"
-                                        HorizontalAlignment="Center"
-                                        Fill="{DynamicResource BorderColor}" />
-                                    <RepeatButton
-                                        Name="PART_DecreaseButton"
-                                        IsTabStop="{TemplateBinding IsTabStop}"
-                                        Theme="{StaticResource SpinnerRepeatButton}">
-                                        <Path
-                                            Width="12"
                                             Height="8"
                                             HorizontalAlignment="Center"
+                                            Stretch="Uniform"
                                             VerticalAlignment="Center"
-                                            Data="{x:Static shadui:Icons.ChevronDown}"
-                                            Fill="{TemplateBinding Foreground}"
-                                            Stretch="Uniform" />
+                                            Width="12" />
                                     </RepeatButton>
                                     <Rectangle
-                                        Name="RightBorder"
-                                        Width="1"
+                                        Fill="{DynamicResource BorderColor}"
                                         HorizontalAlignment="Center"
-                                        Fill="{DynamicResource BorderColor}" />
+                                        Width="1" />
+                                    <RepeatButton
+                                        IsTabStop="{TemplateBinding IsTabStop}"
+                                        Name="PART_DecreaseButton"
+                                        Theme="{StaticResource SpinnerRepeatButton}">
+                                        <Path
+                                            Data="{x:Static shadui:Icons.ChevronDown}"
+                                            Fill="{TemplateBinding Foreground}"
+                                            Height="8"
+                                            HorizontalAlignment="Center"
+                                            Stretch="Uniform"
+                                            VerticalAlignment="Center"
+                                            Width="12" />
+                                    </RepeatButton>
+                                    <Rectangle
+                                        Fill="{DynamicResource BorderColor}"
+                                        HorizontalAlignment="Center"
+                                        Name="RightBorder"
+                                        Width="1" />
                                 </StackPanel>
                                 <ContentPresenter
-                                    Name="ContentPresenter"
-                                    Padding="{TemplateBinding Padding}"
-                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Content="{TemplateBinding Content}"
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
-                                    TabIndex="1" />
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    Name="ContentPresenter"
+                                    Padding="{TemplateBinding Padding}"
+                                    TabIndex="1"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                             </DockPanel>
                         </Border>
                     </Border>
@@ -172,7 +172,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>
@@ -182,7 +182,7 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>

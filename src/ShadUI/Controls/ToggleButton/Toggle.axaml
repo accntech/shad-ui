@@ -8,7 +8,7 @@
         </Panel>
     </Design.PreviewWith>
 
-    <ControlTheme x:Key="{x:Type ToggleButton}" TargetType="ToggleButton">
+    <ControlTheme TargetType="ToggleButton" x:Key="{x:Type ToggleButton}">
         <Setter Property="MinHeight" Value="36" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
@@ -20,49 +20,49 @@
                 <Panel Name="RootPanel">
                     <Panel.Transitions>
                         <Transitions>
-                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.10" />
+                            <TransformOperationsTransition Duration="0:0:0.10" Property="RenderTransform" />
                         </Transitions>
                     </Panel.Transitions>
                     <Border
-                        Name="NameBaseBackground"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="NameBaseBackground"
                         Opacity="1">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="NameHoverBackground"
                         Background="{DynamicResource GhostColor}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="NameHoverBackground"
                         Opacity="0">
                         <Border.Transitions>
                             <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                             </Transitions>
                         </Border.Transitions>
                     </Border>
                     <Border
-                        Name="NameBorderContainer"
                         Background="Transparent"
                         ClipToBounds="True"
                         CornerRadius="{TemplateBinding CornerRadius}"
+                        Name="NameBorderContainer"
                         TextElement.Foreground="{TemplateBinding Foreground}">
                         <ContentPresenter
+                            Content="{TemplateBinding Content}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Name="NameContentPresenter"
                             Padding="{TemplateBinding Padding}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
                             RecognizesAccessKey="True"
-                            TextElement.Foreground="{TemplateBinding Foreground}" />
+                            TextElement.Foreground="{TemplateBinding Foreground}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                     </Border>
                 </Panel>
             </ControlTemplate>

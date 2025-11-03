@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceInclude Source="avares://ShadUI/Controls/Common.axaml" />
     </ResourceDictionary.MergedDictionaries>
-    <ControlTheme x:Key="InnerTextBoxTheme" TargetType="TextBox">
+    <ControlTheme TargetType="TextBox" x:Key="InnerTextBoxTheme">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="LineHeight" Value="20" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -19,32 +19,32 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid
-                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                     Background="{TemplateBinding Background}"
-                    ColumnDefinitions="Auto * Auto">
+                    ColumnDefinitions="Auto * Auto"
+                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                     <ContentPresenter
+                        Content="{TemplateBinding InnerLeftContent}"
                         Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding InnerLeftContent}" />
+                        VerticalAlignment="Center" />
                     <ScrollViewer
-                        Name="ScrollViewer"
-                        Grid.Column="1"
                         AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
                         BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+                        Grid.Column="1"
                         HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
                         IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+                        Name="ScrollViewer"
                         VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
                         <Panel Name="TextContainer">
                             <TextBlock
-                                Name="Watermark"
-                                Margin="{TemplateBinding Padding}"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                Name="Watermark"
                                 Opacity="0.5"
                                 Text="{TemplateBinding Watermark}"
                                 TextAlignment="{TemplateBinding TextAlignment}"
-                                TextWrapping="{TemplateBinding TextWrapping}">
+                                TextWrapping="{TemplateBinding TextWrapping}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                 <TextBlock.IsVisible>
                                     <MultiBinding Converter="{x:Static BoolConverters.And}">
                                         <CompiledBinding
@@ -59,14 +59,13 @@
                                 </TextBlock.IsVisible>
                             </TextBlock>
                             <TextPresenter
-                                Name="PART_TextPresenter"
-                                Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="Center"
                                 CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
                                 CaretBrush="{TemplateBinding CaretBrush}"
                                 CaretIndex="{TemplateBinding CaretIndex}"
                                 LetterSpacing="{TemplateBinding LetterSpacing}"
                                 LineHeight="{TemplateBinding LineHeight}"
+                                Margin="{TemplateBinding Padding}"
+                                Name="PART_TextPresenter"
                                 PasswordChar="{TemplateBinding PasswordChar}"
                                 RevealPassword="{TemplateBinding RevealPassword}"
                                 SelectionBrush="{TemplateBinding SelectionBrush}"
@@ -76,7 +75,8 @@
                                 Text="{TemplateBinding Text,
                                                        Mode=TwoWay}"
                                 TextAlignment="{TemplateBinding TextAlignment}"
-                                TextWrapping="{TemplateBinding TextWrapping}" />
+                                TextWrapping="{TemplateBinding TextWrapping}"
+                                VerticalAlignment="Center" />
                         </Panel>
                         <ScrollViewer.Styles>
                             <Style Selector="ScrollContentPresenter#ContentPresenter">
@@ -85,13 +85,13 @@
                         </ScrollViewer.Styles>
                     </ScrollViewer>
                     <ContentPresenter
+                        Content="{TemplateBinding InnerRightContent}"
                         Grid.Column="2"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding InnerRightContent}" />
+                        VerticalAlignment="Center" />
                     <ContentPresenter
-                        Name="ClearButton"
                         Grid.Column="2"
                         Margin="0,4,12,4"
+                        Name="ClearButton"
                         VerticalAlignment="Center" />
                 </Grid>
             </ControlTemplate>
@@ -117,7 +117,7 @@
             </Style>
         </Style>
     </ControlTheme>
-    <ControlTheme x:Key="{x:Type NumericUpDown}" TargetType="NumericUpDown">
+    <ControlTheme TargetType="NumericUpDown" x:Key="{x:Type NumericUpDown}">
         <Setter Property="Background" Value="{DynamicResource SelectionColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
@@ -131,18 +131,15 @@
             <ControlTemplate>
                 <StackPanel Background="Transparent" Focusable="False">
                     <TextBlock
-                        Name="Label"
-                        Margin="0,0,0,6"
                         Classes="Small"
                         IsVisible="{TemplateBinding shadui:ControlAssist.Label,
                                                     Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                        Margin="0,0,0,6"
+                        Name="Label"
                         Text="{TemplateBinding shadui:ControlAssist.Label}" />
                     <DataValidationErrors>
                         <StackPanel>
                             <ButtonSpinner
-                                Name="PART_Spinner"
-                                HorizontalContentAlignment="Stretch"
-                                VerticalContentAlignment="Stretch"
                                 AllowSpin="{TemplateBinding AllowSpin}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -150,32 +147,35 @@
                                 ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
                                 DataValidationErrors.Errors="{TemplateBinding DataValidationErrors.Errors}"
+                                HorizontalContentAlignment="Stretch"
                                 IsTabStop="False"
-                                ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}">
+                                Name="PART_Spinner"
+                                ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}"
+                                VerticalContentAlignment="Stretch">
                                 <TextBox
-                                    Name="PART_TextBox"
-                                    MinWidth="20"
-                                    Padding="{TemplateBinding Padding}"
-                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                     AcceptsReturn="False"
                                     BorderThickness="0"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     InnerLeftContent="{Binding InnerLeftContent, RelativeSource={RelativeSource TemplatedParent}}"
                                     InnerRightContent="{Binding InnerRightContent, RelativeSource={RelativeSource TemplatedParent}}"
                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                    MinWidth="20"
+                                    Name="PART_TextBox"
+                                    Padding="{TemplateBinding Padding}"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                                     Text="{TemplateBinding Text}"
                                     TextAlignment="{TemplateBinding TextAlignment}"
                                     TextWrapping="NoWrap"
                                     Theme="{StaticResource InnerTextBoxTheme}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Watermark="{TemplateBinding Watermark}" />
                             </ButtonSpinner>
                             <TextBlock
-                                Margin="0,4,0,0"
                                 Classes="Caption Muted"
                                 Cursor="Arrow"
                                 IsVisible="{TemplateBinding shadui:ControlAssist.Hint,
                                                             Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                Margin="0,4,0,0"
                                 Text="{TemplateBinding shadui:ControlAssist.Hint}" />
                         </StackPanel>
                     </DataValidationErrors>

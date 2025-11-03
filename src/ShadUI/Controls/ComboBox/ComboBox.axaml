@@ -1,15 +1,15 @@
 ﻿<ResourceDictionary
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shadui="clr-namespace:ShadUI"
-    xmlns:system="clr-namespace:System;assembly=netstandard">
+    xmlns:system="clr-namespace:System;assembly=netstandard"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
         <Border
-            Width="400"
             Height="500"
-            Padding="8">
+            Padding="8"
+            Width="400">
             <StackPanel Spacing="8">
-                <ComboBox Width="200" SelectedIndex="0">
+                <ComboBox SelectedIndex="0" Width="200">
                     <ComboBoxItem>Next.js</ComboBoxItem>
                     <ComboBoxItem>SvelteKit</ComboBoxItem>
                     <ComboBoxItem>Nuxt.js</ComboBoxItem>
@@ -17,10 +17,10 @@
                     <ComboBoxItem>Astro</ComboBoxItem>
                 </ComboBox>
                 <ComboBox
+                    SelectedIndex="0"
                     Width="200"
                     shadui:ControlAssist.Hint="This control is currently disabled"
-                    shadui:ControlAssist.Label="Disabled Selection"
-                    SelectedIndex="0">
+                    shadui:ControlAssist.Label="Disabled Selection">
                     <DataValidationErrors.Error>
                         <system:Exception />
                     </DataValidationErrors.Error>
@@ -33,7 +33,7 @@
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    <ControlTheme x:Key="ComboBoxControlTheme" TargetType="ComboBox">
+    <ControlTheme TargetType="ComboBox" x:Key="ComboBoxControlTheme">
         <Setter Property="BorderThickness" Value="1,1,1,1" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -56,96 +56,96 @@
                 <DataValidationErrors>
                     <StackPanel Background="Transparent" Spacing="4">
                         <TextBlock
-                            Name="Label"
-                            Margin="0,0,0,6"
                             Classes="Small"
                             IsVisible="{TemplateBinding shadui:ControlAssist.Label,
                                                         Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Margin="0,0,0,6"
+                            Name="Label"
                             Text="{TemplateBinding shadui:ControlAssist.Label}" />
                         <Panel>
                             <Border
-                                Name="Background"
                                 Background="{DynamicResource GhostColor}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
+                                Name="Background"
                                 Opacity="0">
                                 <Border.Transitions>
                                     <Transitions>
-                                        <DoubleTransition Property="Opacity" Duration="0:0:0.20" />
+                                        <DoubleTransition Duration="0:0:0.20" Property="Opacity" />
                                     </Transitions>
                                 </Border.Transitions>
                             </Border>
                             <Border
-                                Name="Border"
-                                Height="{TemplateBinding shadui:ControlAssist.Height}"
-                                MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}"
-                                Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="{TemplateBinding CornerRadius}">
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Height="{TemplateBinding shadui:ControlAssist.Height}"
+                                MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}"
+                                Name="Border"
+                                Padding="{TemplateBinding Padding}">
                                 <Grid Background="Transparent" ColumnDefinitions="*,Auto">
                                     <TextBlock
-                                        Name="PlaceholderTextBlock"
-                                        Grid.Column="0"
-                                        Margin="12,0,0,0"
-                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalAlignment="Center"
                                         Foreground="{TemplateBinding PlaceholderForeground}"
+                                        Grid.Column="0"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         IsVisible="{TemplateBinding SelectionBoxItem,
                                                                     Converter={x:Static ObjectConverters.IsNull}}"
-                                        Text="{TemplateBinding PlaceholderText}" />
-                                    <ContentControl
-                                        Grid.Column="0"
                                         Margin="12,0,0,0"
-                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Name="PlaceholderTextBlock"
+                                        Text="{TemplateBinding PlaceholderText}"
+                                        VerticalAlignment="Center" />
+                                    <ContentControl
                                         Content="{TemplateBinding SelectionBoxItem}"
                                         ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                         Foreground="{DynamicResource ForegroundColor}"
+                                        Grid.Column="0"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        Margin="12,0,0,0"
                                         TextBlock.FontSize="{TemplateBinding FontSize}"
                                         TextBlock.FontWeight="{TemplateBinding FontWeight}"
-                                        TextBlock.Foreground="{TemplateBinding Foreground}" />
+                                        TextBlock.Foreground="{TemplateBinding Foreground}"
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                                     <Path
-                                        Name="Icon"
-                                        Grid.Column="1"
-                                        Width="8"
-                                        Margin="5,0,16,0"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
                                         Data="{x:Static shadui:Icons.ChevronUpDown}"
                                         Fill="{DynamicResource MutedColor}"
-                                        Stretch="Uniform">
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Center"
+                                        Margin="5,0,16,0"
+                                        Name="Icon"
+                                        Stretch="Uniform"
+                                        VerticalAlignment="Center"
+                                        Width="8">
                                         <Path.Transitions>
                                             <Transitions>
-                                                <BrushTransition Property="Fill" Duration="0:0:0.20" />
+                                                <BrushTransition Duration="0:0:0.20" Property="Fill" />
                                             </Transitions>
                                         </Path.Transitions>
                                     </Path>
                                     <Popup
-                                        Name="PART_Popup"
                                         Grid.Column="0"
-                                        MinWidth="{CompiledBinding #Border.Bounds.Width}"
-                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         IsLightDismissEnabled="True"
                                         IsOpen="{TemplateBinding IsDropDownOpen,
                                                                  Mode=TwoWay}"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        MinWidth="{CompiledBinding #Border.Bounds.Width}"
+                                        Name="PART_Popup"
                                         PlacementTarget="{CompiledBinding #Border}"
                                         VerticalOffset="5">
                                         <LayoutTransformControl Name="LayoutTransform" RenderTransformOrigin="50%, 0%">
                                             <Border
-                                                MinWidth="{CompiledBinding #Border.Bounds.Width}"
-                                                Margin="2,0,2,4"
                                                 Background="{DynamicResource CardBackgroundColor}"
                                                 BorderBrush="{DynamicResource BorderColor}"
                                                 BorderThickness="1"
                                                 BoxShadow="{DynamicResource Shadow}"
-                                                CornerRadius="{TemplateBinding CornerRadius}">
+                                                CornerRadius="{TemplateBinding CornerRadius}"
+                                                Margin="2,0,2,4"
+                                                MinWidth="{CompiledBinding #Border.Bounds.Width}">
                                                 <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                                                     <ItemsPresenter
-                                                        Name="PART_ItemsPresenter"
                                                         ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                        Name="PART_ItemsPresenter"
                                                         TextBlock.FontSize="{TemplateBinding FontSize}"
                                                         TextBlock.FontWeight="{TemplateBinding FontWeight}"
                                                         TextBlock.Foreground="{TemplateBinding Foreground}" />
@@ -157,10 +157,10 @@
                             </Border>
                         </Panel>
                         <TextBlock
-                            Name="PART_Hint"
                             Classes="Caption Muted"
                             IsVisible="{TemplateBinding shadui:ControlAssist.Hint,
                                                         Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Name="PART_Hint"
                             Text="{TemplateBinding shadui:ControlAssist.Hint}" />
                     </StackPanel>
                 </DataValidationErrors>
@@ -170,9 +170,9 @@
             <Style Selector="^ /template/ LayoutTransformControl#LayoutTransform">
                 <Style.Animations>
                     <Animation
+                        Duration="0:0:0.15"
                         Easing="SineEaseInOut"
-                        FillMode="Forward"
-                        Duration="0:0:0.15">
+                        FillMode="Forward">
                         <KeyFrame Cue="0%">
                             <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
                             <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
@@ -196,8 +196,8 @@
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
-                        <BrushTransition Property="Background" Duration="0:0:0.20" />
-                        <BrushTransition Property="BorderBrush" Duration="0:0:0.20" />
+                        <BrushTransition Duration="0:0:0.20" Property="Background" />
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
                     </Transitions>
                 </Setter.Value>
             </Setter>
@@ -225,7 +225,7 @@
     </ControlTheme>
 
     <ControlTheme
-        x:Key="{x:Type ComboBox}"
         BasedOn="{StaticResource ComboBoxControlTheme}"
-        TargetType="ComboBox" />
+        TargetType="ComboBox"
+        x:Key="{x:Type ComboBox}" />
 </ResourceDictionary>

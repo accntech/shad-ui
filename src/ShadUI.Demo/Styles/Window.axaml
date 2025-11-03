@@ -1,7 +1,7 @@
 ﻿<Styles
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI">
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="shadui|Window">
         <Setter Property="FontFamily" Value="{StaticResource ManropeFont}" />
     </Style>
