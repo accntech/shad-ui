@@ -115,6 +115,33 @@ internal class Toast : ContentControl
         set => SetValue(CanDismissByClickingProperty, value);
     }
 
+    public static readonly StyledProperty<bool> ShowProgressBarProperty =
+    AvaloniaProperty.Register<Toast, bool>(nameof(ShowProgressBar));
+
+    public bool ShowProgressBar
+    {
+        get => GetValue(ShowProgressBarProperty);
+        set => SetValue(ShowProgressBarProperty, value);
+    }
+
+    public static readonly StyledProperty<bool> IsProgressIndeterminateProperty =
+        AvaloniaProperty.Register<Toast, bool>(nameof(IsProgressIndeterminate), true);
+
+    public bool IsProgressIndeterminate
+    {
+        get => GetValue(IsProgressIndeterminateProperty);
+        set => SetValue(IsProgressIndeterminateProperty, value);
+    }
+
+    public static readonly StyledProperty<double> ProgressValueProperty =
+        AvaloniaProperty.Register<Toast, double>(nameof(ProgressValue), 0);
+
+    public double ProgressValue
+    {
+        get => GetValue(ProgressValueProperty);
+        set => SetValue(ProgressValueProperty, value);
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);

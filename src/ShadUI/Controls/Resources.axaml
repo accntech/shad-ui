@@ -55,5 +55,6 @@
         <ResourceInclude Source="avares://ShadUI/Controls/ToggleButton/Toggle.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/ToolTip/ToolTip.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Window/Window.axaml" />
+        <ResourceInclude Source="avares://ShadUI/Controls/ProgressBar/ProgressBar.axaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
 namespace ShadUI;
@@ -34,6 +35,10 @@ public sealed class ToastBuilder
 
     internal ToastPosition? Position { get; set; }
 
+    internal bool ShowProgressBar { get; set; }
+    internal bool IsProgressIndeterminate { get; set; }
+    internal int ProgressValue { get; set; }
+
     internal ToastBuilder CreateToast(string title)
     {
         _toast = new Toast(_manager)
@@ -54,6 +59,9 @@ public sealed class ToastBuilder
         _toast.CanDismissByClicking = DismissOnClick;
         _toast.Action = Action;
         _toast.Position = Position;
+        _toast.ShowProgressBar = ShowProgressBar;
+        _toast.IsProgressIndeterminate = IsProgressIndeterminate;
+        _toast.ProgressValue = ProgressValue;
         _manager.Queue(_toast);
     }
 }

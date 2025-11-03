@@ -56,6 +56,27 @@ public static class ToastBuilderExtensions
     }
 
     /// <summary>
+    ///     Enables display of the ProgressBar.
+    /// </summary>
+    /// <param name="builder">The current <see cref="ToastBuilder" /></param>
+    /// <param name="isIndeterminate">
+    /// If <c>true</c>, the progress bar will show an indeterminate (animated) state.
+    /// If <c>false</c>, the progress bar will reflect a specific value provided by <paramref name="progressValue"/>.
+    /// </param>
+    /// <param name="progressValue">
+    /// The initial progress value (0–100) to display when <paramref name="isIndeterminate"/> is <c>false</c>.
+    /// Ignored if <paramref name="isIndeterminate"/> is <c>true</c>.
+    /// </param>
+    /// <returns></returns>
+    public static ToastBuilder WithProgressBar(this ToastBuilder builder, bool isIndeterminate = true, int progressValue = 0)
+    {
+        builder.ShowProgressBar = true;
+        builder.IsProgressIndeterminate = isIndeterminate;
+        builder.ProgressValue = progressValue;
+        return builder;
+    }
+
+    /// <summary>
     ///     Sets the toast position to the top left.
     /// </summary>
     /// <param name="builder">The current <see cref="ToastBuilder" /></param>

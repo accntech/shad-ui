@@ -1,8 +1,9 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using System.Threading.Tasks;
 
 namespace ShadUI.Demo.ViewModels;
 
@@ -26,6 +27,7 @@ public sealed partial class ToastViewModel : ViewModelBase, INavigable
         WarningToastCode = WrapCode(path.ExtractByLineRange(122, 129).CleanIndentation());
         ErrorToastCode = WrapCode(path.ExtractByLineRange(134, 141).CleanIndentation());
         DynamicToastCode = WrapCode(path.ExtractByLineRange(148, 173).CleanIndentation());
+        DynamicToastCodeWithProgressBar = WrapCode(path.ExtractByLineRange(175, 197).CleanIndentation());
     }
 
     [RelayCommand]
@@ -169,5 +171,28 @@ public sealed partial class ToastViewModel : ViewModelBase, INavigable
             .WithAction("Retry", () => _toastManager.CreateToast("Retry clicked").Show(Notification.Success))
             .DismissOnClick()
             .Show(SelectedNotification);
+    }
+
+    [ObservableProperty]
+    private Notification _selectedNotificationWithProgressBar;
+
+    [ObservableProperty]
+    private bool _isProgressIndeterminate = true;
+
+    [ObservableProperty]
+    private int _progressValue = 30;
+
+    [ObservableProperty]
+    private string _dynamicToastCodeWithProgressBar = string.Empty;
+
+    [RelayCommand]
+    private async Task ShowToastWithProgressBar()
+    {
+        _toastManager.CreateToast("Your message has been sent.")
+            .WithContent($"{DateTime.Now:dddd, MMMM d 'at' h:mm tt}")
+            .WithAction("Retry", () => _toastManager.CreateToast("Retry clicked").Show(Notification.Success))
+            .DismissOnClick()
+            .WithProgressBar(IsProgressIndeterminate, ProgressValue)
+            .Show(SelectedNotificationWithProgressBar);
     }
 }
