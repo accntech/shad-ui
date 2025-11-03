@@ -164,21 +164,6 @@ public class Window : Avalonia.Controls.Window
     }
 
     /// <summary>
-    ///     Whether to enable minimize.
-    /// </summary>
-    public static readonly StyledProperty<bool> CanMinimizeProperty =
-        AvaloniaProperty.Register<Window, bool>(nameof(CanMinimize), true);
-
-    /// <summary>
-    ///     Gets or sets the value of the <see cref="CanMinimizeProperty" />.
-    /// </summary>
-    public bool CanMinimize
-    {
-        get => GetValue(CanMinimizeProperty);
-        set => SetValue(CanMinimizeProperty, value);
-    }
-
-    /// <summary>
     ///     Whether to show the title bar background.
     /// </summary>
     public static readonly StyledProperty<bool> ShowTitlebarBackgroundProperty =
@@ -191,21 +176,6 @@ public class Window : Avalonia.Controls.Window
     {
         get => GetValue(ShowTitlebarBackgroundProperty);
         set => SetValue(ShowTitlebarBackgroundProperty, value);
-    }
-
-    /// <summary>
-    ///     Whether to enable maximize.
-    /// </summary>
-    public static readonly StyledProperty<bool> CanMaximizeProperty =
-        AvaloniaProperty.Register<Window, bool>(nameof(CanMaximize), true);
-
-    /// <summary>
-    ///     Gets or sets the value of the <see cref="CanMaximizeProperty" />.
-    /// </summary>
-    public bool CanMaximize
-    {
-        get => GetValue(CanMaximizeProperty);
-        set => SetValue(CanMaximizeProperty, value);
     }
 
     /// <summary>
