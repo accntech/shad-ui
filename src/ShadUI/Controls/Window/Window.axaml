@@ -163,6 +163,13 @@
                                                             IsHitTestVisible="False"
                                                             Orientation="Horizontal"
                                                             Spacing="10">
+                                                            <StackPanel.IsVisible>
+                                                                <OnPlatform
+                                                                    Linux="True"
+                                                                    Windows="True"
+                                                                    macOS="False"
+                                                                    x:TypeArguments="system:Boolean" />
+                                                            </StackPanel.IsVisible>
                                                             <ContentPresenter
                                                                 HorizontalAlignment="Left"
                                                                 Content="{TemplateBinding LogoContent}"
