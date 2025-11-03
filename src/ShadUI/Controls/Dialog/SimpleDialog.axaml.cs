@@ -148,52 +148,97 @@ internal class SimpleDialog : TemplatedControl, IDisposable
     {
         base.OnApplyTemplate(e);
 
-        // Detach old event handlers if template is reapplied
         DetachButtonHandlers();
 
-        // Get and store button references
         _primaryButton = e.NameScope.Get<Button>("PART_PrimaryButton");
         _secondaryButton = e.NameScope.Get<Button>("PART_SecondaryButton");
         _tertiaryButton = e.NameScope.Get<Button>("PART_TertiaryButton");
         _cancelButton = e.NameScope.Get<Button>("PART_CancelButton");
 
-        // Attach new event handlers
-        _primaryButton.Click += OnPrimaryButtonClick;
-        _secondaryButton.Click += OnSecondaryButtonClick;
-        _tertiaryButton.Click += OnTertiaryButtonClick;
-        _cancelButton.Click += OnCancelButtonClick;
+        if (_primaryButton is not null)
+            _primaryButton.Click += OnPrimaryButtonClick;
+        if (_secondaryButton is not null)
+            _secondaryButton.Click += OnSecondaryButtonClick;
+        if (_tertiaryButton is not null)
+            _tertiaryButton.Click += OnTertiaryButtonClick;
+        if (_cancelButton is not null)
+            _cancelButton.Click += OnCancelButtonClick;
     }
 
-    private void OnPrimaryButtonClick(object? sender, RoutedEventArgs e)
+    private async void OnPrimaryButtonClick(object? sender, RoutedEventArgs e)
     {
-        _manager?.CloseDialog(this);
-        _manager?.OpenLast();
-        PrimaryCallback?.Invoke();
-        PrimaryCallbackAsync?.Invoke();
+        try
+        {
+            PrimaryCallback?.Invoke();
+            if (PrimaryCallbackAsync is not null)
+                await PrimaryCallbackAsync().ConfigureAwait(true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            _manager?.CloseDialog(this);
+            _manager?.OpenLast();
+        }
     }
 
-    private void OnSecondaryButtonClick(object? sender, RoutedEventArgs e)
+    private async void OnSecondaryButtonClick(object? sender, RoutedEventArgs e)
     {
-        _manager?.CloseDialog(this);
-        _manager?.OpenLast();
-        SecondaryCallback?.Invoke();
-        SecondaryCallbackAsync?.Invoke();
+        try
+        {
+            SecondaryCallback?.Invoke();
+            if (SecondaryCallbackAsync is not null)
+                await SecondaryCallbackAsync().ConfigureAwait(true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            _manager?.CloseDialog(this);
+            _manager?.OpenLast();
+        }
     }
 
-    private void OnTertiaryButtonClick(object? sender, RoutedEventArgs e)
+    private async void OnTertiaryButtonClick(object? sender, RoutedEventArgs e)
     {
-        _manager?.CloseDialog(this);
-        _manager?.OpenLast();
-        TertiaryCallback?.Invoke();
-        TertiaryCallbackAsync?.Invoke();
+        try
+        {
+            TertiaryCallback?.Invoke();
+            if (TertiaryCallbackAsync is not null)
+                await TertiaryCallbackAsync().ConfigureAwait(true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            _manager?.CloseDialog(this);
+            _manager?.OpenLast();
+        }
     }
 
-    private void OnCancelButtonClick(object? sender, RoutedEventArgs e)
+    private async void OnCancelButtonClick(object? sender, RoutedEventArgs e)
     {
-        _manager?.CloseDialog(this);
-        _manager?.OpenLast();
-        CancelCallback?.Invoke();
-        CancelCallbackAsync?.Invoke();
+        try
+        {
+            CancelCallback?.Invoke();
+            if (CancelCallbackAsync is not null)
+                await CancelCallbackAsync().ConfigureAwait(true);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        finally
+        {
+            _manager?.CloseDialog(this);
+            _manager?.OpenLast();
+        }
     }
 
     private void DetachButtonHandlers()
