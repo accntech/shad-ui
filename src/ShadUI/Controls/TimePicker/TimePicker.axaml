@@ -356,7 +356,7 @@
                                 </Style>
                             </Grid.Styles>
                             <Panel Grid.Column="0" Name="PART_HourHost">
-                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                <ScrollViewer shadui:SmoothScrollAssist.IsEnabled="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                     <DateTimePickerPanel
                                         ItemHeight="40"
                                         Name="PART_HourSelector"
@@ -368,7 +368,7 @@
                             </Panel>
 
                             <Panel Grid.Column="2" Name="PART_MinuteHost">
-                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                <ScrollViewer shadui:SmoothScrollAssist.IsEnabled="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                     <DateTimePickerPanel
                                         ItemHeight="40"
                                         Name="PART_MinuteSelector"
@@ -380,7 +380,7 @@
                             </Panel>
 
                             <Panel Grid.Column="4" Name="PART_SecondHost">
-                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                <ScrollViewer shadui:SmoothScrollAssist.IsEnabled="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                     <DateTimePickerPanel
                                         ItemHeight="40"
                                         Name="PART_SecondSelector"
@@ -392,7 +392,7 @@
                             </Panel>
 
                             <Panel Grid.Column="6" Name="PART_PeriodHost">
-                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                                <ScrollViewer shadui:SmoothScrollAssist.IsEnabled="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                                     <DateTimePickerPanel
                                         ItemHeight="40"
                                         Name="PART_PeriodSelector"
@@ -410,8 +410,7 @@
                                 Height="40"
                                 Margin="4,0"
                                 Name="HighlightRect"
-                                VerticalAlignment="Center"
-                                ZIndex="-1" />
+                                VerticalAlignment="Center"/>
                             <Rectangle
                                 Grid.Column="1"
                                 HorizontalAlignment="Center"

@@ -3,8 +3,9 @@
     xmlns:shadui="clr-namespace:ShadUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="ScrollViewer">
-        <Setter Property="IsScrollInertiaEnabled" Value="True" />
-        <Setter Property="Template">
+        <Setter Property="IsScrollInertiaEnabled" Value="False" />
+        <Setter Property="shadui:SmoothScrollAssist.IsEnabled" Value="True" />
+		<Setter Property="Template">
             <ControlTemplate>
                 <Panel>
                     <Panel Name="InnerPanel">
