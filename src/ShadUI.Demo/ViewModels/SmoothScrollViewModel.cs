@@ -16,11 +16,11 @@ public sealed partial class SmoothScrollViewModel : ViewModelBase, INavigable
     {
         _pageManager = pageManager;
         var path = Path.Combine(AppContext.BaseDirectory, "views", "SmoothScrollPage.axaml");
-        UsageCode = path.ExtractByLineRange(72, 82).CleanIndentation();
+        UsageCode = path.ExtractByLineRange(86, 114).CleanIndentation();
         
-        for (int i = 1; i <= 100; i++)
+        for (int i = 1; i <= 300; i++)
         {
-            ScrollItems.Add($"This is scrollable item #{i}");
+            ScrollItems.Add($"#{i}");
         }
     }
 
@@ -43,7 +43,7 @@ public sealed partial class SmoothScrollViewModel : ViewModelBase, INavigable
     public ObservableCollection<string> ScrollItems { get; } = [];
 
     [ObservableProperty]
-    private bool _isEnabled = false;
+    private bool _isEnabled = true;
 
     [ObservableProperty]
     private double _baseStepSize = SmoothScrollAssist.BaseStepSizeProperty.GetDefaultValue(typeof(ScrollViewer));

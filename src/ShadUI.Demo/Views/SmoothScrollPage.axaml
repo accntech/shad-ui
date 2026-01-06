@@ -59,7 +59,10 @@
                         Content="Is Enabled"
                         FontSize="14" 
                         FontWeight="Medium"/>
-                    <ToggleButton Grid.Row="1" Padding="8"
+                    <ToggleButton
+                        Grid.Row="1"
+                        Classes="Outline"
+                        Padding="8"
                         IsChecked="{Binding IsEnabled}">
                         <TextBlock Classes="LucideIcon" Text="&#57456;"/>
                     </ToggleButton>
@@ -80,23 +83,36 @@
                 Xaml="{Binding UsageCode}"
                 Margin="{StaticResource PageMargin}"
                 MaxWidth="{StaticResource PageMaxWidth}">
-                <ScrollViewer
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
                     shadui:SmoothScrollAssist.IsEnabled="{Binding IsEnabled}"
                     shadui:SmoothScrollAssist.BaseStepSize="{Binding BaseStepSize}"
                     shadui:SmoothScrollAssist.SmoothingFactor="{Binding SmoothingFactor}"
-                    Height="250">
+                    Height="315">
                     <ItemsControl ItemsSource="{Binding ScrollItems}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="3200"  />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <shadui:Card Margin="0, 4">
-                                    <TextBlock Text="{Binding}" Classes="h4"  />
-                                </shadui:Card>
+                                <Border
+                                    Background="Black"
+                                    Width="100"
+                                    Height="100"
+                                    Margin="12">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="White"
+                                        Text="{Binding}"
+                                        Classes="h4"  />
+                                </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
             </controls:ControlBlock>
         </ScrollViewer>
-        
     </DockPanel>
 </UserControl>
