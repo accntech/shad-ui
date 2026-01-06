@@ -40,11 +40,13 @@
                                                 Background="{DynamicResource BorderColor}"
                                                 CornerRadius="{DynamicResource MdCornerRadius}"
                                                 Name="ThumbBarVertical"
-                                                Width="2">
+                                                Width="2"
+                                                Margin="0,10">
                                                 <Border.Transitions>
                                                     <Transitions>
                                                         <BrushTransition Duration="0:0:0.15" Property="Background" />
                                                         <DoubleTransition Duration="0:0:0.1" Property="Width" />
+                                                        <ThicknessTransition Duration="0:0:0.1" Property="Margin" />
                                                     </Transitions>
                                                 </Border.Transitions>
                                             </Border>
@@ -153,12 +155,14 @@
                                             <Border
                                                 Background="{DynamicResource BorderColor}"
                                                 CornerRadius="{DynamicResource MdCornerRadius}"
+                                                Name="ThumbBarHorizontal"
                                                 Height="2"
-                                                Name="ThumbBarHorizontal">
+                                                Margin="10,0">
                                                 <Border.Transitions>
                                                     <Transitions>
                                                         <BrushTransition Duration="0:0:0.15" Property="Background" />
                                                         <DoubleTransition Duration="0:0:0.1" Property="Height" />
+                                                        <ThicknessTransition Duration="0:0:0.1" Property="Margin" />
                                                     </Transitions>
                                                 </Border.Transitions>
                                             </Border>
@@ -180,12 +184,14 @@
     <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarVertical">
         <Setter Property="Background" Value="{DynamicResource BorderColor}" />
         <Setter Property="Width" Value="6" />
+        <Setter Property="Margin" Value="0, 6" />
     </Style>
 
 
     <Style Selector="ScrollBar[AllowAutoHide=True] Border#ThumbBarHorizontal">
         <Setter Property="Background" Value="{DynamicResource BorderColor}" />
         <Setter Property="Height" Value="6" />
+        <Setter Property="Margin" Value="6, 0" />
     </Style>
 
 </Styles>
