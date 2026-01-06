@@ -50,8 +50,10 @@ public class SmoothScrollAssist
 	
 	static void IsEnabledChanged(ScrollViewer scrollViewer, AvaloniaPropertyChangedEventArgs e)
 	{
-		if (e.NewValue is true)
+		if (e.NewValue is true && !Controllers.TryGetValue(scrollViewer, out _))
 		{
+			scrollViewer.IsScrollInertiaEnabled = false;
+
 			double baseStepSize = GetBaseStepSize(scrollViewer);
 			double smoothingFactor = GetSmoothingFactor(scrollViewer);
 			SmoothScrollController controller = new(scrollViewer, baseStepSize, smoothingFactor);
@@ -64,6 +66,7 @@ public class SmoothScrollAssist
 			
 			Controllers.Remove(scrollViewer);
 			
+			scrollViewer.IsScrollInertiaEnabled = true;
 		}
 	}
 	
