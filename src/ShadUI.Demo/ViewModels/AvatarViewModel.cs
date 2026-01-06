@@ -20,7 +20,7 @@ public sealed partial class AvatarViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void BackPage()
     {
-        _pageManager.Navigate<TypographyViewModel>();
+        _pageManager.Navigate<SmoothScrollViewModel>();
     }
 
     [RelayCommand]
