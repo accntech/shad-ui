@@ -1,0 +1,102 @@
+﻿<UserControl
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="ShadUI.Demo.Views.SmoothScrollPage"
+    x:DataType="viewModels:SmoothScrollViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel LastChildFill="True">
+        <StackPanel
+            DockPanel.Dock="Top"
+            Margin="{StaticResource PageMargin}"
+            MaxWidth="{StaticResource PageMaxWidth}"
+            Spacing="4">
+            <Grid ColumnDefinitions="* Auto">
+                <TextBlock Classes="h2" Text="Smooth Scroll" />
+                <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button
+                        Background="{DynamicResource GhostHoverColor}"
+                        Classes="Icon"
+                        Command="{Binding BackPageCommand}"
+                        Height="28"
+                        Width="28">
+                        <Viewbox Margin="6">
+                            <TextBlock Classes="LucideIcon" Text="&#57420;" />
+                        </Viewbox>
+                    </Button>
+                    <Button
+                        Background="{DynamicResource GhostHoverColor}"
+                        Classes="Icon"
+                        Command="{Binding NextPageCommand}"
+                        Height="28"
+                        Width="28">
+                        <Viewbox Margin="6">
+                            <TextBlock Classes="LucideIcon" Text="&#57421;" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <TextBlock
+                Classes="p"
+                Text="Adds smooth scrolling to ScrollViewers with a customizable step size and smoothing factor."
+                TextWrapping="Wrap" />
+            <StackPanel
+                Spacing="12"
+                Orientation="Horizontal"
+                Margin="0,16,0,0">
+                <Grid RowDefinitions="Auto, *">
+                    <Label
+                        Margin="0,-3, 0, 3"
+                        Content="Is Enabled"
+                        FontSize="14" 
+                        FontWeight="Medium"/>
+                    <ToggleButton Grid.Row="1" Padding="8"
+                        IsChecked="{Binding IsEnabled}">
+                        <TextBlock Classes="LucideIcon" Text="&#57456;"/>
+                    </ToggleButton>
+                </Grid>
+                <NumericUpDown
+                    Value="{Binding BaseStepSize}"
+                    Width="155"
+                    shadui:ControlAssist.Label="Base Step Size" />
+                <NumericUpDown
+                    Value="{Binding SmoothingFactor}"
+                    Width="155"
+                    shadui:ControlAssist.Label="Smoothing Factor" />
+            </StackPanel>
+        </StackPanel>
+        
+        <ScrollViewer>
+            <controls:ControlBlock
+                Xaml="{Binding UsageCode}"
+                Margin="{StaticResource PageMargin}"
+                MaxWidth="{StaticResource PageMaxWidth}">
+                <ScrollViewer
+                    shadui:SmoothScrollAssist.IsEnabled="{Binding IsEnabled}"
+                    shadui:SmoothScrollAssist.BaseStepSize="{Binding BaseStepSize}"
+                    shadui:SmoothScrollAssist.SmoothingFactor="{Binding SmoothingFactor}"
+                    Height="250">
+                    <ItemsControl ItemsSource="{Binding ScrollItems}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <shadui:Card Margin="0, 4">
+                                    <TextBlock Text="{Binding}" Classes="h4"  />
+                                </shadui:Card>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </controls:ControlBlock>
+        </ScrollViewer>
+        
+    </DockPanel>
+</UserControl>

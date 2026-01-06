@@ -136,7 +136,23 @@
                     </shadui:SidebarItem>
                     <shadui:SidebarItemLabel
                         AsSeparator="True"
-                        Margin="8,20,8,8"
+                        Text="Behaviors" />
+                    <shadui:SidebarItem
+                        Command="{Binding OpenSmoothScrollCommand}"
+                        Content="Smooth Scroll"
+                        Route="smoothScroll"
+                        ToolTip.Tip="{Binding $parent[shadui:Sidebar].Expanded, Converter={x:Static converters:BooleanConverters.NullOrString}, ConverterParameter='Smooth Scroll'}">
+                        <shadui:SidebarItem.Icon>
+                            <Viewbox>
+                                <TextBlock
+                                    Classes="LucideIcon"
+                                    Foreground="{DynamicResource ForegroundColor}"
+                                    Text="&#58583;" />
+                            </Viewbox>
+                        </shadui:SidebarItem.Icon>
+                    </shadui:SidebarItem>
+                    <shadui:SidebarItemLabel
+                        AsSeparator="True"
                         Text="Components" />
                     <shadui:SidebarItem
                         Command="{Binding OpenAvatarCommand}"

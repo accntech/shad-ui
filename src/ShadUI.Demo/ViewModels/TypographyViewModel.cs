@@ -67,7 +67,7 @@ public sealed partial class TypographyViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void NextPage()
     {
-        _pageManager.Navigate<AvatarViewModel>();
+        _pageManager.Navigate<SmoothScrollViewModel>();
     }
 
     [ObservableProperty]

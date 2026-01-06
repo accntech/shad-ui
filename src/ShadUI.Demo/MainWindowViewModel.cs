@@ -15,6 +15,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     private readonly DashboardViewModel _dashboardViewModel;
     private readonly ThemeViewModel _themeViewModel;
     private readonly TypographyViewModel _typographyViewModel;
+    private readonly SmoothScrollViewModel _smoothScrollViewModel;
     private readonly AvatarViewModel _avatarViewModel;
     private readonly BadgeViewModel _badgeViewModel;
     private readonly ButtonViewModel _buttonViewModel;
@@ -49,6 +50,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         DashboardViewModel dashboardViewModel,
         ThemeViewModel themeViewModel,
         TypographyViewModel typographyViewModel,
+        SmoothScrollViewModel smoothScrollViewModel,
         AvatarViewModel avatarViewModel,
         BadgeViewModel badgeViewModel,
         ButtonViewModel buttonViewModel,
@@ -79,6 +81,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         _dashboardViewModel = dashboardViewModel;
         _themeViewModel = themeViewModel;
         _typographyViewModel = typographyViewModel;
+        _smoothScrollViewModel = smoothScrollViewModel;
         _avatarViewModel = avatarViewModel;
         _badgeViewModel = badgeViewModel;
         _buttonViewModel = buttonViewModel;
@@ -152,6 +155,12 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     private void OpenTypography()
     {
         SwitchPage(_typographyViewModel);
+    }
+
+    [RelayCommand]
+    private void OpenSmoothScroll()
+    {
+        SwitchPage(_smoothScrollViewModel);
     }
 
     [RelayCommand]
