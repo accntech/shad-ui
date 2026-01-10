@@ -11,6 +11,8 @@
     x:Class="ShadUI.Demo.MainWindow"
     x:DataType="demo:MainWindowViewModel"
     x:Name="Window"
+    EnableTrafficLightPositioning="True"
+    TrafficLightOffset="5,8"
     xmlns="https://github.com/avaloniaui"
     xmlns:converters="clr-namespace:ShadUI.Demo.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
