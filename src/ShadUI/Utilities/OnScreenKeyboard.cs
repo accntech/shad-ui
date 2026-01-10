@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Avalonia;
@@ -142,15 +143,21 @@ internal static class OnScreenKeyboard
         {
             if ((uint)e.HResult == 0x80040154)
             {
-                Process p = new()
+                // Use fully qualified path to prevent command injection via PATH hijacking
+                var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles);
+                var tabTipPath = Path.Combine(programFiles, "Microsoft Shared", "ink", "tabtip.exe");
+
+                if (File.Exists(tabTipPath))
                 {
-                    StartInfo = new ProcessStartInfo
+                    using var process = new Process();
+                    process.StartInfo = new ProcessStartInfo
                     {
-                        FileName = "tabtip.exe",
-                        UseShellExecute = true
-                    }
-                };
-                p.Start();
+                        FileName = tabTipPath,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+                    process.Start();
+                }
             }
             else
             {
