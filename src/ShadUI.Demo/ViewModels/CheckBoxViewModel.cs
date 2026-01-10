@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,8 +23,30 @@ public partial class CheckBoxViewModel : ViewModelBase, INavigable
         IndeterminateCode = path.ExtractByLineRange(68, 70).CleanIndentation();
         MultipleCode = path.ExtractByLineRange(73, 92).CleanIndentation();
 
-        Items.CollectionChanged += (_, _) => UpdateSelectAllState();
-        foreach (var item in Items) item.PropertyChanged += (_, _) => UpdateSelectAllState();
+        Items.CollectionChanged += OnItemsCollectionChanged;
+        foreach (var item in Items) item.PropertyChanged += OnItemPropertyChanged;
+    }
+
+    private void OnItemsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.NewItems != null)
+        {
+            foreach (CheckBoxItem item in e.NewItems)
+                item.PropertyChanged += OnItemPropertyChanged;
+        }
+
+        if (e.OldItems != null)
+        {
+            foreach (CheckBoxItem item in e.OldItems)
+                item.PropertyChanged -= OnItemPropertyChanged;
+        }
+
+        UpdateSelectAllState();
+    }
+
+    private void OnItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        UpdateSelectAllState();
     }
 
     [RelayCommand]
@@ -78,6 +102,16 @@ public partial class CheckBoxViewModel : ViewModelBase, INavigable
         new() { IsChecked = false, Text = "Downloads" },
         new() { IsChecked = false, Text = "Documents" }
     ];
+
+    public override void Dispose()
+    {
+        Items.CollectionChanged -= OnItemsCollectionChanged;
+
+        foreach (var item in Items)
+            item.PropertyChanged -= OnItemPropertyChanged;
+
+        base.Dispose();
+    }
 }
 
 public partial class CheckBoxItem : ObservableObject

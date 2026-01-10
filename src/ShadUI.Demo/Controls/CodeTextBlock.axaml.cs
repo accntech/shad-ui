@@ -14,7 +14,7 @@ using TextMateSharp.Grammars;
 
 namespace ShadUI.Demo.Controls;
 
-public class CodeTextBlock : TemplatedControl
+public class CodeTextBlock : TemplatedControl, IDisposable
 {
     private readonly DispatcherTimer _timer;
     private InlineCollection? _inlines = new();
@@ -22,15 +22,18 @@ public class CodeTextBlock : TemplatedControl
     private PathIcon? _clipboardIcon;
     private Geometry? _originalIconData;
     private TextEditor? _editor;
+    private bool _disposed;
 
     public CodeTextBlock()
     {
         _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
-        _timer.Tick += (_, _) =>
-        {
-            if (_clipboardIcon is not null) _clipboardIcon.Data = _originalIconData;
-            _timer.Stop();
-        };
+        _timer.Tick += OnTimerTick;
+    }
+
+    private void OnTimerTick(object? sender, EventArgs e)
+    {
+        if (_clipboardIcon is not null) _clipboardIcon.Data = _originalIconData;
+        _timer.Stop();
     }
 
     public static readonly StyledProperty<string?> TextProperty =
@@ -162,5 +165,35 @@ public class CodeTextBlock : TemplatedControl
 
         Inlines?.Clear();
         _editor?.Clear();
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnDetachedFromVisualTree(e);
+        Cleanup();
+    }
+
+    private void Cleanup()
+    {
+        if (_clipboardButton != null)
+            _clipboardButton.Click -= OnClipboardButtonClick;
+
+        _timer.Stop();
+        _timer.Tick -= OnTimerTick;
+    }
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        Cleanup();
+
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
+
+    ~CodeTextBlock()
+    {
+        Dispose();
     }
 }

@@ -110,4 +110,16 @@ public sealed partial class InputViewModel : ViewModelBase, INavigable
     {
         InputForm.Initialize();
     }
+
+    public override void Dispose()
+    {
+        if (_searchTimer != null)
+        {
+            _searchTimer.Stop();
+            _searchTimer.Elapsed -= SearchTimerElapsed;
+            _searchTimer.Dispose();
+        }
+
+        base.Dispose();
+    }
 }

@@ -170,6 +170,23 @@ public sealed partial class BasicDataTableViewModel : ViewModelBase
     {
         ShowAmountColumn = !ShowAmountColumn;
     }
+
+    public override void Dispose()
+    {
+        if (_searchTimer != null)
+        {
+            _searchTimer.Stop();
+            _searchTimer.Elapsed -= SearchTimerElapsed;
+            _searchTimer.Dispose();
+        }
+
+        PropertyChanged -= OnPropertyChanged;
+
+        foreach (var item in _originalItems)
+            item.PropertyChanged -= OnItemsChanged;
+
+        base.Dispose();
+    }
 }
 
 public sealed partial class DataGridItem : ObservableValidator
