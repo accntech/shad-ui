@@ -38,7 +38,7 @@
         <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc5.4"/>
         <PackageReference Include="Serilog" Version="4.3.0"/>
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
-        <PackageReference Include="TextMateSharp.Grammars" Version="2.0.2" />
+        <PackageReference Include="TextMateSharp.Grammars" Version="1.0.70" />
     </ItemGroup>
 
     <ItemGroup>
