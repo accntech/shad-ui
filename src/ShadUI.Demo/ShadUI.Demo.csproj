@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFrameworks>net9.0; net10.0</TargetFrameworks>
         <Nullable>enable</Nullable>
         <Version>1.1.1</Version>
         <AssemblyName>shadui-app</AssemblyName>
@@ -23,22 +23,22 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.3.8" />
+        <PackageReference Include="Avalonia" Version="11.3.10" />
         <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.3.0"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.3.8" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.10" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.8">
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.10">
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="AvaloniaEdit.TextMate" Version="11.3.0"/>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
-        <PackageReference Include="HotAvalonia" Version="3.0.0" PrivateAssets="All"/>
+        <PackageReference Include="HotAvalonia" Version="3.0.2" PrivateAssets="All" />
         <PackageReference Include="Jab" Version="0.12.0" PrivateAssets="All" />
         <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc5.4"/>
         <PackageReference Include="Serilog" Version="4.3.0"/>
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0"/>
-        <PackageReference Include="TextMateSharp.Grammars" Version="1.0.70" />
+        <PackageReference Include="TextMateSharp.Grammars" Version="2.0.2" />
     </ItemGroup>
 
     <ItemGroup>
