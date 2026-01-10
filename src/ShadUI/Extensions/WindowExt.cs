@@ -24,6 +24,17 @@ public static class WindowExt
     private static readonly Dictionary<string, WindowSettings?> Cache = new();
     private static readonly object CacheLock = new();
 
+    private static string GetSettingsDirectory()
+    {
+        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var shadUiDir = Path.Combine(localAppData, "ShadUI");
+
+        if (!Directory.Exists(shadUiDir))
+            Directory.CreateDirectory(shadUiDir);
+
+        return shadUiDir;
+    }
+
     /// <summary>
     ///     Enables automatic window state management for the specified window.
     ///     The window's position, size, and state will be automatically saved when the window closes
@@ -38,7 +49,7 @@ public static class WindowExt
     {
         if (ClosingHandlers.ContainsKey(window)) return;
 
-        var file = Path.Combine(Path.GetTempPath(), $"shadui_{key}.txt");
+        var file = Path.Combine(GetSettingsDirectory(), $"shadui_{key}.txt");
         RestoreWindowState(window, file);
 
         EventHandler<WindowClosingEventArgs> closingHandler = async void (_, _) =>
