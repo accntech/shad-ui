@@ -1,0 +1,121 @@
+########################################
+# OS-specific
+########################################
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+########################################
+# Visual Studio / .NET
+########################################
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.docstates
+
+# Visual Studio Code (optional)
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+########################################
+# Rider / JetBrains
+########################################
+
+.idea/
+*.sln.iml
+*.DotSettings.user
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.resharper.user
+
+########################################
+# .NET Core / SDK
+########################################
+
+# Project lock & runtime files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+.nuget/packages/
+
+# dotnet tools
+.dotnet/
+.dotnet-tools.json
+
+########################################
+# Testing
+########################################
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Coverage
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+########################################
+# Publishing
+########################################
+
+# Publish output
+publish/
+app.publish/
+
+########################################
+# Azure / Cloud / Containers (optional)
+########################################
+
+# Azure
+.azure/
+
+# Docker
+docker-compose.override.yml
+
+########################################
+# Misc
+########################################
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+*.old
+
+# Rider / VS caches
+*.pidb
+*.svclog
+*.scc
