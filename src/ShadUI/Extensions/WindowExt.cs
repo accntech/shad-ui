@@ -19,7 +19,8 @@ namespace ShadUI;
 /// </summary>
 public static class WindowExt
 {
-    private static readonly Dictionary<Window, EventHandler<WindowClosingEventArgs>> Handlers = new();
+    private static readonly Dictionary<Window, EventHandler<WindowClosingEventArgs>> ClosingHandlers = new();
+    private static readonly Dictionary<Window, EventHandler?> ClosedHandlers = new();
     private static readonly Dictionary<string, WindowSettings?> Cache = new();
     private static readonly object CacheLock = new();
 
@@ -35,12 +36,12 @@ public static class WindowExt
     /// </param>
     public static void ManageWindowState(this Window window, string key = "main")
     {
-        if (Handlers.ContainsKey(window)) return;
+        if (ClosingHandlers.ContainsKey(window)) return;
 
         var file = Path.Combine(Path.GetTempPath(), $"shadui_{key}.txt");
         RestoreWindowState(window, file);
 
-        EventHandler<WindowClosingEventArgs> handler = async void (_, _) =>
+        EventHandler<WindowClosingEventArgs> closingHandler = async void (_, _) =>
         {
             try
             {
@@ -60,8 +61,17 @@ public static class WindowExt
                 //ignore
             }
         };
-        window.Closing += handler;
-        Handlers[window] = handler;
+        window.Closing += closingHandler;
+        ClosingHandlers[window] = closingHandler;
+
+        EventHandler? closedHandler = null;
+        closedHandler = (_, _) =>
+        {
+            window.Closed -= closedHandler;
+            window.UnmanageWindowState();
+        };
+        window.Closed += closedHandler;
+        ClosedHandlers[window] = closedHandler;
     }
 
     /// <summary>
@@ -71,10 +81,28 @@ public static class WindowExt
     /// <param name="window">The window to stop managing state for.</param>
     public static void UnmanageWindowState(this Window window)
     {
-        if (Handlers.TryGetValue(window, out var handler))
+        if (ClosingHandlers.TryGetValue(window, out var closingHandler))
         {
-            window.Closing -= handler;
-            Handlers.Remove(window);
+            window.Closing -= closingHandler;
+            ClosingHandlers.Remove(window);
+        }
+
+        if (ClosedHandlers.TryGetValue(window, out var closedHandler))
+        {
+            if (closedHandler != null)
+                window.Closed -= closedHandler;
+            ClosedHandlers.Remove(window);
+        }
+    }
+
+    /// <summary>
+    /// Clears the cached window settings. Call during application shutdown if needed.
+    /// </summary>
+    public static void ClearCache()
+    {
+        lock (CacheLock)
+        {
+            Cache.Clear();
         }
     }
 
