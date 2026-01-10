@@ -162,14 +162,8 @@
                                                             Name="AppTitlePanel"
                                                             Orientation="Horizontal"
                                                             Spacing="10"
-                                                            VerticalAlignment="Center">
-                                                            <StackPanel.IsVisible>
-                                                                <OnPlatform
-                                                                    Linux="True"
-                                                                    Windows="True"
-                                                                    macOS="False"
-                                                                    x:TypeArguments="system:Boolean" />
-                                                            </StackPanel.IsVisible>
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="{OnPlatform Left, macOS=Center}">
                                                             <ContentPresenter
                                                                 Content="{TemplateBinding LogoContent}"
                                                                 HorizontalAlignment="Left"
