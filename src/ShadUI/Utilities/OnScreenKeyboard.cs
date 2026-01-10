@@ -57,6 +57,25 @@ internal static class OnScreenKeyboard
             handledEventsToo: true);
     }
 
+    /// <summary>
+    /// Cleans up static resources. Call this method during application shutdown.
+    /// </summary>
+    public static void Cleanup()
+    {
+        lock (LockObject)
+        {
+            if (_throttleTimer != null)
+            {
+                _throttleTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                _throttleTimer.Dispose();
+                _throttleTimer = null;
+            }
+
+            TopLevelMap.Clear();
+            _alreadyDone = false;
+        }
+    }
+
     private static void QueueKeyboardEvent(TextBox textBox, bool state)
     {
         lock (LockObject)
