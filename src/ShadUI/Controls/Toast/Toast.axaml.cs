@@ -14,7 +14,7 @@ namespace ShadUI;
 [TemplatePart("PART_ToastCard", typeof(Border))]
 [TemplatePart("PART_ActionButton", typeof(Button))]
 [TemplatePart("PART_CloseButton", typeof(Button))]
-internal class Toast : ContentControl
+internal class Toast : ContentControl, IDisposable
 {
     /// <summary>
     ///     Delay in seconds before the toast is dismissed.
@@ -23,14 +23,43 @@ internal class Toast : ContentControl
 
     public ToastPosition? Position { get; set; }
 
-    public Toast()
-    {
-        PointerEntered += (_, _) => _timer?.Stop();
-        PointerExited += (_, _) => _timer?.Start();
-    }
-
     private DispatcherTimer? _timer;
     private double _timeLapsed;
+    private readonly ToastManager? _manager;
+    private bool _eventsAttached;
+    private bool _disposed;
+    private Border? _toastCard;
+    private Button? _actionButton;
+    private Button? _closeButton;
+
+    public Toast()
+    {
+    }
+
+    public Toast(ToastManager manager) : this()
+    {
+        _manager = manager;
+        AttachPointerEvents();
+    }
+
+    private void AttachPointerEvents()
+    {
+        if (_eventsAttached) return;
+
+        PointerEntered += OnPointerEntered;
+        PointerExited += OnPointerExited;
+        _eventsAttached = true;
+    }
+
+    private void OnPointerEntered(object? sender, PointerEventArgs e)
+    {
+        _timer?.Stop();
+    }
+
+    private void OnPointerExited(object? sender, PointerEventArgs e)
+    {
+        _timer?.Start();
+    }
 
     private void StartCounter()
     {
@@ -44,21 +73,12 @@ internal class Toast : ContentControl
         _timer.Start();
     }
 
-    private void OnTimeLapse(object sender, EventArgs e)
+    private void OnTimeLapse(object? sender, EventArgs e)
     {
         _timeLapsed += 1;
         if (_timeLapsed < Delay) return;
         _timer?.Stop();
         _manager?.Dismiss(this);
-    }
-
-    private readonly ToastManager? _manager;
-
-    public Toast(ToastManager manager)
-    {
-        _manager = manager;
-        PointerEntered += (_, _) => _timer?.Stop();
-        PointerExited += (_, _) => _timer?.Start();
     }
 
     public static readonly StyledProperty<Notification> NotificationProperty =
@@ -118,17 +138,36 @@ internal class Toast : ContentControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-        e.NameScope.Get<Border>("PART_ToastCard").PointerPressed += ToastCardClickedHandler;
-        e.NameScope.Get<Button>("PART_ActionButton").Click += (_, _) =>
-        {
-            Action?.Invoke();
-            Task.Delay(500).ContinueWith(_ => _manager?.Dismiss(this),
-                TaskScheduler.FromCurrentSynchronizationContext());
-        };
-        e.NameScope.Get<Button>("PART_CloseButton").Click += (_, _) => _manager?.Dismiss(this);
+
+        if (_toastCard != null)
+            _toastCard.PointerPressed -= ToastCardClickedHandler;
+        if (_actionButton != null)
+            _actionButton.Click -= OnActionButtonClick;
+        if (_closeButton != null)
+            _closeButton.Click -= OnCloseButtonClick;
+
+        _toastCard = e.NameScope.Get<Border>("PART_ToastCard");
+        _actionButton = e.NameScope.Get<Button>("PART_ActionButton");
+        _closeButton = e.NameScope.Get<Button>("PART_CloseButton");
+
+        _toastCard.PointerPressed += ToastCardClickedHandler;
+        _actionButton.Click += OnActionButtonClick;
+        _closeButton.Click += OnCloseButtonClick;
     }
 
-    private void ToastCardClickedHandler(object sender, PointerPressedEventArgs e)
+    private void OnActionButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Action?.Invoke();
+        Task.Delay(500).ContinueWith(_ => _manager?.Dismiss(this),
+            TaskScheduler.FromCurrentSynchronizationContext());
+    }
+
+    private void OnCloseButtonClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        _manager?.Dismiss(this);
+    }
+
+    private void ToastCardClickedHandler(object? sender, PointerPressedEventArgs e)
     {
         if (!CanDismissByClicking) return;
         _manager?.Dismiss(this);
@@ -181,5 +220,61 @@ internal class Toast : ContentControl
     {
         base.OnPropertyChanged(change);
         if (change.Property == ContentProperty) IsEmptyContent = Content == null;
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnDetachedFromVisualTree(e);
+        Cleanup();
+    }
+
+    private void Cleanup()
+    {
+        if (_timer != null)
+        {
+            _timer.Stop();
+            _timer.Tick -= OnTimeLapse;
+            _timer = null;
+        }
+
+        if (_eventsAttached)
+        {
+            PointerEntered -= OnPointerEntered;
+            PointerExited -= OnPointerExited;
+            _eventsAttached = false;
+        }
+
+        if (_toastCard != null)
+        {
+            _toastCard.PointerPressed -= ToastCardClickedHandler;
+            _toastCard = null;
+        }
+
+        if (_actionButton != null)
+        {
+            _actionButton.Click -= OnActionButtonClick;
+            _actionButton = null;
+        }
+
+        if (_closeButton != null)
+        {
+            _closeButton.Click -= OnCloseButtonClick;
+            _closeButton = null;
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        Cleanup();
+
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
+
+    ~Toast()
+    {
+        Dispose();
     }
 }
