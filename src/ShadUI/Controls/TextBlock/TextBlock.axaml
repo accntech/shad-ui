@@ -9,36 +9,30 @@
         </Style>
         <Style Selector="^.h2">
             <Setter Property="FontSize" Value="30" />
-            <Setter Property="LineHeight" Value="36" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
 
         <Style Selector="^.h3">
             <Setter Property="FontSize" Value="24" />
-            <Setter Property="LineHeight" Value="32" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
 
         <Style Selector="^.h4">
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="LineHeight" Value="28" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
 
         <Style Selector="^.p">
             <Setter Property="FontSize" Value="16" />
-            <Setter Property="LineHeight" Value="28" />
         </Style>
 
         <Style Selector="^.Lead">
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="LineHeight" Value="28" />
             <Setter Property="Foreground" Value="{DynamicResource ForegroundLeadColor}" />
         </Style>
 
         <Style Selector="^.Large">
             <Setter Property="FontSize" Value="18" />
-            <Setter Property="LineHeight" Value="28" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
 
