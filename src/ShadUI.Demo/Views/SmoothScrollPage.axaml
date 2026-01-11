@@ -97,14 +97,15 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                    Background="Black"
+                                    Background="{DynamicResource PrimaryColor}"
+                                    CornerRadius="{DynamicResource LgCornerRadius}"
                                     Width="100"
                                     Height="100"
-                                    Margin="12">
+                                    Margin="8">
                                     <TextBlock
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Foreground="White"
+                                        Foreground="{DynamicResource PrimaryForegroundColor}"
                                         Text="{Binding}"
                                         Classes="h4"  />
                                 </Border>
