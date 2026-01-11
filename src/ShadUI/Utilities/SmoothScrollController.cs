@@ -12,22 +12,22 @@ namespace ShadUI;
 
 internal sealed class SmoothScrollController
 {
-	readonly ScrollViewer instance;
-    IRenderRoot? visualRoot;
-	TopLevel? topLevel;
-    
-	double targetX, currentX;
-	double targetY, currentY;
-    
-	bool isLoopRunning;
-	TimeSpan lastFrameTime = TimeSpan.Zero;
+    private readonly ScrollViewer _instance;
+    private IRenderRoot? _visualRoot;
+    private TopLevel? _topLevel;
+
+    private double _targetX, _currentX;
+    private double _targetY, _currentY;
+
+    private bool _isLoopRunning;
+    private TimeSpan _lastFrameTime = TimeSpan.Zero;
 
     public SmoothScrollController(
         ScrollViewer instance,
         double baseStepSize,
         double smoothingFactor)
     {
-        this.instance = instance;
+        this._instance = instance;
         
         BaseStepSize = baseStepSize;
         SmoothingFactor = smoothingFactor;
@@ -37,18 +37,18 @@ internal sealed class SmoothScrollController
 
     public void Stop()
     {
-        instance.RemoveHandler(InputElement.PointerWheelChangedEvent, OnPointerWheelChanged);
+        _instance.RemoveHandler(InputElement.PointerWheelChangedEvent, OnPointerWheelChanged);
         
-        isLoopRunning = false;
-        lastFrameTime = TimeSpan.Zero;
+        _isLoopRunning = false;
+        _lastFrameTime = TimeSpan.Zero;
 		
-        topLevel = null;
+        _topLevel = null;
 
-        targetY = 0;
-        currentY = 0;
+        _targetY = 0;
+        _currentY = 0;
 		
-        targetX = 0;
-        currentX = 0;
+        _targetX = 0;
+        _currentX = 0;
     }
 
     
@@ -57,47 +57,43 @@ internal sealed class SmoothScrollController
     public double SmoothingFactor { get; set; }
 
 
-    void OnPointerWheelChanged(
+    private void OnPointerWheelChanged(
         object? sender,
         PointerWheelEventArgs e)
     {
         if (e.Handled)
             return;
         
-        topLevel ??= TopLevel.GetTopLevel(instance);
-        if (topLevel is null)
+        _topLevel ??= TopLevel.GetTopLevel(_instance);
+        if (_topLevel is null)
             return;
         
-        // Prevent scroll direction leaks
-        double dx = e.Delta.X;
-        double dy = e.Delta.Y;
+        var dx = e.Delta.X;
+        var dy = e.Delta.Y;
         
         if (Math.Abs(dy) > Math.Abs(dx))
             dx = 0;
         else if (Math.Abs(dx) > Math.Abs(dy))
             dy = 0;
 
-        // Check if this event is actually for us
-        Visual? source = e.Source as Visual;
+        var source = e.Source as Visual;
         
-        //  Flyouts
-        IRenderRoot? sourceRoot = source?.GetVisualRoot();
-        visualRoot ??= instance.GetVisualRoot();
+        var sourceRoot = source?.GetVisualRoot();
+        _visualRoot ??= _instance.GetVisualRoot();
 
-        if (sourceRoot != visualRoot)
+        if (sourceRoot != _visualRoot)
             return; // this event is from a popup/flyout. TRAP IT!!! >:)
 
-        //  Chaining
-        bool isShiftPressed = (e.KeyModifiers & KeyModifiers.Shift) != 0;
-        while (source is not null && source != instance)
+        var isShiftPressed = (e.KeyModifiers & KeyModifiers.Shift) != 0;
+        while (source is not null && source != _instance)
         {
             if (source is ScrollViewer inner && inner.IsVisible)
             {
-                bool innerHasHorizontal = inner.HorizontalScrollBarVisibility != ScrollBarVisibility.Disabled;
-                bool innerHasVertical = inner.VerticalScrollBarVisibility != ScrollBarVisibility.Disabled;
+                var innerHasHorizontal = inner.HorizontalScrollBarVisibility != ScrollBarVisibility.Disabled;
+                var innerHasVertical = inner.VerticalScrollBarVisibility != ScrollBarVisibility.Disabled;
 
-                double tryingToMoveX = dx + (isShiftPressed ? dy : 0);
-                double tryingToMoveY = isShiftPressed ? 0 : dy;
+                var tryingToMoveX = dx + (isShiftPressed ? dy : 0);
+                var tryingToMoveY = isShiftPressed ? 0 : dy;
                 
                 if (innerHasHorizontal && !innerHasVertical && !isShiftPressed)
                 {
@@ -105,8 +101,8 @@ internal sealed class SmoothScrollController
                     tryingToMoveY = 0;
                 }
                 
-                bool canMoveX = (tryingToMoveX > 0 && inner.Offset.X > 0) || (tryingToMoveX < 0 && inner.Offset.X < (inner.Extent.Width - inner.Viewport.Width));
-                bool canMoveY = (tryingToMoveY > 0 && inner.Offset.Y > 0) || (tryingToMoveY < 0 && inner.Offset.Y < (inner.Extent.Height - inner.Viewport.Height));
+                var canMoveX = (tryingToMoveX > 0 && inner.Offset.X > 0) || (tryingToMoveX < 0 && inner.Offset.X < (inner.Extent.Width - inner.Viewport.Width));
+                var canMoveY = (tryingToMoveY > 0 && inner.Offset.Y > 0) || (tryingToMoveY < 0 && inner.Offset.Y < (inner.Extent.Height - inner.Viewport.Height));
                 
                 if (canMoveX || canMoveY)
                     return; // Trap it! The inner child can handle this movement itself
@@ -115,86 +111,81 @@ internal sealed class SmoothScrollController
             source = source.GetVisualParent();
         }
         
-        // Sync current position if we were idle
-        if (!isLoopRunning)
+        if (!_isLoopRunning)
         {
-            currentX = instance.Offset.X;
-            currentY = instance.Offset.Y;
-            targetX = currentX;
-            targetY = currentY;
+            _currentX = _instance.Offset.X;
+            _currentY = _instance.Offset.Y;
+            _targetX = _currentX;
+            _targetY = _currentY;
         }
 
-        // Updating target
-        bool hasHorizontal = instance.HorizontalScrollBarVisibility != ScrollBarVisibility.Disabled;
-        bool hasVertical = instance.VerticalScrollBarVisibility != ScrollBarVisibility.Disabled;
+        var hasHorizontal = _instance.HorizontalScrollBarVisibility != ScrollBarVisibility.Disabled;
+        var hasVertical = _instance.VerticalScrollBarVisibility != ScrollBarVisibility.Disabled;
         
         if (Math.Abs(dx) > 0) 
         {
-            targetX -= dx * BaseStepSize;
-            targetY -= dy * BaseStepSize;
+            _targetX -= dx * BaseStepSize;
+            _targetY -= dy * BaseStepSize;
         }
         else if (isShiftPressed || (hasHorizontal && !hasVertical))
         {
-            targetX -= dy * BaseStepSize;
+            _targetX -= dy * BaseStepSize;
         }
         else
         {
-            targetY -= dy * BaseStepSize;
+            _targetY -= dy * BaseStepSize;
         }
         
         StartAnimationLoop();
         e.Handled = true;
     }
 
-    
-    void StartAnimationLoop()
+
+    private void StartAnimationLoop()
     {
-        if (isLoopRunning || topLevel is null)
+        if (_isLoopRunning || _topLevel is null)
             return;
         
-        isLoopRunning = true;
-        topLevel.RequestAnimationFrame(time =>
+        _isLoopRunning = true;
+        _topLevel.RequestAnimationFrame(time =>
         {
-            lastFrameTime = time;
+            _lastFrameTime = time;
             OnFrameTick(time);
         });
     }
 
-    void OnFrameTick(
+    private void OnFrameTick(
         TimeSpan time)
     {
-        if (!isLoopRunning || topLevel is null)
+        if (!_isLoopRunning || _topLevel is null)
             return;
 
-        double dt = (time - lastFrameTime).TotalSeconds;
-        lastFrameTime = time;
+        var dt = (time - _lastFrameTime).TotalSeconds;
+        _lastFrameTime = time;
 
-        // Clamp target (doing it in frame tick and not before in case content resizes mid-scroll)
-        targetX = Math.Clamp(targetX,
+        _targetX = Math.Clamp(_targetX,
             min: 0,
-            max: Math.Max(instance.Extent.Width - instance.Viewport.Width, 0));
-        targetY = Math.Clamp(targetY,
+            max: Math.Max(_instance.Extent.Width - _instance.Viewport.Width, 0));
+        _targetY = Math.Clamp(_targetY,
             min: 0,
-            max: Math.Max(instance.Extent.Height - instance.Viewport.Height, 0));
+            max: Math.Max(_instance.Extent.Height - _instance.Viewport.Height, 0));
         
-        // Calculate positions
-        double dx = targetX - currentX;
-        double dy = targetY - currentY;
+        var dx = _targetX - _currentX;
+        var dy = _targetY - _currentY;
         
         if (Math.Abs(dx) < 0.1 && Math.Abs(dy) < 0.1) // stop if too small
         {
-            instance.Offset = new(targetX, targetY);
-            isLoopRunning = false;
+            _instance.Offset = new(_targetX, _targetY);
+            _isLoopRunning = false;
 
             return;
         }
 
-        double factor = 1.0 - Math.Exp(-SmoothingFactor * dt);
-        currentX += dx * factor;
-        currentY += dy * factor;
+        var factor = 1.0 - Math.Exp(-SmoothingFactor * dt);
+        _currentX += dx * factor;
+        _currentY += dy * factor;
         
-        // Update positions
-        instance.Offset = new(currentX, currentY);
-        topLevel.RequestAnimationFrame(OnFrameTick);
+        _instance.Offset = new Vector(_currentX, _currentY);
+        _topLevel.RequestAnimationFrame(OnFrameTick);
     }
 }

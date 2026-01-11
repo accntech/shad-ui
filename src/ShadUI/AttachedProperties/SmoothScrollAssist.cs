@@ -15,8 +15,8 @@ namespace ShadUI;
 /// </summary>
 public class SmoothScrollAssist
 {
-	static readonly bool IsMacOs =  RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-	static readonly ConditionalWeakTable<ScrollViewer, SmoothScrollController> Controllers = new();
+	private static readonly bool IsMacOs =  RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+	private static readonly ConditionalWeakTable<ScrollViewer, SmoothScrollController> Controllers = new();
 	
 	static SmoothScrollAssist()
 	{
@@ -47,20 +47,20 @@ public class SmoothScrollAssist
 	/// <param name="value">The smooth scroll value to set.</param>
 	public static void SetIsEnabled(ScrollViewer scrollViewer, bool value) =>
 		scrollViewer.SetValue(IsEnabledProperty, value);
-	
-	static void IsEnabledChanged(ScrollViewer scrollViewer, AvaloniaPropertyChangedEventArgs e)
+
+	private static void IsEnabledChanged(ScrollViewer scrollViewer, AvaloniaPropertyChangedEventArgs e)
 	{
 		if (e.NewValue is true && !Controllers.TryGetValue(scrollViewer, out _))
 		{
 			scrollViewer.IsScrollInertiaEnabled = false;
 
-			double baseStepSize = GetBaseStepSize(scrollViewer);
-			double smoothingFactor = GetSmoothingFactor(scrollViewer);
+			var baseStepSize = GetBaseStepSize(scrollViewer);
+			var smoothingFactor = GetSmoothingFactor(scrollViewer);
 			SmoothScrollController controller = new(scrollViewer, baseStepSize, smoothingFactor);
 			
 			Controllers.Add(scrollViewer, controller);
 		}
-		else if (Controllers.TryGetValue(scrollViewer, out SmoothScrollController controller))
+		else if (Controllers.TryGetValue(scrollViewer, out var controller))
 		{
 			controller.Stop();
 			
@@ -88,10 +88,10 @@ public class SmoothScrollAssist
 	/// </summary>
 	public static void SetBaseStepSize(ScrollViewer scrollViewer, double value) =>
 		scrollViewer.SetValue(BaseStepSizeProperty, value);
-	
-	static void BaseStepSizeChanged(ScrollViewer scrollViewer, AvaloniaPropertyChangedEventArgs e)
+
+	private static void BaseStepSizeChanged(ScrollViewer scrollViewer, AvaloniaPropertyChangedEventArgs e)
 	{
-		if (e.NewValue is not double newValue || !Controllers.TryGetValue(scrollViewer, out SmoothScrollController controller))
+		if (e.NewValue is not double newValue || !Controllers.TryGetValue(scrollViewer, out var controller))
 			return;
 		
 		controller.BaseStepSize = newValue;
@@ -115,10 +115,10 @@ public class SmoothScrollAssist
 	/// </summary>
 	public static void SetSmoothingFactor(ScrollViewer scrollViewer, double value) =>
 		scrollViewer.SetValue(SmoothingFactorProperty, value);
-	
-	static void SmoothingFactorChanged(ScrollViewer scrollViewer, AvaloniaPropertyChangedEventArgs e)
+
+	private static void SmoothingFactorChanged(ScrollViewer scrollViewer, AvaloniaPropertyChangedEventArgs e)
 	{
-		if (e.NewValue is not double newValue || !Controllers.TryGetValue(scrollViewer, out SmoothScrollController controller))
+		if (e.NewValue is not double newValue || !Controllers.TryGetValue(scrollViewer, out var controller))
 			return;
 		
 		controller.SmoothingFactor = newValue;
