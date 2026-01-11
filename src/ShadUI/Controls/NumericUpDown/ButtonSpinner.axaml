@@ -178,7 +178,7 @@
             </Setter>
             <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}" />
         </Style>
-        <Style Selector="^:not(:error):focus /template/ Border#border">
+        <Style Selector="^:not(:error):focus-within /template/ Border#border">
             <Setter Property="Transitions">
                 <Setter.Value>
                     <Transitions>
