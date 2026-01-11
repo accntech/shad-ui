@@ -1,9 +1,16 @@
-﻿<Styles
+﻿<!-- xmlns:system="clr-namespace:System;assembly=netstandard" 
+is use for x:TypeArguments="system:Double" DO NOT REMOVE -->
+<Styles
     xmlns="https://github.com/avaloniaui"
     xmlns:shadui="clr-namespace:ShadUI"
+    xmlns:system="clr-namespace:System;assembly=netstandard"  
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style Selector="ScrollViewer">
         <Setter Property="shadui:SmoothScrollAssist.IsEnabled" Value="True" />
+        <Setter Property="shadui:SmoothScrollAssist.BaseStepSize"
+                Value="{OnPlatform 70.0, macOS=40.0, x:TypeArguments=system:Double}" />
+        <Setter Property="shadui:SmoothScrollAssist.SmoothingFactor"
+                Value="{OnPlatform 20.0, macOS=50.0, x:TypeArguments=system:Double}" />
 		<Setter Property="Template">
             <ControlTemplate>
                 <Panel>
