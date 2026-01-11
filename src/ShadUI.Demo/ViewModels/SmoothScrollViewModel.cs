@@ -46,8 +46,8 @@ public sealed partial class SmoothScrollViewModel : ViewModelBase, INavigable
     private bool _isEnabled = true;
 
     [ObservableProperty]
-    private double _baseStepSize = SmoothScrollAssist.BaseStepSizeProperty.GetDefaultValue(typeof(ScrollViewer));
+    private double? _baseStepSize = SmoothScrollAssist.BaseStepSizeProperty.GetDefaultValue(typeof(ScrollViewer));
 
     [ObservableProperty]
-    private double _smoothingFactor = SmoothScrollAssist.SmoothingFactorProperty.GetDefaultValue(typeof(ScrollViewer));
+    private double? _smoothingFactor = SmoothScrollAssist.SmoothingFactorProperty.GetDefaultValue(typeof(ScrollViewer));
 }
