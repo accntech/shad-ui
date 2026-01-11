@@ -74,6 +74,7 @@
                 GridLinesVisibility="Horizontal"
                 ItemsSource="{Binding Items}"
                 SelectionMode="Single"
+                Height="300"
                 x:Name="DataGrid">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Binding="{Binding IsSelected}" CanUserSort="False">
