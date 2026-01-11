@@ -118,6 +118,7 @@
         </Style>
     </ControlTheme>
     <ControlTheme TargetType="NumericUpDown" x:Key="{x:Type NumericUpDown}">
+        <Setter Property="shadui:NumericUpDownAssist.NumericOnly" Value="True" />
         <Setter Property="Background" Value="{DynamicResource SelectionColor}" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
         <Setter Property="CornerRadius" Value="{DynamicResource LgCornerRadius}" />
