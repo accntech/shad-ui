@@ -36,6 +36,7 @@
         <ResourceInclude Source="avares://ShadUI/Controls/Menu/MenuItem.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/NumericUpDown/ButtonSpinner.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/NumericUpDown/NumericUpDown.axaml" />
+        <ResourceInclude Source="avares://ShadUI/Controls/RadioButton/RadioButton.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/SelectableTextBlock/SelectableTextBlock.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Sidebar/Sidebar.axaml" />
         <ResourceInclude Source="avares://ShadUI/Controls/Sidebar/SidebarItem.axaml" />

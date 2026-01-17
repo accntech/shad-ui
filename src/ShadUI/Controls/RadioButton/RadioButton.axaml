@@ -1,0 +1,93 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="24">
+            <StackPanel Spacing="16">
+                <RadioButton GroupName="preview">Option 1</RadioButton>
+                <RadioButton GroupName="preview" IsChecked="True">Option 2 (Selected)</RadioButton>
+                <RadioButton GroupName="preview" IsEnabled="False">Option 3 (Disabled)</RadioButton>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    <ControlTheme TargetType="RadioButton" x:Key="{x:Type RadioButton}">
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
+        <Setter Property="Background" Value="{DynamicResource SelectionColor}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="4,0,0,0" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="TextBlock.FontSize" Value="14" />
+        <Setter Property="TextBlock.FontWeight" Value="Medium" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel
+                    Background="Transparent"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="10"
+                        Height="18"
+                        Name="OuterBorder"
+                        VerticalAlignment="Center"
+                        Width="18">
+                        <Ellipse
+                            Fill="{DynamicResource PrimaryColor}"
+                            Height="10"
+                            HorizontalAlignment="Center"
+                            Name="CheckGlyph"
+                            VerticalAlignment="Center"
+                            Width="10" />
+                    </Border>
+                    <ContentPresenter
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        IsVisible="{TemplateBinding Content,
+                                                    Converter={x:Static ObjectConverters.IsNotNull}}"
+                        Margin="{TemplateBinding Padding}"
+                        Name="PART_ContentPresenter"
+                        RecognizesAccessKey="True"
+                        TextElement.Foreground="{TemplateBinding Foreground}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover /template/ Border#OuterBorder">
+            <Setter Property="Transitions">
+                <Setter.Value>
+                    <Transitions>
+                        <BrushTransition Duration="0:0:0.20" Property="BorderBrush" />
+                    </Transitions>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}" />
+        </Style>
+        <!-- Hide check glyph by default -->
+        <Style Selector="^ /template/ Ellipse#CheckGlyph">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <!-- Show check glyph when checked -->
+        <Style Selector="^:checked">
+            <Style Selector="^ /template/ Ellipse#CheckGlyph">
+                <Setter Property="IsVisible" Value="True" />
+            </Style>
+            <Style Selector="^ /template/ Border#OuterBorder">
+                <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColor}" />
+            </Style>
+        </Style>
+        <!-- Disabled state -->
+        <Style Selector="^:disabled">
+            <Style Selector="^ /template/ Border#OuterBorder">
+                <Setter Property="Opacity" Value="0.5" />
+            </Style>
+            <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Opacity" Value="0.5" />
+            </Style>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
