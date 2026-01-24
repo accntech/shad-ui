@@ -132,22 +132,26 @@
         <Setter Property="shadui:ControlAssist.MinHeight" Value="36" />
         <Setter Property="Template">
             <ControlTemplate>
-                <StackPanel Background="Transparent" Focusable="False">
+                <!-- Use Grid instead of StackPanel so content can stretch to fill available height -->
+                <Grid Background="Transparent" Focusable="False" RowDefinitions="Auto,*">
                     <TextBlock
+                        Grid.Row="0"
                         Classes="Small"
                         Cursor="Arrow"
                         IsVisible="{TemplateBinding UseFloatingWatermark}"
                         Margin="0,0,0,6"
                         Name="PART_Label"
                         Text="{TemplateBinding Watermark}" />
-                    <DataValidationErrors Focusable="False">
-                        <StackPanel>
+                    <DataValidationErrors Grid.Row="1" Focusable="False">
+                        <!-- Use Grid instead of StackPanel so Border can stretch to fill available height -->
+                        <Grid RowDefinitions="*,Auto">
                             <Border
+                                Grid.Row="0"
+                                VerticalAlignment="Stretch"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="{TemplateBinding CornerRadius}"
-                                Height="{TemplateBinding shadui:ControlAssist.Height}"
                                 MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}"
                                 Name="Border">
                                 <Grid ColumnDefinitions="Auto * Auto">
@@ -241,6 +245,7 @@
                                 </Grid>
                             </Border>
                             <TextBlock
+                                Grid.Row="1"
                                 Classes="Caption Muted"
                                 Cursor="Arrow"
                                 IsVisible="{TemplateBinding shadui:ControlAssist.Hint,
@@ -248,9 +253,9 @@
                                 Margin="0,4,0,0"
                                 Name="Hint"
                                 Text="{TemplateBinding shadui:ControlAssist.Hint}" />
-                        </StackPanel>
+                        </Grid>
                     </DataValidationErrors>
-                </StackPanel>
+                </Grid>
             </ControlTemplate>
         </Setter>
 
@@ -283,7 +288,7 @@
             </Style>
         </Style>
 
-        <Style Selector="^ /template/ StackPanel">
+        <Style Selector="^ /template/ Grid">
             <Setter Property="Cursor" Value="IBeam" />
         </Style>
         <Style Selector="^:disabled /template/ Border#Border">
