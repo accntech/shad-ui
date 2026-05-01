@@ -24,20 +24,20 @@
             <TextBox
                 Classes="Clearable"
                 Text="{Binding Email, Mode=TwoWay}"
-                Watermark="user@example.com"
+                PlaceholderText="user@example.com"
                 shadui:ControlAssist.Hint="This is your public display name."
                 shadui:ControlAssist.Label="Email" />
             <TextBox
                 Classes="PasswordReveal"
                 PasswordChar="•"
                 Text="{Binding Password, Mode=TwoWay}"
-                Watermark="Enter password"
+                PlaceholderText="Enter password"
                 shadui:ControlAssist.Label="Password" />
             <TextBox
                 Classes="PasswordReveal"
                 PasswordChar="•"
                 Text="{Binding ConfirmPassword, Mode=TwoWay}"
-                Watermark="Confirm password"
+                PlaceholderText="Confirm password"
                 shadui:ControlAssist.Label="Confirm" />
         </StackPanel>
         <shadui:Card.Footer>

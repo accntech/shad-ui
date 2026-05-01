@@ -10,7 +10,7 @@
             Spacing="8"
             Width="225">
             <AutoCompleteBox
-                Watermark="Search here..."
+                PlaceholderText="Search here..."
                 Width="225"
                 shadui:ControlAssist.Hint="This is test"
                 shadui:ControlAssist.Label="Search">
@@ -23,7 +23,7 @@
             </AutoCompleteBox>
             <AutoCompleteBox
                 Text="xxx"
-                Watermark="Search here..."
+                PlaceholderText="Search here..."
                 Width="225"
                 shadui:ControlAssist.Hint="This is test"
                 shadui:ControlAssist.Label="Search"
@@ -36,7 +36,7 @@
                 </AutoCompleteBox.InnerRightContent>
             </AutoCompleteBox>
             <AutoCompleteBox
-                Watermark="Search here..."
+                PlaceholderText="Search here..."
                 Width="225"
                 shadui:ControlAssist.Hint="This is test"
                 shadui:ControlAssist.Label="Search"
@@ -171,7 +171,7 @@
                                                             Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                                 Margin="0,0,0,6"
                                 Name="Label"
-                                Text="{TemplateBinding Watermark}" />
+                                Text="{TemplateBinding PlaceholderText}" />
                             <TextBox
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -187,7 +187,7 @@
                                 InnerRightContent="{TemplateBinding InnerRightContent}"
                                 Name="PART_TextBox"
                                 Padding="{TemplateBinding Padding}"
-                                Watermark="{TemplateBinding Watermark}"
+                                PlaceholderText="{TemplateBinding PlaceholderText}"
                                 shadui:ControlAssist.MinHeight="{TemplateBinding shadui:ControlAssist.MinHeight}"
                                 shadui:ControlAssist.ShowProgress="{TemplateBinding shadui:ControlAssist.ShowProgress}"
                                 shadui:ElementAssist.Classes="{TemplateBinding shadui:ElementAssist.Classes}" />

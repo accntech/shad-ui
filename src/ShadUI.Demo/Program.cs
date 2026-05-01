@@ -1,6 +1,9 @@
 ﻿using System;
 using Avalonia;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 using Serilog;
+using SkiaSharp;
 
 namespace ShadUI.Demo;
 
@@ -14,6 +17,12 @@ internal sealed class Program
     {
         try
         {
+            LiveCharts.Configure(config =>
+                config.HasTextSettings(new TextSettings
+                {
+                    DefaultTypeface = SKTypeface.FromFamilyName("Segoe UI") ?? SKTypeface.Default
+                }));
+
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);
         }
@@ -31,6 +40,7 @@ internal sealed class Program
     {
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
+            .UseHarfBuzz()
             .LogToTrace();
     }
 }

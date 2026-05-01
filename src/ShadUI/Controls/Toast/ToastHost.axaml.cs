@@ -159,12 +159,12 @@ public class ToastHost : ItemsControl
         manager.OnAllToastsDismissed -= ManagerOnAllToastsDismissed;
     }
 
-    private void ManagerOnToastDismissed(object sender, Toast toast)
+    private void ManagerOnToastDismissed(object? sender, Toast toast)
     {
         ClearToast(toast);
     }
 
-    private void ManagerOnAllToastsDismissed(object sender, EventArgs e)
+    private void ManagerOnAllToastsDismissed(object? sender, EventArgs e)
     {
         foreach (var toast in Items)
         {
@@ -172,7 +172,7 @@ public class ToastHost : ItemsControl
         }
     }
 
-    private void ManagerOnToastQueued(object sender, Toast toast)
+    private void ManagerOnToastQueued(object? sender, Toast toast)
     {
         if (MaxToasts <= 0) return;
 

@@ -172,7 +172,7 @@ public class ElementAssist
             parent.Tag = "inactive";
         }
 
-        void HandleGotFocus(object? sender, GotFocusEventArgs args)
+        void HandleGotFocus(object? sender, FocusChangedEventArgs args)
         {
             parent.Tag = "active";
         }
@@ -197,7 +197,7 @@ public class ElementAssist
     private class FocusHandlers
     {
         public Control? Child { get; set; }
-        public EventHandler<GotFocusEventArgs>? GotFocusHandler { get; set; }
+        public EventHandler<FocusChangedEventArgs>? GotFocusHandler { get; set; }
         public EventHandler<RoutedEventArgs>? LostFocusHandler { get; set; }
     }
 

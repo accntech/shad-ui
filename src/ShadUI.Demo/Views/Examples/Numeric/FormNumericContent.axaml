@@ -24,7 +24,7 @@
             <NumericUpDown
                 FormatString="N0"
                 Value="{Binding Age, Mode=TwoWay}"
-                Watermark="Enter your age"
+                PlaceholderText="Enter your age"
                 shadui:ControlAssist.Hint="You must be at least 18 years old."
                 shadui:ControlAssist.Label="Age" />
         </StackPanel>

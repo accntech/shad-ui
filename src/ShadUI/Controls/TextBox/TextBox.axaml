@@ -11,20 +11,20 @@
             <StackPanel Spacing="16" Width="250 ">
                 <TextBox
                     Classes="Clearable"
-                    UseFloatingWatermark="True"
-                    Watermark="First Name" />
+                    UseFloatingPlaceholder="True"
+                    PlaceholderText="First Name" />
                 <TextBox
                     Classes="Clearable"
-                    UseFloatingWatermark="True"
-                    Watermark="Last Name" />
+                    UseFloatingPlaceholder="True"
+                    PlaceholderText="Last Name" />
                 <TextBox
                     Classes="Clearable"
                     Text="john"
-                    Watermark="Username" />
+                    PlaceholderText="Username" />
                 <TextBox
                     Classes="Clearable"
                     Text="12321"
-                    Watermark="Search here..."
+                    PlaceholderText="Search here..."
                     shadui:ControlAssist.Label="Search">
                     <TextBox.InnerRightContent>
                         <PathIcon
@@ -38,11 +38,11 @@
                     Classes="ClearablePassword"
                     PasswordChar="•"
                     Text="12321"
-                    Watermark="Enter password"
+                    PlaceholderText="Enter password"
                     shadui:ControlAssist.Label="Password" />
                 <TextBox
                     AcceptsReturn="True"
-                    Watermark="Description"
+                    PlaceholderText="Description"
                     shadui:ControlAssist.Height="250"
                     shadui:ControlAssist.Hint="This is hint"
                     shadui:ControlAssist.Label="Description" />
@@ -136,10 +136,10 @@
                     <TextBlock
                         Classes="Small"
                         Cursor="Arrow"
-                        IsVisible="{TemplateBinding UseFloatingWatermark}"
+                        IsVisible="{TemplateBinding UseFloatingPlaceholder}"
                         Margin="0,0,0,6"
                         Name="PART_Label"
-                        Text="{TemplateBinding Watermark}" />
+                        Text="{TemplateBinding PlaceholderText}" />
                     <DataValidationErrors Focusable="False">
                         <StackPanel>
                             <Border
@@ -167,22 +167,18 @@
                                             <TextBlock
                                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                 Margin="{TemplateBinding Padding}"
-                                                Name="Watermark"
+                                                Name="Placeholder"
                                                 Opacity="0.5"
-                                                Text="{TemplateBinding Watermark}"
+                                                Text="{TemplateBinding PlaceholderText}"
                                                 TextAlignment="{TemplateBinding TextAlignment}"
                                                 TextWrapping="{TemplateBinding TextWrapping}"
                                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                                 <TextBlock.IsVisible>
                                                     <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                                        <CompiledBinding
-                                                            Converter="{x:Static StringConverters.IsNullOrEmpty}"
-                                                            ElementName="PART_TextPresenter"
-                                                            Path="PreeditText" />
-                                                        <CompiledBinding
-                                                            Converter="{x:Static StringConverters.IsNullOrEmpty}"
-                                                            Path="Text"
-                                                            RelativeSource="{RelativeSource TemplatedParent}" />
+                                                        <Binding Path="#PART_TextPresenter.PreeditText"
+                                                                 Converter="{x:Static StringConverters.IsNullOrEmpty}" />
+                                                        <Binding Path="$parent[TextBox].Text"
+                                                                 Converter="{x:Static StringConverters.IsNullOrEmpty}" />
                                                     </MultiBinding>
                                                 </TextBlock.IsVisible>
                                             </TextBlock>

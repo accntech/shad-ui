@@ -64,7 +64,7 @@
                                         Text="{TemplateBinding MonthString,
                                                                Mode=TwoWay}"
                                         Theme="{StaticResource InputBoxTheme}"
-                                        Watermark="mm"
+                                        PlaceholderText="mm"
                                         shadui:ElementAssist.FocusOnLoad="{TemplateBinding shadui:ElementAssist.FocusOnLoad}" />
                                     <TextBlock
                                         FontSize="18"
@@ -82,7 +82,7 @@
                                         Text="{TemplateBinding DayString,
                                                                Mode=TwoWay}"
                                         Theme="{StaticResource InputBoxTheme}"
-                                        Watermark="dd" />
+                                        PlaceholderText="dd" />
                                     <TextBlock
                                         FontSize="18"
                                         Grid.Column="3"
@@ -99,7 +99,7 @@
                                         Text="{TemplateBinding YearString,
                                                                Mode=TwoWay}"
                                         Theme="{StaticResource InputBoxTheme}"
-                                        Watermark="yyyy" />
+                                        PlaceholderText="yyyy" />
                                 </Grid>
                             </Border>
                             <TextBlock

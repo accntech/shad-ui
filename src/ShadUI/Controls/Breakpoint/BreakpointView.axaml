@@ -6,9 +6,9 @@
         <Setter Property="IsVisible">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static shadui:WidthToVisibilityConverter.Instance}">
-                    <CompiledBinding Path="Bounds.Width" RelativeSource="{RelativeSource AncestorType={x:Type shadui:BreakpointViewPort}}" />
-                    <CompiledBinding Path="Breakpoint" RelativeSource="{RelativeSource Self}" />
-                    <CompiledBinding Path="Invert" RelativeSource="{RelativeSource Self}" />
+                    <Binding Path="$parent[shadui:BreakpointViewPort].Bounds.Width" />
+                    <Binding Path="$self.Breakpoint" />
+                    <Binding Path="$self.Invert" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
