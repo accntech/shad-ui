@@ -66,7 +66,7 @@
                             </StackPanel>
                         </shadui:Card.Header>
                         <StackPanel Spacing="16">
-                            <TextBox Watermark="Name of your project" shadui:ControlAssist.Label="Name" />
+                            <TextBox PlaceholderText="Name of your project" shadui:ControlAssist.Label="Name" />
                             <ComboBox
                                 SelectedIndex="0"
                                 Width="300"

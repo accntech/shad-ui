@@ -54,8 +54,7 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="Background" Value="{DynamicResource WindowBackgroundColor}" />
         <Setter Property="TransparencyLevelHint" Value="Transparent" />
-        <Setter Property="SystemDecorations" Value="{OnPlatform Full, Linux=None, x:TypeArguments=SystemDecorations}" />
-        <Setter Property="ExtendClientAreaChromeHints" Value="PreferSystemChrome" />
+        <Setter Property="WindowDecorations" Value="{OnPlatform BorderOnly, macOS=Full, Linux=None, x:TypeArguments=WindowDecorations}" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="TextElement.Foreground" Value="{DynamicResource ForegroundColor}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -69,18 +68,8 @@
                     ClipToBounds="True"
                     CornerRadius="{TemplateBinding RootCornerRadius}"
                     Margin="{TemplateBinding Margin}">
-                    <VisualLayerManager IsHitTestVisible="True">
-                        <VisualLayerManager.ChromeOverlayLayer>
-                            <ItemsControl ItemsSource="{CompiledBinding Hosts, RelativeSource={RelativeSource AncestorType={x:Type shadui:Window}}}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <Panel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                        </VisualLayerManager.ChromeOverlayLayer>
-                        <Panel Name="PART_Root">
-                            <DockPanel LastChildFill="True">
+                    <Panel Name="PART_Root">
+                        <DockPanel LastChildFill="True">
                                 <Panel DockPanel.Dock="Top">
                                     <Panel.Styles>
                                         <Style Selector="shadui|Window[ShowBottomBorder=True] /template/ Border#BottomBorder">
@@ -198,9 +187,15 @@
                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     IsHitTestVisible="True"
                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                            </DockPanel>
-                        </Panel>
-                    </VisualLayerManager>
+                        </DockPanel>
+                        <ItemsControl ItemsSource="{CompiledBinding Hosts, RelativeSource={RelativeSource AncestorType={x:Type shadui:Window}}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Panel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Panel>
                 </Border>
             </ControlTemplate>
         </Setter>

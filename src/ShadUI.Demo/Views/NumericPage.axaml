@@ -71,7 +71,7 @@
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="With Label" Xaml="{Binding WithLabelCode}">
                     <NumericUpDown
-                        Watermark="Enter quantity"
+                        PlaceholderText="Enter quantity"
                         Width="225"
                         shadui:ControlAssist.Label="Quantity" />
                 </controls:ControlBlock>
@@ -80,7 +80,7 @@
                         Classes="Clearable"
                         FormatString="N2"
                         ShowButtonSpinner="False"
-                        Watermark="0.00"
+                        PlaceholderText="0.00"
                         Width="225"
                         shadui:ControlAssist.Hint="Enter the product price"
                         shadui:ControlAssist.Label="Price">

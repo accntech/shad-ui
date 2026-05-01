@@ -73,22 +73,18 @@
                                     <TextBlock
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         Margin="{TemplateBinding Padding}"
-                                        Name="watermark"
+                                        Name="Placeholder"
                                         Opacity="0.5"
-                                        Text="{TemplateBinding Watermark}"
+                                        Text="{TemplateBinding PlaceholderText}"
                                         TextAlignment="{TemplateBinding TextAlignment}"
                                         TextWrapping="{TemplateBinding TextWrapping}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                         <TextBlock.IsVisible>
                                             <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                                <CompiledBinding
-                                                    Converter="{x:Static StringConverters.IsNullOrEmpty}"
-                                                    ElementName="PART_TextPresenter"
-                                                    Path="PreeditText" />
-                                                <CompiledBinding
-                                                    Converter="{x:Static StringConverters.IsNullOrEmpty}"
-                                                    Path="Text"
-                                                    RelativeSource="{RelativeSource TemplatedParent}" />
+                                                <Binding Path="#PART_TextPresenter.PreeditText"
+                                                         Converter="{x:Static StringConverters.IsNullOrEmpty}" />
+                                                <Binding Path="$parent[TextBox].Text"
+                                                         Converter="{x:Static StringConverters.IsNullOrEmpty}" />
                                             </MultiBinding>
                                         </TextBlock.IsVisible>
                                     </TextBlock>
@@ -158,7 +154,7 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="12,4" />
         <Setter Property="FontWeight" Value="Medium" />
-        <Setter Property="Watermark" Value="Pick a date" />
+        <Setter Property="PlaceholderText" Value="Pick a date" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="Template">
             <ControlTemplate>
@@ -198,8 +194,8 @@
                                 Name="PART_TextBox"
                                 Padding="{TemplateBinding Padding}"
                                 Theme="{StaticResource InnerTextBoxTheme}"
-                                UseFloatingWatermark="False"
-                                Watermark="{TemplateBinding Watermark}" />
+                                UseFloatingPlaceholder="False"
+                                PlaceholderText="{TemplateBinding PlaceholderText}" />
                             <Border
                                 Background="Transparent"
                                 CornerRadius="{TemplateBinding CornerRadius}"

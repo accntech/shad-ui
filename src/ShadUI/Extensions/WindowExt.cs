@@ -347,8 +347,8 @@ public static class WindowExt
         void RaiseResize(object? sender, PointerPressedEventArgs e)
         {
             if (!window.CanResize) return;
-            if (sender is not Border { Tag: string edge }) return;
-            if (window.GetVisualRoot() is not Window w) return;
+            if (sender is not Border {Tag: string edge}) return;
+            if (window.GetPresentationSource()?.RootVisual is not Window w) return;
 
             var windowEdge = edge switch
             {

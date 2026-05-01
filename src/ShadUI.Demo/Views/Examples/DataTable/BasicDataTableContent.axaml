@@ -20,7 +20,7 @@
                     Classes="Clearable"
                     HorizontalAlignment="Left"
                     Text="{Binding SearchString, Mode=TwoWay}"
-                    Watermark="Filter emails..."
+                    PlaceholderText="Filter emails..."
                     Width="384"
                     shadui:ControlAssist.ShowProgress="{Binding IsSearching}">
                     <TextBox.InnerRightContent>

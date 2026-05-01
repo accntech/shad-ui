@@ -56,26 +56,26 @@
                 Spacing="32">
                 <controls:ControlBlock Title="Default" Xaml="{Binding DefaultInputCode}">
                     <StackPanel>
-                        <TextBox Watermark="Email" Width="225" />
+                        <TextBox PlaceholderText="Email" Width="225" />
                     </StackPanel>
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="Disabled" Xaml="{Binding DisabledCode}">
                     <TextBox
                         IsEnabled="False"
-                        Watermark="Email"
+                        PlaceholderText="Email"
                         Width="225" />
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="With Label" Xaml="{Binding WithLabelCode}">
                     <TextBox
                         Classes="Clearable"
-                        UseFloatingWatermark="True"
-                        Watermark="Email"
+                        UseFloatingPlaceholder="True"
+                        PlaceholderText="Email"
                         Width="225" />
                 </controls:ControlBlock>
                 <controls:ControlBlock Title="With Custom Label" Xaml="{Binding WithCustomLabelCode}">
                     <TextBox
                         Classes="Clearable"
-                        Watermark="user@example.com"
+                        PlaceholderText="user@example.com"
                         Width="225"
                         shadui:ControlAssist.Label="Email" />
                 </controls:ControlBlock>
@@ -83,7 +83,7 @@
                     <TextBox
                         Classes="Clearable"
                         Text="{Binding SearchString, Mode=TwoWay}"
-                        Watermark="Search here..."
+                        PlaceholderText="Search here..."
                         Width="225"
                         shadui:ControlAssist.ShowProgress="{Binding IsSearching}">
                         <TextBox.InnerRightContent>
@@ -99,7 +99,7 @@
                         Classes="Clearable"
                         FilterMode="Contains"
                         ItemsSource="{Binding WebFrameworks}"
-                        Watermark="Search here..."
+                        PlaceholderText="Search here..."
                         Width="225"
                         shadui:ControlAssist.Hint="Your favorite web framework"
                         shadui:ControlAssist.Label="Search a framework"
@@ -115,7 +115,7 @@
                 <controls:ControlBlock Title="Text Area" Xaml="{Binding TextAreaCode}">
                     <TextBox
                         AcceptsReturn="True"
-                        Watermark="Enter a long description here..."
+                        PlaceholderText="Enter a long description here..."
                         Width="225"
                         shadui:ControlAssist.Height="300"
                         shadui:ControlAssist.Label="Description" />

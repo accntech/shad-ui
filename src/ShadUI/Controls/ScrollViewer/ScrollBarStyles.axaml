@@ -75,8 +75,8 @@
                         Name="PART_PageUpButton">
                         <RepeatButton.IsVisible>
                             <MultiBinding Converter="{x:Static shadui:SidebarScrollerToVisibilityBool.Up}">
-                                <CompiledBinding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <CompiledBinding Path="Minimum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="$parent[ScrollBar].Value" />
+                                <Binding Path="$parent[ScrollBar].Minimum" />
                             </MultiBinding>
                         </RepeatButton.IsVisible>
                         <PathIcon
@@ -99,8 +99,8 @@
                         Name="PART_PageDownButton">
                         <RepeatButton.IsVisible>
                             <MultiBinding Converter="{x:Static shadui:SidebarScrollerToVisibilityBool.Down}">
-                                <CompiledBinding Path="Value" RelativeSource="{RelativeSource TemplatedParent}" />
-                                <CompiledBinding Path="Maximum" RelativeSource="{RelativeSource TemplatedParent}" />
+                                <Binding Path="$parent[ScrollBar].Value" />
+                                <Binding Path="$parent[ScrollBar].Maximum" />
                             </MultiBinding>
                         </RepeatButton.IsVisible>
                         <PathIcon
