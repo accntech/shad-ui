@@ -57,7 +57,7 @@
         <Setter Property="WindowDecorations" Value="{OnPlatform BorderOnly, macOS=Full, Linux=None, x:TypeArguments=WindowDecorations}" />
         <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
         <Setter Property="TextElement.Foreground" Value="{DynamicResource ForegroundColor}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor60}" />
         <Setter Property="Template">
             <ControlTemplate>
