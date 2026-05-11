@@ -8,6 +8,14 @@
         <ResourceInclude Source="avares://ShadUI/Controls/Constants.axaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <ControlTheme TargetType="WindowDrawnDecorations" x:Key="ShadUiSuppressedDecorationsTheme">
+        <Setter Property="Template">
+            <WindowDrawnDecorationsTemplate>
+                <WindowDrawnDecorationsContent />
+            </WindowDrawnDecorationsTemplate>
+        </Setter>
+    </ControlTheme>
+
     <ControlTheme TargetType="Button" x:Key="WindowButtonStyle">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -313,6 +321,9 @@
         </Style>
         <Style Selector="^ /template/ StackPanel#ButtonsPanel">
             <Setter Property="MinHeight" Value="32" />
+        </Style>
+        <Style Selector="^[ShowAvaloniaFullscreenPopover=False]">
+            <Setter Property="WindowDecorationsTheme" Value="{StaticResource ShadUiSuppressedDecorationsTheme}" />
         </Style>
     </ControlTheme>
 </ResourceDictionary>

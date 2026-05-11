@@ -184,6 +184,25 @@ public class Window : Avalonia.Controls.Window
     }
 
     /// <summary>
+    ///     Whether to show Avalonia's built-in fullscreen popover — the top-edge chrome with
+    ///     title, exit-fullscreen, and close buttons that auto-appears when the pointer reaches
+    ///     the top of the screen if WindowState is FullScreen.
+    ///     Set to <c>true</c> when hiding the ShadUI title bar in fullscreen and relying on the
+    ///     framework popover for the exit affordance.
+    /// </summary>
+    public static readonly StyledProperty<bool> ShowAvaloniaFullscreenPopoverProperty =
+        AvaloniaProperty.Register<Window, bool>(nameof(ShowAvaloniaFullscreenPopover));
+
+    /// <summary>
+    ///     Gets or sets the value of the <see cref="ShowAvaloniaFullscreenPopoverProperty" />.
+    /// </summary>
+    public bool ShowAvaloniaFullscreenPopover
+    {
+        get => GetValue(ShowAvaloniaFullscreenPopoverProperty);
+        set => SetValue(ShowAvaloniaFullscreenPopoverProperty, value);
+    }
+
+    /// <summary>
     ///     Whether to enable move.
     /// </summary>
     public static readonly StyledProperty<bool> CanMoveProperty =
