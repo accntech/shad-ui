@@ -77,7 +77,7 @@
                     CornerRadius="{TemplateBinding CornerRadius}"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                    <StackPanel Spacing="8">
+                    <Grid RowDefinitions="Auto,8,*">
                         <LayoutTransformControl
                             DockPanel.Dock="{TemplateBinding TabStripPlacement}"
                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
@@ -114,14 +114,14 @@
                                 </Panel>
                             </Border>
                         </LayoutTransformControl>
-                        <ContentPresenter
+                        <ContentPresenter Grid.Row="2"
                             Content="{TemplateBinding SelectedContent}"
                             ContentTemplate="{TemplateBinding SelectedContentTemplate}"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Margin="{TemplateBinding Padding}"
                             Name="PART_SelectedContentHost"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                    </StackPanel>
+                    </Grid>
                 </Border>
             </ControlTemplate>
         </Setter>
