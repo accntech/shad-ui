@@ -96,11 +96,14 @@ public class NumericUpDownAssist
         {
             TextBox = textBox,
             TextInputHandler = OnTextInput,
-            KeyDownHandler = OnKeyDown
+            KeyDownHandler = OnKeyDown,
+            PointerWheelHandler = OnPointerWheelChanged
         });
 
         textBox.AddHandler(InputElement.TextInputEvent, OnTextInput, RoutingStrategies.Tunnel);
-        textBox.KeyDown += OnKeyDown;
+        textBox.AddHandler(InputElement.KeyDownEvent, OnKeyDown, RoutingStrategies.Tunnel);
+        numericUpDown.AddHandler(InputElement.PointerWheelChangedEvent, OnPointerWheelChanged,
+            RoutingStrategies.Bubble, true);
         return;
 
         void OnTextInput(object? sender, TextInputEventArgs e)
@@ -144,7 +147,25 @@ public class NumericUpDownAssist
 
         void OnKeyDown(object? sender, KeyEventArgs e)
         {
-            // Reserved for future key filtering if needed
+            if (e.Key is not (Key.Up or Key.Down)) return;
+
+            var spinner = numericUpDown.FindControl<Spinner>("PART_Spinner");
+            if (spinner is null || !numericUpDown.AllowSpin) return;
+
+            var direction = e.Key == Key.Up ? SpinDirection.Increase : SpinDirection.Decrease;
+            spinner.RaiseEvent(new SpinEventArgs(Spinner.SpinEvent, direction));
+            e.Handled = true;
+        }
+
+        void OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
+        {
+            if (e.Delta.Y == 0 || !numericUpDown.AllowSpin || !numericUpDown.IsKeyboardFocusWithin) return;
+
+            var newValue = (numericUpDown.Value ?? 0) +
+                           (e.Delta.Y > 0 ? numericUpDown.Increment : -numericUpDown.Increment);
+
+            numericUpDown.Value = Math.Clamp(newValue, numericUpDown.Minimum, numericUpDown.Maximum);
+            e.Handled = true;
         }
     }
 
@@ -160,8 +181,11 @@ public class NumericUpDownAssist
                 handlers.TextBox.RemoveHandler(InputElement.TextInputEvent, handlers.TextInputHandler);
 
             if (handlers.KeyDownHandler is not null)
-                handlers.TextBox.KeyDown -= handlers.KeyDownHandler;
+                handlers.TextBox.RemoveHandler(InputElement.KeyDownEvent, handlers.KeyDownHandler);
         }
+
+        if (numericUpDown is not null && handlers.PointerWheelHandler is not null)
+            numericUpDown.RemoveHandler(InputElement.PointerWheelChangedEvent, handlers.PointerWheelHandler);
 
         numericUpDown?.ClearValue(InputHandlersProperty);
     }
@@ -171,6 +195,7 @@ public class NumericUpDownAssist
         public TextBox? TextBox { get; set; }
         public EventHandler<TextInputEventArgs>? TextInputHandler { get; set; }
         public EventHandler<KeyEventArgs>? KeyDownHandler { get; set; }
+        public EventHandler<PointerWheelEventArgs>? PointerWheelHandler { get; set; }
     }
 
     private static readonly AttachedProperty<InputHandlers> InputHandlersProperty =
