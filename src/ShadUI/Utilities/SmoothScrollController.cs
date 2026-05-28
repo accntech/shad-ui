@@ -87,6 +87,9 @@ internal sealed class SmoothScrollController
         var isShiftPressed = (e.KeyModifiers & KeyModifiers.Shift) != 0;
         while (source is not null && source != _instance)
         {
+            if (source is ButtonSpinner { AllowSpin: true, IsKeyboardFocusWithin: true })
+                return;
+
             if (source is ScrollViewer inner && inner.IsVisible)
             {
                 var innerHasHorizontal = inner.HorizontalScrollBarVisibility != ScrollBarVisibility.Disabled;
