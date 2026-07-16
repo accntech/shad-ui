@@ -6,7 +6,7 @@
 
 **Architecture:** DialogHost stops referencing `ShadUI.Window`; it caches an `Avalonia.Controls.Window` ancestor for drag/maximize and exposes `HasOpenDialog` as the single source of truth. `ShadUI.Window` flips the dependency direction by observing `DialogHost.HasOpenDialog` for any DialogHost in its `Hosts` collection. The `Owner` property on DialogHost is deleted (breaking change).
 
-**Tech Stack:** C# / .NET 8 (multi-target net8/9/10), Avalonia 12.0.2, xUnit, Avalonia.Headless for tests.
+**Tech Stack:** C# / .NET 9 (multi-target net9/10), Avalonia 12.0.2, xUnit, Avalonia.Headless for tests.
 
 **Spec:** `docs/superpowers/specs/2026-05-07-decouple-dialoghost-design.md`
 
@@ -625,7 +625,7 @@ New:
 - [ ] **Step 3: Build to confirm**
 
 Run: `dotnet build /Users/ogie/RiderProjects/shad-ui/ShadUI.sln`
-Expected: SUCCESS across all targets (net8/9/10).
+Expected: SUCCESS across all targets (net9/10).
 
 - [ ] **Step 4: Commit**
 
