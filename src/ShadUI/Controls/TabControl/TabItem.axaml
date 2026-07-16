@@ -55,7 +55,7 @@
     </Design.PreviewWith>
 
     <ControlTheme TargetType="TabItem" x:Key="{x:Type TabItem}">
-        <Setter Property="Background" Value="{DynamicResource TabItemsBackgroundColor}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontWeight" Value="Medium" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
@@ -67,6 +67,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
+                    Background="{TemplateBinding Background}"
                     ClipToBounds="True"
                     CornerRadius="{TemplateBinding CornerRadius}"
                     Margin="2,0,2,4">
