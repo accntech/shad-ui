@@ -75,7 +75,7 @@
                     BorderThickness="{TemplateBinding BorderThickness}"
                     ClipToBounds="True"
                     CornerRadius="{TemplateBinding RootCornerRadius}"
-                    Margin="{TemplateBinding Margin}">
+                    Name="PART_WindowRoot">
                     <VisualLayerManager IsHitTestVisible="True">
                         <Panel>
                             <Panel Name="PART_Root">
@@ -212,6 +212,12 @@
             </ControlTemplate>
         </Setter>
 
+        <Style Selector="^ /template/ Border#PART_WindowRoot">
+            <Setter Property="Margin" Value="{Binding Margin, RelativeSource={RelativeSource TemplatedParent}}" />
+        </Style>
+        <Style Selector="^[WindowState=Maximized] /template/ Border#PART_WindowRoot">
+            <Setter Property="Margin" Value="{OnPlatform 0, Windows=8, x:TypeArguments=Thickness}" />
+        </Style>
         <Style Selector="^[ShowTitlebarBackground=False] /template/ ContentPresenter#MenuBar">
             <Setter Property="Margin" Value="10,0,0,7" />
         </Style>

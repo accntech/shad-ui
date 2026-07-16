@@ -26,7 +26,7 @@ public sealed partial class AvatarViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void NextPage()
     {
-        _pageManager.Navigate<ButtonViewModel>();
+        _pageManager.Navigate<BadgeViewModel>();
     }
 
     [ObservableProperty]

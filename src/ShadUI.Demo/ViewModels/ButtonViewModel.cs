@@ -27,7 +27,7 @@ public sealed partial class ButtonViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void BackPage()
     {
-        _pageManager.Navigate<AvatarViewModel>();
+        _pageManager.Navigate<BadgeViewModel>();
     }
 
     [RelayCommand]
