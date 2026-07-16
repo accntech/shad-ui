@@ -63,6 +63,14 @@ internal sealed class SmoothScrollController
     {
         if (e.Handled)
             return;
+
+        if (e.Source is Visual wheelSource && wheelSource
+                .GetSelfAndVisualAncestors()
+                .OfType<ButtonSpinner>()
+                .Any(spinner => spinner is { AllowSpin: true, IsKeyboardFocusWithin: true }))
+        {
+            return;
+        }
         
         _topLevel ??= TopLevel.GetTopLevel(_instance);
         if (_topLevel is null)

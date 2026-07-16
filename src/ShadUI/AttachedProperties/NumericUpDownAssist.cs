@@ -96,11 +96,17 @@ public class NumericUpDownAssist
         {
             TextBox = textBox,
             TextInputHandler = OnTextInput,
-            KeyDownHandler = OnKeyDown
+            KeyDownHandler = OnKeyDown,
+            PointerWheelChangedHandler = OnPointerWheelChanged
         });
 
         textBox.AddHandler(InputElement.TextInputEvent, OnTextInput, RoutingStrategies.Tunnel);
-        textBox.KeyDown += OnKeyDown;
+        textBox.AddHandler(InputElement.KeyDownEvent, OnKeyDown, RoutingStrategies.Tunnel);
+        numericUpDown.AddHandler(
+            InputElement.PointerWheelChangedEvent,
+            OnPointerWheelChanged,
+            RoutingStrategies.Tunnel,
+            handledEventsToo: true);
         return;
 
         void OnTextInput(object? sender, TextInputEventArgs e)
@@ -144,8 +150,55 @@ public class NumericUpDownAssist
 
         void OnKeyDown(object? sender, KeyEventArgs e)
         {
-            // Reserved for future key filtering if needed
+            var direction = e.Key switch
+            {
+                Key.Up => SpinDirection.Increase,
+                Key.Down => SpinDirection.Decrease,
+                _ => (SpinDirection?)null
+            };
+
+            if (direction is not null)
+            {
+                e.Handled = TryHandleSpin(
+                    numericUpDown,
+                    numericUpDown.FindControl<ButtonSpinner>("PART_Spinner"),
+                    direction.Value);
+            }
         }
+
+        void OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
+        {
+            if (!numericUpDown.IsKeyboardFocusWithin || e.Delta.Y == 0)
+                return;
+
+            var direction = e.Delta.Y > 0
+                ? SpinDirection.Increase
+                : SpinDirection.Decrease;
+
+            e.Handled = TryHandleSpin(
+                numericUpDown,
+                numericUpDown.FindControl<ButtonSpinner>("PART_Spinner"),
+                direction);
+        }
+    }
+
+    internal static bool TryHandleSpin(
+        NumericUpDown numericUpDown,
+        ButtonSpinner? spinner,
+        SpinDirection direction)
+    {
+        if (!numericUpDown.AllowSpin || spinner is null)
+            return false;
+
+        var validDirection = direction == SpinDirection.Increase
+            ? ValidSpinDirections.Increase
+            : ValidSpinDirections.Decrease;
+
+        if (numericUpDown.IsReadOnly || (spinner.ValidSpinDirection & validDirection) == 0)
+            return true;
+
+        spinner.RaiseEvent(new SpinEventArgs(Spinner.SpinEvent, direction));
+        return true;
     }
 
     private static void CleanupHandlers(NumericUpDown? numericUpDown)
@@ -160,8 +213,13 @@ public class NumericUpDownAssist
                 handlers.TextBox.RemoveHandler(InputElement.TextInputEvent, handlers.TextInputHandler);
 
             if (handlers.KeyDownHandler is not null)
-                handlers.TextBox.KeyDown -= handlers.KeyDownHandler;
+                handlers.TextBox.RemoveHandler(InputElement.KeyDownEvent, handlers.KeyDownHandler);
         }
+
+        if (handlers.PointerWheelChangedHandler is not null)
+            numericUpDown?.RemoveHandler(
+                InputElement.PointerWheelChangedEvent,
+                handlers.PointerWheelChangedHandler);
 
         numericUpDown?.ClearValue(InputHandlersProperty);
     }
@@ -171,6 +229,7 @@ public class NumericUpDownAssist
         public TextBox? TextBox { get; set; }
         public EventHandler<TextInputEventArgs>? TextInputHandler { get; set; }
         public EventHandler<KeyEventArgs>? KeyDownHandler { get; set; }
+        public EventHandler<PointerWheelEventArgs>? PointerWheelChangedHandler { get; set; }
     }
 
     private static readonly AttachedProperty<InputHandlers> InputHandlersProperty =
