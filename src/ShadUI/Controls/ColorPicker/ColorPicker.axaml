@@ -21,16 +21,16 @@
             <Template>
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <Border
-                        Background="{Binding $parent[ColorPicker].Color,
-                                             Converter={x:Static shadui:BasicConverters.ToColorBrushConverter}}"
+                        Background="{TemplateBinding Color,
+                                                     Converter={x:Static shadui:BasicConverters.ToColorBrushConverter}}"
                         CornerRadius="{DynamicResource SmCornerRadius}"
                         Height="24"
                         Width="24" />
                     <TextBlock
                         Classes="Small"
-                        Text="{Binding $parent[ColorPicker].Color,
-                                       Converter={x:Static shadui:BasicConverters.ToColorStringConverter},
-                                       ConverterParameter='ToUpper'}"
+                        Text="{TemplateBinding Color,
+                                               Converter={x:Static shadui:BasicConverters.ToColorStringConverter},
+                                               ConverterParameter='ToUpper'}"
                         VerticalAlignment="Center" />
                 </StackPanel>
             </Template>
