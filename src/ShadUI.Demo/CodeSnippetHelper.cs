@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,17 @@ namespace ShadUI.Demo;
 
 public static class CodeSnippetHelper
 {
+    private static readonly ConcurrentDictionary<string, string[]> FileLines =
+        new(StringComparer.Ordinal);
+
+    private static string[] GetLines(string filePath)
+    {
+        var fullPath = Path.GetFullPath(filePath);
+        return FileLines.GetOrAdd(fullPath, File.ReadAllLines);
+    }
+
+    internal static void ClearCache() => FileLines.Clear();
+
     /// <summary>
     ///     Extracts lines between two line numbers (inclusive, 1-based).
     /// </summary>
@@ -15,7 +27,7 @@ public static class CodeSnippetHelper
     {
         try
         {
-            var lines = File.ReadAllLines(filePath);
+            var lines = GetLines(filePath);
             return string.Join(Environment.NewLine,
                 lines.Skip(startLine - 1).Take(endLine - startLine + 1));
         }
@@ -35,7 +47,7 @@ public static class CodeSnippetHelper
     {
         try
         {
-            var lines = File.ReadAllLines(filePath);
+            var lines = GetLines(filePath);
             var result = new List<string>();
 
             for (var i = 0; i < lines.Length; i++)

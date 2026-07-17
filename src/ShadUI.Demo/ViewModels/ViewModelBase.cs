@@ -112,11 +112,5 @@ public abstract class ViewModelBase : ObservableObject, INotifyDataErrorInfo, ID
         ErrorsChanged = null;
 
         _disposed = true;
-        GC.SuppressFinalize(this);
-    }
-
-    ~ViewModelBase()
-    {
-        Dispose();
     }
 }

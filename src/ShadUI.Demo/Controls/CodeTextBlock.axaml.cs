@@ -27,6 +27,8 @@ public class CodeTextBlock : TemplatedControl, IDisposable
     private PathIcon? _clipboardIcon;
     private Geometry? _originalIconData;
     private TextEditor? _editor;
+    private TextMate.Installation? _textMateInstallation;
+    private int _templateGeneration;
     private bool _disposed;
 
     public CodeTextBlock()
@@ -39,6 +41,15 @@ public class CodeTextBlock : TemplatedControl, IDisposable
     {
         if (_clipboardIcon is not null) _clipboardIcon.Data = _originalIconData;
         _timer.Stop();
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        if (_disposed || _clipboardButton is null) return;
+
+        _clipboardButton.Click -= OnClipboardButtonClick;
+        _clipboardButton.Click += OnClipboardButtonClick;
     }
 
     public static readonly StyledProperty<string?> TextProperty =
@@ -74,6 +85,10 @@ public class CodeTextBlock : TemplatedControl, IDisposable
     {
         base.OnApplyTemplate(e);
 
+        _templateGeneration++;
+        _textMateInstallation?.Dispose();
+        _textMateInstallation = null;
+
         if (_clipboardButton != null) _clipboardButton.Click -= OnClipboardButtonClick;
 
         _clipboardButton = e.NameScope.Find<Button>("PART_ClipBoardButton");
@@ -97,7 +112,12 @@ public class CodeTextBlock : TemplatedControl, IDisposable
 
             var editor = _editor;
             var language = Language;
-            Dispatcher.UIThread.Post(() => InstallSyntaxHighlighting(editor, language), DispatcherPriority.Background);
+            var templateGeneration = _templateGeneration;
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (_disposed || templateGeneration != _templateGeneration) return;
+                _textMateInstallation = InstallSyntaxHighlighting(editor, language);
+            }, DispatcherPriority.Background);
         }
 
         if (_clipboardIcon != null) _originalIconData = _clipboardIcon.Data;
@@ -105,13 +125,13 @@ public class CodeTextBlock : TemplatedControl, IDisposable
         if (_clipboardButton != null) _clipboardButton.Click += OnClipboardButtonClick;
     }
 
-    private static void InstallSyntaxHighlighting(TextEditor editor, string language)
+    private static TextMate.Installation InstallSyntaxHighlighting(TextEditor editor, string language)
     {
         var opts = SharedRegistryOptions.Value;
         var installation = editor.InstallTextMate(opts);
         var lang = opts.GetLanguageByExtension($".{language.ToLowerInvariant()}");
-        if (lang is null) return;
-        installation.SetGrammar(opts.GetScopeByLanguageId(lang.Id));
+        if (lang is not null) installation.SetGrammar(opts.GetScopeByLanguageId(lang.Id));
+        return installation;
     }
 
     private async void OnClipboardButtonClick(object? sender, RoutedEventArgs e)
@@ -178,30 +198,27 @@ public class CodeTextBlock : TemplatedControl, IDisposable
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnDetachedFromVisualTree(e);
-        Cleanup();
+        Cleanup(detachTimer: false);
     }
 
-    private void Cleanup()
+    private void Cleanup(bool detachTimer)
     {
         if (_clipboardButton != null)
             _clipboardButton.Click -= OnClipboardButtonClick;
 
         _timer.Stop();
-        _timer.Tick -= OnTimerTick;
+        if (detachTimer) _timer.Tick -= OnTimerTick;
     }
 
     public void Dispose()
     {
         if (_disposed) return;
 
-        Cleanup();
+        _templateGeneration++;
+        _textMateInstallation?.Dispose();
+        _textMateInstallation = null;
+        Cleanup(detachTimer: true);
 
         _disposed = true;
-        GC.SuppressFinalize(this);
-    }
-
-    ~CodeTextBlock()
-    {
-        Dispose();
     }
 }

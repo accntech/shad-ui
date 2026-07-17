@@ -13,6 +13,7 @@ namespace ShadUI.Demo.ViewModels;
 public sealed partial class DashboardViewModel : ViewModelBase, INavigable
 {
     private readonly PageManager _pageManager;
+    private bool _disposed;
     public ThemeWatcher ThemeWatcher { get; }
 
     [ObservableProperty]
@@ -26,12 +27,7 @@ public sealed partial class DashboardViewModel : ViewModelBase, INavigable
         _pageManager = pageManager;
         ThemeWatcher = themeWatcher;
         UpdateTooltipPaints(ThemeWatcher.ThemeColors);
-        ThemeWatcher.ThemeChanged += (_, colors) =>
-        {
-            UpdateAxesLabelPaints(colors);
-            UpdateSeriesFill(colors.PrimaryColor);
-            UpdateTooltipPaints(colors);
-        };
+        ThemeWatcher.ThemeChanged += OnThemeChanged;
 
         XAxes =
         [
@@ -57,6 +53,13 @@ public sealed partial class DashboardViewModel : ViewModelBase, INavigable
         ];
     }
 
+    private void OnThemeChanged(object? sender, ThemeColors colors)
+    {
+        UpdateAxesLabelPaints(colors);
+        UpdateSeriesFill(colors.PrimaryColor);
+        UpdateTooltipPaints(colors);
+    }
+
     [RelayCommand]
     private void NextPage()
     {
@@ -66,7 +69,10 @@ public sealed partial class DashboardViewModel : ViewModelBase, INavigable
     private void UpdateSeriesFill(Color primary)
     {
         var color = new SKColor(primary.R, primary.G, primary.B, primary.A);
-        if (Series.Length > 0) ((ColumnSeries<double>)Series[0]).Fill = new SolidColorPaint(color);
+        if (Series.Length == 0) return;
+
+        var series = (ColumnSeries<double>)Series[0];
+        series.Fill = new SolidColorPaint(color);
     }
 
     private void UpdateAxesLabelPaints(ThemeColors colors)
@@ -129,5 +135,15 @@ public sealed partial class DashboardViewModel : ViewModelBase, INavigable
         ((ColumnSeries<double>)Series[0]).Values = GenerateRandomValues();
         var primary = ThemeWatcher.ThemeColors.PrimaryColor;
         UpdateSeriesFill(primary);
+    }
+
+    public override void Dispose()
+    {
+        if (_disposed) return;
+
+        ThemeWatcher.ThemeChanged -= OnThemeChanged;
+
+        _disposed = true;
+        base.Dispose();
     }
 }

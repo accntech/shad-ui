@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,35 +9,9 @@ namespace ShadUI.Demo;
 
 public sealed partial class MainWindowViewModel : ViewModelBase
 {
+    private readonly PageManager _pageManager;
     private readonly ThemeWatcher _themeWatcher;
     private readonly AboutViewModel _aboutViewModel;
-    private readonly DashboardViewModel _dashboardViewModel;
-    private readonly ThemeViewModel _themeViewModel;
-    private readonly TypographyViewModel _typographyViewModel;
-    private readonly SmoothScrollViewModel _smoothScrollViewModel;
-    private readonly AvatarViewModel _avatarViewModel;
-    private readonly BadgeViewModel _badgeViewModel;
-    private readonly ButtonViewModel _buttonViewModel;
-    private readonly CardViewModel _cardViewModel;
-    private readonly DataTableViewModel _dataTableViewModel;
-    private readonly DateViewModel _dateViewModel;
-    private readonly CheckBoxViewModel _checkBoxViewModel;
-    private readonly DialogViewModel _dialogViewModel;
-    private readonly TimeViewModel _timeViewModel;
-    private readonly InputViewModel _inputViewModel;
-    private readonly NumericViewModel _numericViewModel;
-    private readonly MenuViewModel _menuViewModel;
-    private readonly TabControlViewModel _tabControlViewModel;
-    private readonly ColorViewModel _colorViewModel;
-    private readonly ComboBoxViewModel _comboBoxViewModel;
-    private readonly SidebarViewModel _sidebarViewModel;
-    private readonly SliderViewModel _sliderViewModel;
-    private readonly SwitchViewModel _switchViewModel;
-    private readonly ToastViewModel _toastViewModel;
-    private readonly ToggleViewModel _toggleViewModel;
-    private readonly ToolTipViewModel _toolTipViewModel;
-    private readonly MiscellaneousViewModel _miscellaneousViewModel;
-    private object? _previousPage;
     private bool _disposed;
 
     public MainWindowViewModel(
@@ -46,66 +19,15 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         DialogManager dialogManager,
         ToastManager toastManager,
         ThemeWatcher themeWatcher,
-        AboutViewModel aboutViewModel,
-        DashboardViewModel dashboardViewModel,
-        ThemeViewModel themeViewModel,
-        TypographyViewModel typographyViewModel,
-        SmoothScrollViewModel smoothScrollViewModel,
-        AvatarViewModel avatarViewModel,
-        BadgeViewModel badgeViewModel,
-        ButtonViewModel buttonViewModel,
-        CardViewModel cardViewModel,
-        DataTableViewModel dataTableViewModel,
-        DateViewModel dateViewModel,
-        CheckBoxViewModel checkBoxViewModel,
-        DialogViewModel dialogViewModel,
-        InputViewModel inputViewModel,
-        NumericViewModel numericViewModel,
-        MenuViewModel menuViewModel,
-        TabControlViewModel tabControlViewModel,
-        ColorViewModel colorViewModel,
-        ComboBoxViewModel comboBoxViewModel,
-        SidebarViewModel sidebarViewModel,
-        SliderViewModel sliderViewModel,
-        SwitchViewModel switchViewModel,
-        TimeViewModel timeViewModel,
-        ToastViewModel toastViewModel,
-        ToggleViewModel toggleViewModel,
-        ToolTipViewModel toolTipViewModel,
-        MiscellaneousViewModel miscellaneousViewModel)
+        AboutViewModel aboutViewModel)
     {
+        _pageManager = pageManager;
         _dialogManager = dialogManager;
         _toastManager = toastManager;
         _themeWatcher = themeWatcher;
         _aboutViewModel = aboutViewModel;
-        _dashboardViewModel = dashboardViewModel;
-        _themeViewModel = themeViewModel;
-        _typographyViewModel = typographyViewModel;
-        _smoothScrollViewModel = smoothScrollViewModel;
-        _avatarViewModel = avatarViewModel;
-        _badgeViewModel = badgeViewModel;
-        _buttonViewModel = buttonViewModel;
-        _cardViewModel = cardViewModel;
-        _dataTableViewModel = dataTableViewModel;
-        _dateViewModel = dateViewModel;
-        _checkBoxViewModel = checkBoxViewModel;
-        _dialogViewModel = dialogViewModel;
-        _inputViewModel = inputViewModel;
-        _numericViewModel = numericViewModel;
-        _menuViewModel = menuViewModel;
-        _tabControlViewModel = tabControlViewModel;
-        _colorViewModel = colorViewModel;
-        _comboBoxViewModel = comboBoxViewModel;
-        _sidebarViewModel = sidebarViewModel;
-        _sliderViewModel = sliderViewModel;
-        _switchViewModel = switchViewModel;
-        _timeViewModel = timeViewModel;
-        _toastViewModel = toastViewModel;
-        _toggleViewModel = toggleViewModel;
-        _toolTipViewModel = toolTipViewModel;
-        _miscellaneousViewModel = miscellaneousViewModel;
 
-        pageManager.OnNavigate = SwitchPage;
+        pageManager.RegisterNavigationHandler(SwitchPage);
     }
 
     [ObservableProperty]
@@ -120,20 +42,10 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private object? _selectedPage;
 
-    private void SwitchPage(INavigable page, string route = "")
+    private void SwitchPage(INavigable page, string route)
     {
-        var pageType = page.GetType();
-        if (string.IsNullOrEmpty(route)) route = pageType.GetCustomAttribute<PageAttribute>()?.Route ?? "dashboard";
-        CurrentRoute = route;
-
         if (SelectedPage == page) return;
 
-        if (_previousPage is IDisposable disposablePrevious)
-        {
-            disposablePrevious.Dispose();
-        }
-
-        _previousPage = SelectedPage;
         SelectedPage = page;
         CurrentRoute = route;
         page.Initialize();
@@ -142,157 +54,157 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void OpenDashboard()
     {
-        SwitchPage(_dashboardViewModel);
+        _pageManager.Navigate<DashboardViewModel>();
     }
 
     [RelayCommand]
     private void OpenTheme()
     {
-        SwitchPage(_themeViewModel);
+        _pageManager.Navigate<ThemeViewModel>();
     }
 
     [RelayCommand]
     private void OpenTypography()
     {
-        SwitchPage(_typographyViewModel);
+        _pageManager.Navigate<TypographyViewModel>();
     }
 
     [RelayCommand]
     private void OpenSmoothScroll()
     {
-        SwitchPage(_smoothScrollViewModel);
+        _pageManager.Navigate<SmoothScrollViewModel>();
     }
 
     [RelayCommand]
     private void OpenButtons()
     {
-        SwitchPage(_buttonViewModel);
+        _pageManager.Navigate<ButtonViewModel>();
     }
 
     [RelayCommand]
     private void OpenAvatar()
     {
-        SwitchPage(_avatarViewModel);
+        _pageManager.Navigate<AvatarViewModel>();
     }
 
     [RelayCommand]
     private void OpenBadge()
     {
-        SwitchPage(_badgeViewModel);
+        _pageManager.Navigate<BadgeViewModel>();
     }
 
     [RelayCommand]
     private void OpenCards()
     {
-        SwitchPage(_cardViewModel);
+        _pageManager.Navigate<CardViewModel>();
     }
 
     [RelayCommand]
     private void OpenDataGrid()
     {
-        SwitchPage(_dataTableViewModel);
+        _pageManager.Navigate<DataTableViewModel>();
     }
 
     [RelayCommand]
     private void OpenDate()
     {
-        SwitchPage(_dateViewModel);
+        _pageManager.Navigate<DateViewModel>();
     }
 
     [RelayCommand]
     private void OpenCheckBoxes()
     {
-        SwitchPage(_checkBoxViewModel);
+        _pageManager.Navigate<CheckBoxViewModel>();
     }
 
     [RelayCommand]
     private void OpenDialogs()
     {
-        SwitchPage(_dialogViewModel);
+        _pageManager.Navigate<DialogViewModel>();
     }
 
     [RelayCommand]
     private void OpenInputs()
     {
-        SwitchPage(_inputViewModel);
+        _pageManager.Navigate<InputViewModel>();
     }
 
     [RelayCommand]
     private void OpenNumerics()
     {
-        SwitchPage(_numericViewModel);
+        _pageManager.Navigate<NumericViewModel>();
     }
 
     [RelayCommand]
     private void OpenMenus()
     {
-        SwitchPage(_menuViewModel);
+        _pageManager.Navigate<MenuViewModel>();
     }
 
     [RelayCommand]
     private void OpenTabs()
     {
-        SwitchPage(_tabControlViewModel);
+        _pageManager.Navigate<TabControlViewModel>();
     }
 
     [RelayCommand]
     private void OpenComboBoxes()
     {
-        SwitchPage(_comboBoxViewModel);
+        _pageManager.Navigate<ComboBoxViewModel>();
     }
 
     [RelayCommand]
     private void OpenColors()
     {
-        SwitchPage(_colorViewModel);
+        _pageManager.Navigate<ColorViewModel>();
     }
 
     [RelayCommand]
     private void OpenSidebar()
     {
-        SwitchPage(_sidebarViewModel);
+        _pageManager.Navigate<SidebarViewModel>();
     }
 
     [RelayCommand]
     private void OpenSliders()
     {
-        SwitchPage(_sliderViewModel);
+        _pageManager.Navigate<SliderViewModel>();
     }
 
     [RelayCommand]
     private void OpenSwitch()
     {
-        SwitchPage(_switchViewModel);
+        _pageManager.Navigate<SwitchViewModel>();
     }
 
     [RelayCommand]
     private void OpenTime()
     {
-        SwitchPage(_timeViewModel);
+        _pageManager.Navigate<TimeViewModel>();
     }
 
     [RelayCommand]
     private void OpenToast()
     {
-        SwitchPage(_toastViewModel);
+        _pageManager.Navigate<ToastViewModel>();
     }
 
     [RelayCommand]
     private void OpenToggle()
     {
-        SwitchPage(_toggleViewModel);
+        _pageManager.Navigate<ToggleViewModel>();
     }
 
     [RelayCommand]
     private void OpenToolTip()
     {
-        SwitchPage(_toolTipViewModel);
+        _pageManager.Navigate<ToolTipViewModel>();
     }
 
     [RelayCommand]
     private void OpenMiscellaneous()
     {
-        SwitchPage(_miscellaneousViewModel);
+        _pageManager.Navigate<MiscellaneousViewModel>();
     }
 
     [RelayCommand]
@@ -314,7 +226,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase
 
     public void Initialize()
     {
-        SwitchPage(_dashboardViewModel);
+        _pageManager.Navigate<DashboardViewModel>();
     }
 
     [RelayCommand]
@@ -367,28 +279,13 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     /// </summary>
     public override void Dispose()
     {
-        base.Dispose();
-
         if (_disposed) return;
 
-        if (SelectedPage is IDisposable disposableCurrent)
-        {
-            disposableCurrent.Dispose();
-        }
-
-        if (_previousPage is IDisposable disposablePrevious)
-        {
-            disposablePrevious.Dispose();
-        }
-
+        _pageManager.UnregisterNavigationHandler(SwitchPage);
+        _pageManager.Dispose();
         DialogManager.Dispose();
 
         _disposed = true;
-        GC.SuppressFinalize(this);
-    }
-
-    ~MainWindowViewModel()
-    {
-        Dispose();
+        base.Dispose();
     }
 }
