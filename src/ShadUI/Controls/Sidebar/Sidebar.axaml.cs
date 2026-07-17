@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
@@ -12,6 +14,8 @@ namespace ShadUI;
 /// </summary>
 public class Sidebar : ContentControl
 {
+    private CancellationTokenSource? _animationCancellation;
+
     /// <summary>
     ///     Defines the <see cref="Expanded" /> property.
     /// </summary>
@@ -227,46 +231,59 @@ public class Sidebar : ContentControl
     ///     Animates the sidebar expansion or collapse with the specified easing and duration.
     /// </summary>
     /// <param name="toExpand">A value indicating whether to expand or collapse the sidebar.</param>
-    private void AnimateOnExpand(bool toExpand)
+    private async void AnimateOnExpand(bool toExpand)
     {
-        if (!toExpand) _cacheWidth = Width;
+        _animationCancellation?.Cancel();
+        _animationCancellation?.Dispose();
+        var animationCancellation = new CancellationTokenSource();
+        _animationCancellation = animationCancellation;
+        var cancellation = animationCancellation.Token;
 
-        if (toExpand)
+        if (!toExpand && Width > MinWidth) _cacheWidth = Width;
+
+        try
         {
-            this.Animate(WidthProperty)
-                .From(MinWidth)
-                .To(_cacheWidth)
-                .WithEasing(ExpandEasing)
-                .WithDuration(TimeSpan.FromMilliseconds(ExpandAnimationDuration))
-                .Start();
-
-            if (MinWidth == 0)
+            if (toExpand)
             {
+                Width = _cacheWidth;
                 this.Animate(OpacityProperty)
                     .From(0.0)
                     .To(1.0)
-                    .WithEasing(new EaseInOut())
+                    .WithEasing(ExpandEasing)
                     .WithDuration(TimeSpan.FromMilliseconds(ExpandAnimationDuration))
+                    .WithCancellationToken(cancellation)
                     .Start();
+
+                return;
             }
-        }
-        else
-        {
-            this.Animate(WidthProperty)
-                .From(_cacheWidth)
-                .To(MinWidth)
-                .WithEasing(CollapseEasing)
-                .WithDuration(TimeSpan.FromMilliseconds(CollapseAnimationDuration))
-                .Start();
 
             if (MinWidth == 0)
             {
                 this.Animate(OpacityProperty)
                     .From(1.0)
                     .To(0.0)
-                    .WithEasing(new EaseOut())
+                    .WithEasing(CollapseEasing)
                     .WithDuration(TimeSpan.FromMilliseconds(CollapseAnimationDuration))
+                    .WithCancellationToken(cancellation)
                     .Start();
+
+                await Task.Delay(TimeSpan.FromMilliseconds(CollapseAnimationDuration), cancellation);
+            }
+
+            cancellation.ThrowIfCancellationRequested();
+            Width = MinWidth;
+            Opacity = 1;
+        }
+        catch (OperationCanceledException)
+        {
+            // A newer Expanded value replaced this transition.
+        }
+        finally
+        {
+            if (ReferenceEquals(_animationCancellation, animationCancellation))
+            {
+                _animationCancellation = null;
+                animationCancellation.Dispose();
             }
         }
     }

@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Rendering.Composition;
 
 // ReSharper disable once CheckNamespace
 namespace ShadUI;
@@ -25,11 +24,7 @@ public static class StackPanelAssist
     private static void HandleAnimatedScrollChanged(StackPanel interactElem,
         AvaloniaPropertyChangedEventArgs args)
     {
-        if (GetAnimatedScroll(interactElem))
-        {
-            interactElem.AttachedToVisualTree +=
-                (_, _) => ElementComposition.GetElementVisual(interactElem).MakeScrollable();
-        }
+        ScrollableExt.SetAnimatedScroll(interactElem, GetAnimatedScroll(interactElem));
     }
 
     /// <summary>

@@ -16,6 +16,8 @@ public sealed class ToastManager
 
     private readonly List<Toast> _toasts = [];
 
+    internal IReadOnlyList<Toast> Toasts => _toasts;
+
     internal void Queue(Toast toast)
     {
         _toasts.Add(toast);
@@ -35,9 +37,9 @@ public sealed class ToastManager
         if (count > _toasts.Count) count = _toasts.Count;
         for (var i = 0; i < count; i++)
         {
-            var removed = _toasts[i];
+            var removed = _toasts[0];
             OnToastDismissed?.Invoke(this, removed);
-            _toasts.RemoveAt(i);
+            _toasts.RemoveAt(0);
         }
     }
 

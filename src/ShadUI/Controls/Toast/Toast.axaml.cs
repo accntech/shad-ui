@@ -1,11 +1,12 @@
 using System;
+using System.Numerics;
 using System.Threading.Tasks;
 using Avalonia;
-using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Rendering.Composition;
 using Avalonia.Threading;
 
 // ReSharper disable once CheckNamespace
@@ -49,6 +50,15 @@ internal class Toast : ContentControl, IDisposable
         PointerEntered += OnPointerEntered;
         PointerExited += OnPointerExited;
         _eventsAttached = true;
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        if (_disposed) return;
+
+        AttachPointerEvents();
+        AttachTemplateEvents();
     }
 
     private void OnPointerEntered(object? sender, PointerEventArgs e)
@@ -150,6 +160,16 @@ internal class Toast : ContentControl, IDisposable
         _actionButton = e.NameScope.Get<Button>("PART_ActionButton");
         _closeButton = e.NameScope.Get<Button>("PART_CloseButton");
 
+        AttachTemplateEvents();
+    }
+
+    private void AttachTemplateEvents()
+    {
+        if (_toastCard is null || _actionButton is null || _closeButton is null) return;
+
+        _toastCard.PointerPressed -= ToastCardClickedHandler;
+        _actionButton.Click -= OnActionButtonClick;
+        _closeButton.Click -= OnCloseButtonClick;
         _toastCard.PointerPressed += ToastCardClickedHandler;
         _actionButton.Click += OnActionButtonClick;
         _closeButton.Click += OnCloseButtonClick;
@@ -173,33 +193,10 @@ internal class Toast : ContentControl, IDisposable
         _manager?.Dismiss(this);
     }
 
-    private static readonly Easing ShowEasing = new SplineEasing(0.23, 1, 0.32, 1);
-    private static readonly Easing DismissEasing = new SplineEasing(0.23, 1, 0.32, 1);
-
     public void AnimateShow()
     {
         var duration = TimeSpan.FromMilliseconds(360);
-
-        this.Animate(OpacityProperty)
-            .From(0d)
-            .To(1d)
-            .WithDuration(duration)
-            .WithEasing(ShowEasing)
-            .Start();
-
-        this.Animate(MaxHeightProperty)
-            .From(0)
-            .To(500)
-            .WithDuration(duration)
-            .WithEasing(ShowEasing)
-            .Start();
-
-        this.Animate(MarginProperty)
-            .From(new Thickness(0, 12, 0, -12))
-            .To(new Thickness())
-            .WithDuration(duration)
-            .WithEasing(ShowEasing)
-            .Start();
+        AnimateVisual(0, 1, 12, 0, duration);
 
         StartCounter();
     }
@@ -207,20 +204,38 @@ internal class Toast : ContentControl, IDisposable
     public void AnimateDismiss()
     {
         var duration = TimeSpan.FromMilliseconds(220);
+        AnimateVisual(1, 0, 0, -24, duration);
+    }
 
-        this.Animate(OpacityProperty)
-            .From(1d)
-            .To(0d)
-            .WithDuration(duration)
-            .WithEasing(DismissEasing)
-            .Start();
+    private void AnimateVisual(float fromOpacity, float toOpacity, double fromY, double toY, TimeSpan duration,
+        bool retryIfUnavailable = true)
+    {
+        var visual = ElementComposition.GetElementVisual(this);
+        if (visual is null)
+        {
+            if (retryIfUnavailable)
+            {
+                Dispatcher.UIThread.Post(
+                    () => AnimateVisual(fromOpacity, toOpacity, fromY, toY, duration, false),
+                    DispatcherPriority.Render);
+            }
 
-        this.Animate(MarginProperty)
-            .From(new Thickness())
-            .To(new Thickness(0, 0, 0, -100))
-            .WithDuration(duration)
-            .WithEasing(DismissEasing)
-            .Start();
+            return;
+        }
+
+        var compositor = visual.Compositor;
+        var opacityAnimation = compositor.CreateScalarKeyFrameAnimation();
+        opacityAnimation.Duration = duration;
+        opacityAnimation.InsertKeyFrame(0, fromOpacity);
+        opacityAnimation.InsertKeyFrame(1, toOpacity);
+
+        var offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
+        offsetAnimation.Duration = duration;
+        offsetAnimation.InsertKeyFrame(0, new Vector3(0, (float)fromY, 0));
+        offsetAnimation.InsertKeyFrame(1, new Vector3(0, (float)toY, 0));
+
+        visual.StartAnimation("Opacity", opacityAnimation);
+        visual.StartAnimation("Offset", offsetAnimation);
     }
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
@@ -232,12 +247,13 @@ internal class Toast : ContentControl, IDisposable
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnDetachedFromVisualTree(e);
-        Cleanup();
+        var isNoLongerQueued = _manager?.IsDismissed(this) ?? true;
+        Cleanup(releaseTemplateParts: false, stopTimer: isNoLongerQueued);
     }
 
-    private void Cleanup()
+    private void Cleanup(bool releaseTemplateParts, bool stopTimer)
     {
-        if (_timer != null)
+        if (stopTimer && _timer != null)
         {
             _timer.Stop();
             _timer.Tick -= OnTimeLapse;
@@ -254,19 +270,19 @@ internal class Toast : ContentControl, IDisposable
         if (_toastCard != null)
         {
             _toastCard.PointerPressed -= ToastCardClickedHandler;
-            _toastCard = null;
+            if (releaseTemplateParts) _toastCard = null;
         }
 
         if (_actionButton != null)
         {
             _actionButton.Click -= OnActionButtonClick;
-            _actionButton = null;
+            if (releaseTemplateParts) _actionButton = null;
         }
 
         if (_closeButton != null)
         {
             _closeButton.Click -= OnCloseButtonClick;
-            _closeButton = null;
+            if (releaseTemplateParts) _closeButton = null;
         }
     }
 
@@ -274,14 +290,8 @@ internal class Toast : ContentControl, IDisposable
     {
         if (_disposed) return;
 
-        Cleanup();
+        Cleanup(releaseTemplateParts: true, stopTimer: true);
 
         _disposed = true;
-        GC.SuppressFinalize(this);
-    }
-
-    ~Toast()
-    {
-        Dispose();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
@@ -17,6 +18,22 @@ namespace ShadUI;
 /// </summary>
 public static class FluentAnimatorExtensions
 {
+    internal static async Task ObserveAnimationAsync(Task animation)
+    {
+        try
+        {
+            await animation.ConfigureAwait(false);
+        }
+        catch (OperationCanceledException)
+        {
+            // Cancellation is the expected way to replace an in-flight animation.
+        }
+        catch (Exception exception)
+        {
+            Debug.WriteLine($"Animation failed: {exception}");
+        }
+    }
+
     /// <summary>
     ///     Creates a fluent animator for the specified property on the given control.
     /// </summary>
@@ -51,8 +68,8 @@ public static class FluentAnimatorExtensions
 /// <param name="property">The property to animate.</param>
 public ref struct FluentAnimator<T>(Animatable control, AvaloniaProperty<T> property)
 {
-    private readonly TimeSpan _defaultDuration = TimeSpan.FromSeconds(.5);
-    private readonly Easing _defaultEasing = new CubicEaseInOut();
+    private static readonly TimeSpan DefaultDuration = TimeSpan.FromSeconds(.5);
+    private static readonly Easing DefaultEasing = new CubicEaseInOut();
 
     private T? _from;
     private T? _to;
@@ -116,7 +133,7 @@ public ref struct FluentAnimator<T>(Animatable control, AvaloniaProperty<T> prop
     /// </summary>
     public readonly void Start()
     {
-        _ = RunAsync();
+        _ = FluentAnimatorExtensions.ObserveAnimationAsync(RunAsync());
     }
 
     /// <summary>
@@ -131,8 +148,8 @@ public ref struct FluentAnimator<T>(Animatable control, AvaloniaProperty<T> prop
             throw new InvalidOperationException("The 'To' value must be set before starting the animation.");
         }
 
-        var duration = _duration ?? _defaultDuration;
-        var easing = _easing ?? _defaultEasing;
+        var duration = _duration ?? DefaultDuration;
+        var easing = _easing ?? DefaultEasing;
 
         var animation = new Animation
         {

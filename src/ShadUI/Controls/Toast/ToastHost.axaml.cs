@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Reactive;
+using Avalonia.VisualTree;
 
 // ReSharper disable once CheckNamespace
 namespace ShadUI;
@@ -77,6 +79,24 @@ public class ToastHost : ItemsControl
     }
 
     private ToastPosition _originalPosition;
+    private ToastManager? _subscribedManager;
+    private bool _isAttached;
+
+    /// <inheritdoc />
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        _isAttached = true;
+        AttachManagerEvents(Manager);
+    }
+
+    /// <inheritdoc />
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        DetachManagerEvents();
+        _isAttached = false;
+        base.OnDetachedFromVisualTree(e);
+    }
 
     /// <summary>
     ///     Called when the template is applied.
@@ -139,7 +159,7 @@ public class ToastHost : ItemsControl
             host.DetachManagerEvents(oldManager);
         }
 
-        if (propChanged.NewValue is ToastManager newManager)
+        if (host._isAttached && propChanged.NewValue is ToastManager newManager)
         {
             host.AttachManagerEvents(newManager);
         }
@@ -147,16 +167,33 @@ public class ToastHost : ItemsControl
 
     private void AttachManagerEvents(ToastManager manager)
     {
+        if (ReferenceEquals(_subscribedManager, manager)) return;
+
+        DetachManagerEvents();
         manager.OnToastQueued += ManagerOnToastQueued;
         manager.OnToastDismissed += ManagerOnToastDismissed;
         manager.OnAllToastsDismissed += ManagerOnAllToastsDismissed;
+        _subscribedManager = manager;
+
+        foreach (var toast in manager.Toasts.ToArray())
+        {
+            if (!Items.Contains(toast)) ManagerOnToastQueued(manager, toast);
+        }
     }
 
     private void DetachManagerEvents(ToastManager manager)
     {
+        if (!ReferenceEquals(_subscribedManager, manager)) return;
+
         manager.OnToastQueued -= ManagerOnToastQueued;
         manager.OnToastDismissed -= ManagerOnToastDismissed;
         manager.OnAllToastsDismissed -= ManagerOnAllToastsDismissed;
+        _subscribedManager = null;
+    }
+
+    private void DetachManagerEvents()
+    {
+        if (_subscribedManager is { } manager) DetachManagerEvents(manager);
     }
 
     private void ManagerOnToastDismissed(object? sender, Toast toast)

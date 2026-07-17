@@ -355,14 +355,5 @@ internal class SimpleDialog : TemplatedControl, IDisposable
         CancelCallbackAsync = null;
 
         _disposed = true;
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    ///     Finalizer to ensure cleanup if Dispose is not called.
-    /// </summary>
-    ~SimpleDialog()
-    {
-        Dispose();
     }
 }

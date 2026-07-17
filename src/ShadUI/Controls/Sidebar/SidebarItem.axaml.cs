@@ -1,11 +1,11 @@
 ﻿using System;
 using Avalonia;
+using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
-using Avalonia.Threading;
 
 // ReSharper disable once CheckNamespace
 namespace ShadUI;
@@ -17,6 +17,8 @@ namespace ShadUI;
 [TemplatePart("PART_ContentPresenter", typeof(ContentPresenter))]
 public class SidebarItem : RadioButton
 {
+    private static readonly EaseInOut ExpandEasing = new();
+
     /// <summary>
     ///     Icon property.
     /// </summary>
@@ -80,7 +82,6 @@ public class SidebarItem : RadioButton
 
     private ColumnDefinition? _iconColumn;
     private ContentPresenter? _contentPresenter;
-    private double _contentPresenterWidth;
 
     /// <summary>
     ///     Defines the <see cref="HasIcon" /> property.
@@ -151,7 +152,6 @@ public class SidebarItem : RadioButton
         if (e.NameScope.Find("PART_ContentPresenter") is ContentPresenter contentPresenter)
         {
             _contentPresenter = contentPresenter;
-            _contentPresenterWidth = _contentPresenter.Width;
 
             AnimateExpand(Expanded);
         }
@@ -198,25 +198,11 @@ public class SidebarItem : RadioButton
         if (toExpand)
         {
             _contentPresenter?.SetValue(IsVisibleProperty, true);
-
-            var originalTextWrapping = _contentPresenter?.GetValue(TextBlock.TextWrappingProperty);
-            _contentPresenter?.SetValue(TextBlock.TextWrappingProperty, TextWrapping.NoWrap);
-
-            _contentPresenter?.Animate(WidthProperty)
-                .From(0)
-                .To(_contentPresenterWidth)
-                .WithDuration(TimeSpan.FromSeconds(0.1))
-                .WithEasing(new EaseInOut())
-                .RunAsync()
-                .ContinueWith(_ => Dispatcher.UIThread.Post(() =>
-                {
-                    _contentPresenter.SetValue(TextBlock.TextWrappingProperty, originalTextWrapping);
-                }));
             _contentPresenter?.Animate(OpacityProperty)
                 .From(0)
                 .To(1)
                 .WithDuration(TimeSpan.FromSeconds(0.1))
-                .WithEasing(new EaseInOut())
+                .WithEasing(ExpandEasing)
                 .Start();
         }
         else

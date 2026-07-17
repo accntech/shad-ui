@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Threading;
 using Xunit;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
 namespace ShadUI.Tests.Controls;
 
 [CollectionDefinition("Avalonia UI regression tests", DisableParallelization = true)]

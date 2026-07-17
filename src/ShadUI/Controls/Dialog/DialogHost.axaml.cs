@@ -26,6 +26,10 @@ public class DialogHost : TemplatedControl, IDisposable
     private Avalonia.Controls.Window? _ancestorWindow;
     private Border? _overlayBackground;
     private Border? _observedContainer;
+    private Border? _titleBar;
+    private Button? _closeButton;
+    private DialogManager? _subscribedManager;
+    private bool _isAttached;
 
     /// <summary>
     ///     Defines the <see cref="Manager" /> property.
@@ -184,16 +188,25 @@ public class DialogHost : TemplatedControl, IDisposable
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
+        if (_disposed) return;
+
+        _isAttached = true;
         _ancestorWindow = this.FindAncestorOfType<Avalonia.Controls.Window>();
         AttachContainerObserver();
+        if (Manager is { } manager) AttachManagerEvents(manager);
     }
 
     /// <inheritdoc />
     protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
     {
-        base.OnDetachedFromVisualTree(e);
+        DetachManagerEvents();
+        _isAttached = false;
         _ancestorWindow = null;
         DetachContainerObserver();
+        Dialog = null;
+        IsDialogOpen = false;
+        HasOpenDialog = false;
+        base.OnDetachedFromVisualTree(e);
     }
 
     private Avalonia.Controls.Window? ResolveOwnerWindow()
@@ -251,25 +264,55 @@ public class DialogHost : TemplatedControl, IDisposable
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+        DetachTemplateHandlers();
+
         if (e.NameScope.Find<Border>("PART_DialogBackground") is { } background)
         {
             _overlayBackground = background;
-            background.PointerPressed += (_, _) =>
-            {
-                if (CanDismissWithBackgroundClick) CloseDialog();
-            };
+            background.PointerPressed += OnDialogBackgroundPointerPressed;
             ApplyContainerCornerRadius();
         }
 
         if (e.NameScope.Find<Border>("PART_TitleBar") is { } titleBar)
         {
+            _titleBar = titleBar;
             titleBar.PointerPressed += OnTitleBarPointerPressed;
             titleBar.DoubleTapped += OnMaximizeButtonClicked;
         }
 
         if (e.NameScope.Find<Button>("PART_CloseButton") is { } closeButton)
         {
-            closeButton.Click += (_, _) => CloseDialog();
+            _closeButton = closeButton;
+            closeButton.Click += OnCloseButtonClick;
+        }
+    }
+
+    private void OnDialogBackgroundPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (CanDismissWithBackgroundClick) CloseDialog();
+    }
+
+    private void OnCloseButtonClick(object? sender, RoutedEventArgs e) => CloseDialog();
+
+    private void DetachTemplateHandlers()
+    {
+        if (_overlayBackground is not null)
+        {
+            _overlayBackground.PointerPressed -= OnDialogBackgroundPointerPressed;
+            _overlayBackground = null;
+        }
+
+        if (_titleBar is not null)
+        {
+            _titleBar.PointerPressed -= OnTitleBarPointerPressed;
+            _titleBar.DoubleTapped -= OnMaximizeButtonClicked;
+            _titleBar = null;
+        }
+
+        if (_closeButton is not null)
+        {
+            _closeButton.Click -= OnCloseButtonClick;
+            _closeButton = null;
         }
     }
 
@@ -320,7 +363,7 @@ public class DialogHost : TemplatedControl, IDisposable
             host.DetachManagerEvents(oldManager);
         }
 
-        if (propChanged.NewValue is DialogManager newManager)
+        if (host._isAttached && !host._disposed && propChanged.NewValue is DialogManager newManager)
         {
             host.AttachManagerEvents(newManager);
         }
@@ -328,16 +371,35 @@ public class DialogHost : TemplatedControl, IDisposable
 
     private void AttachManagerEvents(DialogManager manager)
     {
+        if (ReferenceEquals(_subscribedManager, manager)) return;
+
+        DetachManagerEvents();
         manager.OnDialogShown += ManagerOnDialogShown;
         manager.OnDialogClosed += ManagerOnDialogClosed;
         manager.AllowDismissChanged += AllowDismissChanged;
+        _subscribedManager = manager;
+
+        if (manager.Dialogs.Count > 0)
+        {
+            var lastDialog = manager.Dialogs.Last();
+            ManagerOnDialogShown(manager,
+                new DialogShownEventArgs { Control = lastDialog.Key, Options = lastDialog.Value });
+        }
     }
 
     private void DetachManagerEvents(DialogManager manager)
     {
+        if (!ReferenceEquals(_subscribedManager, manager)) return;
+
         manager.OnDialogShown -= ManagerOnDialogShown;
         manager.OnDialogClosed -= ManagerOnDialogClosed;
         manager.AllowDismissChanged -= AllowDismissChanged;
+        _subscribedManager = null;
+    }
+
+    private void DetachManagerEvents()
+    {
+        if (_subscribedManager is { } manager) DetachManagerEvents(manager);
     }
 
     private void ManagerOnDialogShown(object? sender, DialogShownEventArgs e)
@@ -390,20 +452,11 @@ public class DialogHost : TemplatedControl, IDisposable
     {
         if (_disposed) return;
 
-        if (Manager is not null)
-        {
-            DetachManagerEvents(Manager);
-        }
+        DetachManagerEvents();
+        DetachContainerObserver();
+        DetachTemplateHandlers();
+        Dialog = null;
 
         _disposed = true;
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    ///     Finalizer to ensure cleanup if Dispose is not called.
-    /// </summary>
-    ~DialogHost()
-    {
-        Dispose();
     }
 }
