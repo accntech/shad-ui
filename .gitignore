@@ -119,3 +119,6 @@ docker-compose.override.yml
 *.pidb
 *.svclog
 *.scc
+
+# Graphify
+graphify-out/
