@@ -18,7 +18,7 @@ Our goal is to deliver a modern, beautiful, and intuitive UI library for [Avalon
 
 ### WebAssembly demo
 
-Try the full ShadUI component catalog in the [hosted WebAssembly demo](https://accntech.github.io/shad-ui/), or run it locally:
+Try the full ShadUI component catalog in the [browser demo](https://accntech.github.io/shad-ui/), or run it locally:
 
 ```bash
 dotnet workload install wasm-tools

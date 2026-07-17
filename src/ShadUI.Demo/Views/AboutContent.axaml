@@ -24,7 +24,7 @@
         <TextBlock
             Classes="Small"
             Margin="24,0"
-            Text="ShadUI is an Avalonia-based Desktop UI Library inspired by shadcn/ui and Suki UI Library to deliver a modern, beautiful, and intuitive UI library for Avalonia."
+            Text="ShadUI is an Avalonia-based cross-platform UI library inspired by shadcn/ui and Suki UI Library. Our goal is to deliver a modern, beautiful, and intuitive UI library for Avalonia applications across supported platforms."
             TextAlignment="Center"
             TextWrapping="Wrap"
             Width="400" />
