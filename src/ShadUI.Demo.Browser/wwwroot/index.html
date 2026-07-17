@@ -3,23 +3,56 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#fafafa">
+  <meta name="theme-color" content="#f7f6f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0c0f" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Browse the ShadUI Avalonia component catalog in WebAssembly.">
   <title>ShadUI · Browser Demo</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%2381408d' d='M128 224c-4.1 0-8.2-1.6-11.3-4.7-6.2-6.2-6.2-16.4 0-22.6l80-80c6.2-6.2 16.4-6.2 22.6 0 6.2 6.2 6.2 16.4 0 22.6l-80 80c-3.1 3.1-7.2 4.7-11.3 4.7zM44.4 107.4l63-63c4.9-4.9 4.9-12.9 0-17.8s-12.9-4.9-17.8 0l-63 63c-4.9 4.9-4.9 12.9 0 17.8 2.5 2.5 5.7 3.7 8.9 3.7s6.4-1.2 8.9-3.7zm6.9 95.9l152-152c6.2-6.2 6.2-16.4 0-22.6-6.2-6.2-16.4-6.2-22.6 0l-152 152c-6.2 6.2-6.2 16.4 0 22.6 3.1 3.1 7.2 4.7 11.3 4.7s8.2-1.6 11.3-4.7z'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./app.css">
 </head>
 <body>
   <div id="out">
-    <main class="splash" aria-live="polite" aria-label="Loading the ShadUI component catalog">
-      <div class="loader-card">
-        <div class="brand-mark" aria-hidden="true">S</div>
-        <div>
-          <p class="product">ShadUI Browser Demo</p>
-          <p class="status">Loading component catalog…</p>
+    <main class="splash" aria-busy="true" aria-live="polite" aria-label="Loading the ShadUI component catalog">
+      <header class="splash-header">
+        <div class="brand-lockup">
+          <svg class="brand-logo" viewBox="0 0 256 256" aria-hidden="true">
+            <defs>
+              <linearGradient id="shadui-logo-gradient" x1="28" y1="220" x2="216" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#5f347f" />
+                <stop offset="1" stop-color="#a3469d" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#shadui-logo-gradient)" d="M128 224c-4.1 0-8.2-1.6-11.3-4.7-6.2-6.2-6.2-16.4 0-22.6l80-80c6.2-6.2 16.4-6.2 22.6 0 6.2 6.2 6.2 16.4 0 22.6l-80 80c-3.1 3.1-7.2 4.7-11.3 4.7zM44.4 107.4l63-63c4.9-4.9 4.9-12.9 0-17.8s-12.9-4.9-17.8 0l-63 63c-4.9 4.9-4.9 12.9 0 17.8 2.5 2.5 5.7 3.7 8.9 3.7s6.4-1.2 8.9-3.7zm6.9 95.9l152-152c6.2-6.2 6.2-16.4 0-22.6-6.2-6.2-16.4-6.2-22.6 0l-152 152c-6.2 6.2-6.2 16.4 0 22.6 3.1 3.1 7.2 4.7 11.3 4.7s8.2-1.6 11.3-4.7z" />
+          </svg>
+          <span class="brand-name">ShadUI</span>
         </div>
-        <span class="spinner" aria-hidden="true"></span>
-      </div>
-      <p class="runtime">Avalonia 12 · .NET 10 WebAssembly</p>
+        <span class="edition">Browser demo</span>
+      </header>
+
+      <section class="loading-state">
+        <div class="loading-mark" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p class="eyebrow">Component catalog</p>
+        <h1>Preparing the playground</h1>
+        <p class="status">Loading components, examples, and themes into your browser.</p>
+        <div class="progress" role="progressbar" aria-label="Loading component catalog" aria-valuetext="Loading">
+          <span></span>
+        </div>
+        <div class="progress-meta" aria-hidden="true">
+          <span>Starting Avalonia</span>
+          <span>WebAssembly</span>
+        </div>
+      </section>
+
+      <footer class="runtime">
+        <span>Avalonia 12</span>
+        <span>.NET 10</span>
+        <span>Runs locally in your browser</span>
+      </footer>
     </main>
   </div>
   <script type="module" src="./main.js"></script>
