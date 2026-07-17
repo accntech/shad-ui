@@ -1,0 +1,1 @@
+{"profiles":{"ShadUI.Demo.Browser":{"commandName":"Project","launchBrowser":true,"applicationUrl":"https://localhost:7169;http://localhost:5235","inspectUri":"{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"}}}

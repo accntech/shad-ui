@@ -16,6 +16,20 @@ Our goal is to deliver a modern, beautiful, and intuitive UI library for [Avalon
 
 ## Installation 🚀
 
+### WebAssembly demo
+
+Run the desktop demo's full ShadUI component catalog entirely in the browser:
+
+```bash
+dotnet workload install wasm-tools
+dotnet run --project src/ShadUI.Demo.Browser/ShadUI.Demo.Browser.csproj
+```
+
+Open the local URL printed by the development server. Publish it as a static site with
+`dotnet publish -c Release --project src/ShadUI.Demo.Browser/ShadUI.Demo.Browser.csproj`.
+
+### Library setup
+
 To get started with ShadUI:
 
 Install the [ShadUI NuGet package](https://www.nuget.org/packages/ShadUI/):

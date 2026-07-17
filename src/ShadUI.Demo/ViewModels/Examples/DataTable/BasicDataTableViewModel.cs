@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Timers;
 using Avalonia.Threading;
-using AvaloniaEdit.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -96,7 +95,7 @@ public sealed partial class BasicDataTableViewModel : ViewModelBase
                 _searchTimer?.Stop();
                 IsSearching = false;
                 Items.Clear();
-                Items.AddRange(_originalItems);
+                foreach (var item in _originalItems) Items.Add(item);
                 UpdateTotal();
             }
         }
@@ -111,7 +110,7 @@ public sealed partial class BasicDataTableViewModel : ViewModelBase
                 .ToList();
 
             Items.Clear();
-            Items.AddRange(filteredItems);
+            foreach (var item in filteredItems) Items.Add(item);
 
             IsSearching = false;
             _searchTimer?.Stop();

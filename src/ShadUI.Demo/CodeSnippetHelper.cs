@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace ShadUI.Demo;
@@ -15,7 +16,26 @@ public static class CodeSnippetHelper
     private static string[] GetLines(string filePath)
     {
         var fullPath = Path.GetFullPath(filePath);
-        return FileLines.GetOrAdd(fullPath, File.ReadAllLines);
+        return FileLines.GetOrAdd(fullPath, path =>
+        {
+            if (File.Exists(path)) return File.ReadAllLines(path);
+
+            var normalizedPath = path.Replace('\\', '/');
+            var markerIndex = normalizedPath.IndexOf("/views/", StringComparison.OrdinalIgnoreCase);
+            if (markerIndex < 0)
+            {
+                markerIndex = normalizedPath.IndexOf("/viewModels/", StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (markerIndex < 0) return [];
+
+            var resourceName = "demo/" + normalizedPath[(markerIndex + 1)..];
+            using var stream = typeof(CodeSnippetHelper).Assembly.GetManifestResourceStream(resourceName);
+            if (stream is null) return [];
+
+            using var reader = new StreamReader(stream);
+            return reader.ReadToEnd().Replace("\r\n", "\n").Split('\n');
+        });
     }
 
     internal static void ClearCache() => FileLines.Clear();

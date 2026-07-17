@@ -20,6 +20,8 @@
 
     <ItemGroup>
         <AvaloniaResource Include="Assets\**"/>
+        <EmbeddedResource Include="Views\**\*.axaml" LogicalName="demo/views/%(RecursiveDir)%(Filename)%(Extension)" />
+        <EmbeddedResource Include="ViewModels\**\*.cs" LogicalName="demo/viewModels/%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup>

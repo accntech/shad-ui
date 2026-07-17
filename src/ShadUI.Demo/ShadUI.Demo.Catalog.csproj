@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <OutputType>Library</OutputType>
+        <AssemblyName>shadui-app</AssemblyName>
+        <RootNamespace>ShadUI.Demo</RootNamespace>
+        <IntermediateOutputPath>obj/Catalog/$(Configuration)/$(TargetFramework)/</IntermediateOutputPath>
+        <OutputPath>bin/Catalog/$(Configuration)/</OutputPath>
+        <Nullable>enable</Nullable>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="Controls\CodeTextBlock.axaml.cs;Program.cs" />
+        <Compile
+            Include="..\ShadUI.Demo.Browser\Catalog\BrowserCodeTextBlock.cs"
+            Link="Controls\CodeTextBlock.axaml.cs" />
+        <Compile
+            Include="..\ShadUI.Demo.Browser\Catalog\BrowserSyntaxHighlighter.cs"
+            Link="Controls\BrowserSyntaxHighlighter.cs" />
+        <AvaloniaXaml Remove="App.axaml;Controls\CodeTextBlock.axaml" />
+        <AvaloniaXaml
+            Include="..\ShadUI.Demo.Browser\Catalog\BrowserCodeTextBlock.axaml"
+            Link="Controls\CodeTextBlock.axaml" />
+        <AvaloniaResource Include="Assets\**" />
+        <EmbeddedResource Include="Views\**\*.axaml" LogicalName="demo/views/%(RecursiveDir)%(Filename)%(Extension)" />
+        <EmbeddedResource Include="ViewModels\**\*.cs" LogicalName="demo/viewModels/%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="12.1.0" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+        <PackageReference Include="Jab" Version="0.12.0" PrivateAssets="All" />
+        <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.1.0-dev-292" />
+        <PackageReference Include="Serilog" Version="4.4.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ShadUI\ShadUI.csproj" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,49 @@
+<UserControl
+    x:Class="ShadUI.Demo.Browser.Views.MobileCatalogMenu"
+    x:DataType="demo:MainWindowViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:demo="clr-namespace:ShadUI.Demo;assembly=shadui-app"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Button
+        Classes="Icon"
+        Height="40"
+        ToolTip.Tip="Browse components"
+        Width="40">
+        <TextBlock Classes="LucideIcon" Text="&#57646;" />
+        <Button.Flyout>
+            <MenuFlyout>
+                <MenuItem Command="{Binding OpenDashboardCommand}" Header="Dashboard" />
+                <MenuItem Command="{Binding OpenThemeCommand}" Header="Theming" />
+                <MenuItem Command="{Binding OpenTypographyCommand}" Header="Typography" />
+                <MenuItem Command="{Binding OpenSmoothScrollCommand}" Header="Smooth scroll" />
+                <Separator />
+                <MenuItem Header="Components">
+                    <MenuItem Command="{Binding OpenAvatarCommand}" Header="Avatar" />
+                    <MenuItem Command="{Binding OpenBadgeCommand}" Header="Badge" />
+                    <MenuItem Command="{Binding OpenButtonsCommand}" Header="Button" />
+                    <MenuItem Command="{Binding OpenCardsCommand}" Header="Card" />
+                    <MenuItem Command="{Binding OpenCheckBoxesCommand}" Header="Checkbox" />
+                    <MenuItem Command="{Binding OpenColorsCommand}" Header="Color picker" />
+                    <MenuItem Command="{Binding OpenComboBoxesCommand}" Header="Combo box" />
+                    <MenuItem Command="{Binding OpenDataGridCommand}" Header="Data grid" />
+                    <MenuItem Command="{Binding OpenDateCommand}" Header="Date" />
+                    <MenuItem Command="{Binding OpenDialogsCommand}" Header="Dialog" />
+                    <MenuItem Command="{Binding OpenInputsCommand}" Header="Input" />
+                    <MenuItem Command="{Binding OpenMenusCommand}" Header="Menu" />
+                    <MenuItem Command="{Binding OpenNumericsCommand}" Header="Numeric" />
+                    <MenuItem Command="{Binding OpenSidebarCommand}" Header="Sidebar" />
+                    <MenuItem Command="{Binding OpenSlidersCommand}" Header="Slider" />
+                    <MenuItem Command="{Binding OpenSwitchCommand}" Header="Switch" />
+                    <MenuItem Command="{Binding OpenTabsCommand}" Header="Tabs" />
+                    <MenuItem Command="{Binding OpenTimeCommand}" Header="Time" />
+                    <MenuItem Command="{Binding OpenToastCommand}" Header="Toast" />
+                    <MenuItem Command="{Binding OpenToggleCommand}" Header="Toggle" />
+                    <MenuItem Command="{Binding OpenToolTipCommand}" Header="Tooltip" />
+                    <MenuItem Command="{Binding OpenMiscellaneousCommand}" Header="Miscellaneous" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Command="{Binding ShowAboutCommand}" Header="About ShadUI" />
+            </MenuFlyout>
+        </Button.Flyout>
+    </Button>
+</UserControl>

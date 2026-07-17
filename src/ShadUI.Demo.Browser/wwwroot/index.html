@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fafafa">
+  <meta name="description" content="Browse the ShadUI Avalonia component catalog in WebAssembly.">
+  <title>ShadUI · Browser Demo</title>
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+  <div id="out">
+    <main class="splash" aria-live="polite" aria-label="Loading the ShadUI component catalog">
+      <div class="loader-card">
+        <div class="brand-mark" aria-hidden="true">S</div>
+        <div>
+          <p class="product">ShadUI Browser Demo</p>
+          <p class="status">Loading component catalog…</p>
+        </div>
+        <span class="spinner" aria-hidden="true"></span>
+      </div>
+      <p class="runtime">Avalonia 12 · .NET 10 WebAssembly</p>
+    </main>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

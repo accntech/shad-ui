@@ -1,0 +1,68 @@
+<UserControl
+    FontFamily="{StaticResource ManropeFont}"
+    x:Class="ShadUI.Demo.Browser.Views.MainView"
+    x:DataType="demo:MainWindowViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:converters="clr-namespace:ShadUI.Demo.Converters;assembly=shadui-app"
+    xmlns:demo="clr-namespace:ShadUI.Demo;assembly=shadui-app"
+    xmlns:local="clr-namespace:ShadUI.Demo.Browser.Views"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Panel Background="{DynamicResource WindowBackgroundColor}">
+        <shadui:BreakpointViewPort>
+            <shadui:BreakpointView Breakpoint="LgAndUp">
+                <Grid ColumnDefinitions="Auto,*">
+                    <local:CatalogSidebar />
+                    <TransitioningContentControl Content="{Binding SelectedPage}" Grid.Column="1" />
+                </Grid>
+            </shadui:BreakpointView>
+
+            <shadui:BreakpointView Breakpoint="LgAndDown">
+                <DockPanel LastChildFill="True">
+                    <Border
+                        Background="{DynamicResource SidebarBackgroundColor}"
+                        BorderBrush="{DynamicResource BorderColor30}"
+                        BorderThickness="0,0,0,1"
+                        DockPanel.Dock="Top"
+                        MinHeight="56"
+                        Padding="12,8">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Border
+                                Background="{DynamicResource PrimaryColor}"
+                                CornerRadius="8"
+                                Height="34"
+                                Width="34">
+                                <PathIcon
+                                    Data="{x:Static shadui:Icons.Logo}"
+                                    Foreground="{DynamicResource PrimaryForegroundColor}"
+                                    Height="16"
+                                    Width="16" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock FontSize="14" FontWeight="SemiBold" Text="ShadUI" />
+                                <TextBlock Classes="Caption" Text="{Binding CurrentRoute}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                                <local:MobileCatalogMenu />
+                                <Button
+                                    Classes="Icon"
+                                    Command="{Binding SwitchThemeCommand}"
+                                    Height="40"
+                                    ToolTip.Tip="Switch theme"
+                                    Width="40">
+                                    <TextBlock
+                                        Classes="LucideIcon"
+                                        Text="{Binding CurrentTheme, Converter={x:Static converters:ThemeModeConverters.ToLucideIcon}}" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <TransitioningContentControl Content="{Binding SelectedPage}" />
+                </DockPanel>
+            </shadui:BreakpointView>
+        </shadui:BreakpointViewPort>
+
+        <shadui:ToastHost Manager="{Binding ToastManager}" />
+        <shadui:DialogHost Manager="{Binding DialogManager}" />
+    </Panel>
+</UserControl>

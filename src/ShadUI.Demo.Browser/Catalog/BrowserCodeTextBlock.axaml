@@ -1,0 +1,57 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme TargetType="controls:CodeTextBlock" x:Key="{x:Type controls:CodeTextBlock}">
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="MinHeight" Value="50" />
+        <Setter Property="CornerRadius" Value="{DynamicResource XlCornerRadius}" />
+        <Setter Property="Background" Value="{DynamicResource CodeBackgroundColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource CodeForegroundColor}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Padding="{TemplateBinding Padding}">
+                    <Panel>
+                        <ScrollViewer
+                            HorizontalScrollBarVisibility="Auto"
+                            MaxHeight="{TemplateBinding MaxHeight}"
+                            MinHeight="{TemplateBinding MinHeight}"
+                            VerticalScrollBarVisibility="Auto">
+                            <SelectableTextBlock
+                                FontFamily="{StaticResource JetbrainsFont}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Name="PART_CodeText"
+                                Padding="0,0,44,0"
+                                SelectionBrush="#66569CD6"
+                                SelectionForegroundBrush="#FFFFFF"
+                                TextWrapping="NoWrap" />
+                        </ScrollViewer>
+                        <Button
+                            HorizontalAlignment="Right"
+                            Name="PART_ClipBoardButton"
+                            Padding="8"
+                            VerticalAlignment="Top"
+                            shadui:ButtonAssist.HoverBackground="{DynamicResource CodeForegroundColor50}">
+                            <Viewbox Height="16" Width="16">
+                                <PathIcon
+                                    Data="{x:Static shadui:Icons.ClipBoard}"
+                                    Foreground="{DynamicResource CodeForegroundColor}"
+                                    Name="PART_ClipBoardIcon" />
+                            </Viewbox>
+                        </Button>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

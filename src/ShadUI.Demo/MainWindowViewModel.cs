@@ -229,6 +229,100 @@ public sealed partial class MainWindowViewModel : ViewModelBase
         _pageManager.Navigate<DashboardViewModel>();
     }
 
+    /// <summary>
+    /// Navigates to a catalog page by its stable route identifier.
+    /// Browser hosts use this to restore deep links and browser history entries.
+    /// </summary>
+    public bool NavigateToRoute(string? route)
+    {
+        switch (route?.Trim().Trim('/').ToLowerInvariant())
+        {
+            case "dashboard":
+                _pageManager.Navigate<DashboardViewModel>();
+                break;
+            case "theme":
+                _pageManager.Navigate<ThemeViewModel>();
+                break;
+            case "typography":
+                _pageManager.Navigate<TypographyViewModel>();
+                break;
+            case "smoothscroll":
+            case "smooth-scroll":
+                _pageManager.Navigate<SmoothScrollViewModel>();
+                break;
+            case "avatar":
+                _pageManager.Navigate<AvatarViewModel>();
+                break;
+            case "badge":
+                _pageManager.Navigate<BadgeViewModel>();
+                break;
+            case "button":
+                _pageManager.Navigate<ButtonViewModel>();
+                break;
+            case "card":
+                _pageManager.Navigate<CardViewModel>();
+                break;
+            case "checkbox":
+                _pageManager.Navigate<CheckBoxViewModel>();
+                break;
+            case "color":
+                _pageManager.Navigate<ColorViewModel>();
+                break;
+            case "combobox":
+                _pageManager.Navigate<ComboBoxViewModel>();
+                break;
+            case "data-table":
+                _pageManager.Navigate<DataTableViewModel>();
+                break;
+            case "date":
+                _pageManager.Navigate<DateViewModel>();
+                break;
+            case "dialog":
+                _pageManager.Navigate<DialogViewModel>();
+                break;
+            case "input":
+                _pageManager.Navigate<InputViewModel>();
+                break;
+            case "menu":
+                _pageManager.Navigate<MenuViewModel>();
+                break;
+            case "numeric":
+                _pageManager.Navigate<NumericViewModel>();
+                break;
+            case "sidebar":
+                _pageManager.Navigate<SidebarViewModel>();
+                break;
+            case "slider":
+                _pageManager.Navigate<SliderViewModel>();
+                break;
+            case "switch":
+                _pageManager.Navigate<SwitchViewModel>();
+                break;
+            case "tab-control":
+                _pageManager.Navigate<TabControlViewModel>();
+                break;
+            case "time":
+                _pageManager.Navigate<TimeViewModel>();
+                break;
+            case "toast":
+                _pageManager.Navigate<ToastViewModel>();
+                break;
+            case "toggle":
+                _pageManager.Navigate<ToggleViewModel>();
+                break;
+            case "tooltip":
+                _pageManager.Navigate<ToolTipViewModel>();
+                break;
+            case "miscellaneous":
+                _pageManager.Navigate<MiscellaneousViewModel>();
+                break;
+            default:
+                return false;
+        }
+
+        return true;
+    }
+
     [RelayCommand]
     private void ShowAbout()
     {
