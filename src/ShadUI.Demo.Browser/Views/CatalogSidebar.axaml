@@ -55,7 +55,7 @@
             </shadui:SidebarItem>
 
             <shadui:SidebarItemLabel AsSeparator="True" Text="Behaviors" />
-            <shadui:SidebarItem Command="{Binding OpenSmoothScrollCommand}" Content="Smooth Scroll" Route="smoothScroll">
+            <shadui:SidebarItem Command="{Binding OpenSmoothScrollCommand}" Content="Smooth Scroll" Route="smooth-scroll">
                 <shadui:SidebarItem.Icon>
                     <Viewbox><TextBlock Classes="LucideIcon" Foreground="{DynamicResource ForegroundColor}" Text="&#58583;" /></Viewbox>
                 </shadui:SidebarItem.Icon>

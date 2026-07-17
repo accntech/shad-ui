@@ -141,7 +141,7 @@
                     <shadui:SidebarItem
                         Command="{Binding OpenSmoothScrollCommand}"
                         Content="Smooth Scroll"
-                        Route="smoothScroll"
+                        Route="smooth-scroll"
                         ToolTip.Tip="{Binding $parent[shadui:Sidebar].Expanded, Converter={x:Static converters:BooleanConverters.NullOrString}, ConverterParameter='Smooth Scroll'}">
                         <shadui:SidebarItem.Icon>
                             <Viewbox>

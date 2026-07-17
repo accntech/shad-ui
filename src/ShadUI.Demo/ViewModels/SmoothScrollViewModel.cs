@@ -7,7 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace ShadUI.Demo.ViewModels;
 
-[Page("smoothScroll")]
+[Page("smooth-scroll")]
 public sealed partial class SmoothScrollViewModel : ViewModelBase, INavigable
 {
     private readonly PageManager _pageManager;
