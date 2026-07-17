@@ -1,0 +1,75 @@
+name: Deploy browser demo to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/deploy-browser-demo.yml"
+      - "src/ShadUI/**"
+      - "src/ShadUI.Demo/**"
+      - "src/ShadUI.Demo.Browser/**"
+      - "Directory.Build.*"
+      - "global.json"
+      - "NuGet.config"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build browser demo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install WebAssembly tools
+        run: dotnet workload install wasm-tools
+
+      - name: Publish browser demo
+        run: >-
+          dotnet publish
+          src/ShadUI.Demo.Browser/ShadUI.Demo.Browser.csproj
+          --configuration Release
+          --nologo
+
+      - name: Prepare GitHub Pages site
+        shell: bash
+        run: |
+          publish_dir="src/ShadUI.Demo.Browser/bin/Release/net10.0-browser/publish/wwwroot"
+          test -f "$publish_dir/index.html"
+          touch "$publish_dir/.nojekyll"
+          cp "$publish_dir/index.html" "$publish_dir/404.html"
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: src/ShadUI.Demo.Browser/bin/Release/net10.0-browser/publish/wwwroot
+
+  deploy:
+    name: Deploy browser demo
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
