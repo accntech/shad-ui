@@ -36,7 +36,7 @@
                         CornerRadius="{DynamicResource 2XlCornerRadius}"
                         Margin="8"
                         MinWidth="150">
-                        <StackPanel Margin="24">
+                        <StackPanel Margin="{DynamicResource OverviewCardPadding}">
                             <Grid ColumnDefinitions="* Auto">
                                 <TextBlock Classes="Small" Text="{TemplateBinding Title}" />
                                 <ContentPresenter Content="{TemplateBinding Icon}" Grid.Column="1" />

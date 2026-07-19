@@ -48,6 +48,11 @@ public static class Icons
     public static readonly StreamGeometry ChevronRight = Parse("M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z");
 
     /// <summary>
+    ///     Menu icon.
+    /// </summary>
+    public static readonly StreamGeometry Menu = Parse("M4,6H20V8H4V6ZM4,11H20V13H4V11ZM4,16H20V18H4V16Z");
+
+    /// <summary>
     ///     Up and down chevron combination icon.
     /// </summary>
     public static readonly StreamGeometry ChevronUpDown = Parse(

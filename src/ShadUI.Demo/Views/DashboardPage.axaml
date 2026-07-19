@@ -6,6 +6,7 @@
     x:DataType="viewModels:DashboardViewModel"
     xmlns="https://github.com/avaloniaui"
     xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+    xmlns:converters="clr-namespace:ShadUI.Demo.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dashboard="clr-namespace:ShadUI.Demo.Controls.Dashboard"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -24,40 +25,69 @@
                 Grid.Column="0"
                 Text="Dashboard" />
             <Button
-                Background="{DynamicResource GhostHoverColor}"
+                Background="Transparent"
                 Classes="Icon"
                 Command="{Binding NextPageCommand}"
                 Grid.Column="1"
                 Height="28"
                 Width="28">
-                <Viewbox Margin="6">
-                    <TextBlock Classes="LucideIcon" Text="&#57421;" />
-                </Viewbox>
+                <PathIcon Data="{x:Static shadui:Icons.ChevronRight}" Height="16" Width="16" />
             </Button>
         </Grid>
         <ScrollViewer>
             <StackPanel
-                Margin="48,0,48,24"
+                Margin="{StaticResource PageContentMargin}"
                 MaxWidth="{StaticResource PageMaxWidth}"
                 Spacing="16">
-                <StackPanel
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal"
-                    Spacing="8">
-                    <CalendarDatePicker SelectedDate="{x:Static system:DateTime.Today}" shadui:ControlAssist.Label="From" />
-                    <CalendarDatePicker SelectedDate="{x:Static system:DateTime.Today}" shadui:ControlAssist.Label="To" />
-                    <Button
-                        Classes="Primary"
-                        Content="Download"
-                        VerticalAlignment="Bottom">
-                        <shadui:ButtonAssist.Icon>
-                            <TextBlock
-                                Classes="LucideIcon"
-                                Margin="0,0,6,0"
-                                Text="&#57526;" />
-                        </shadui:ButtonAssist.Icon>
-                    </Button>
-                </StackPanel>
+                <shadui:BreakpointViewPort>
+                    <shadui:BreakpointView Breakpoint="MdAndUp">
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <CalendarDatePicker SelectedDate="{x:Static system:DateTime.Today}" shadui:ControlAssist.Label="From" />
+                            <CalendarDatePicker SelectedDate="{x:Static system:DateTime.Today}" shadui:ControlAssist.Label="To" />
+                            <Button
+                                Classes="Primary"
+                                Content="Download"
+                                VerticalAlignment="Bottom">
+                                <shadui:ButtonAssist.Icon>
+                                    <TextBlock
+                                        Classes="LucideIcon"
+                                        Margin="0,0,6,0"
+                                        Text="&#57526;" />
+                                </shadui:ButtonAssist.Icon>
+                            </Button>
+                        </StackPanel>
+                    </shadui:BreakpointView>
+                    <shadui:BreakpointView Breakpoint="MdAndDown">
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8" RowDefinitions="Auto,Auto" RowSpacing="10">
+                            <CalendarDatePicker
+                                HorizontalAlignment="Stretch"
+                                SelectedDate="{x:Static system:DateTime.Today}"
+                                shadui:ControlAssist.Label="From" />
+                            <CalendarDatePicker
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                SelectedDate="{x:Static system:DateTime.Today}"
+                                shadui:ControlAssist.Label="To" />
+                            <Button
+                                Classes="Primary"
+                                Content="Download report"
+                                Grid.ColumnSpan="2"
+                                Grid.Row="1"
+                                Height="44"
+                                HorizontalAlignment="Stretch">
+                                <shadui:ButtonAssist.Icon>
+                                    <TextBlock
+                                        Classes="LucideIcon"
+                                        Margin="0,0,6,0"
+                                        Text="&#57526;" />
+                                </shadui:ButtonAssist.Icon>
+                            </Button>
+                        </Grid>
+                    </shadui:BreakpointView>
+                </shadui:BreakpointViewPort>
 
                 <TabControl>
                     <TabControl.Items>
@@ -117,7 +147,10 @@
                                         </UniformGrid>
                                     </shadui:BreakpointView>
                                     <shadui:BreakpointView Breakpoint="MdAndDown">
-                                        <UniformGrid Columns="2" Margin="-6,0">
+                                        <UniformGrid
+                                            Columns="{Binding $parent[shadui:BreakpointViewPort].Bounds.Width, Converter={x:Static converters:ResponsiveLayoutConverters.ToDashboardColumnCount}}"
+                                            Margin="-6,0"
+                                            x:Name="CompactOverviewCards">
                                             <dashboard:OverviewCard
                                                 Hint="+180.1% from last month"
                                                 Title="Total Revenue"
@@ -460,7 +493,6 @@
                         </TabItem>
                         <TabItem Header="Analytics" IsEnabled="False" />
                         <TabItem Header="Reports" IsEnabled="False" />
-                        <TabItem Header="Notifications" IsEnabled="False" />
                     </TabControl.Items>
                 </TabControl>
             </StackPanel>

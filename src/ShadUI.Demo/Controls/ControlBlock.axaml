@@ -184,8 +184,12 @@
                     <TabControl Theme="{StaticResource TabControlTheme}">
                         <TabControl.Items>
                             <TabItem Header="Preview" Theme="{StaticResource TabItemTheme}">
-                                <shadui:Card Background="{DynamicResource WindowBackgroundColor}" Padding="48">
-                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                <shadui:Card
+                                    Background="{DynamicResource WindowBackgroundColor}"
+                                    Padding="{DynamicResource ControlBlockPreviewPadding}">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    </ScrollViewer>
                                 </shadui:Card>
                             </TabItem>
                             <TabItem

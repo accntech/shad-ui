@@ -8,6 +8,7 @@
     xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel LastChildFill="True">
@@ -23,24 +24,20 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
-                        Background="{DynamicResource GhostHoverColor}"
+                        Background="Transparent"
                         Classes="Icon"
                         Command="{Binding BackPageCommand}"
                         Height="28"
                         Width="28">
-                        <Viewbox Margin="6">
-                            <TextBlock Classes="LucideIcon" Text="&#57420;" />
-                        </Viewbox>
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronLeft}" Height="16" Width="16" />
                     </Button>
                     <Button
-                        Background="{DynamicResource GhostHoverColor}"
+                        Background="Transparent"
                         Classes="Icon"
                         Command="{Binding NextPageCommand}"
                         Height="28"
                         Width="28">
-                        <Viewbox Margin="6">
-                            <TextBlock Classes="LucideIcon" Text="&#57421;" />
-                        </Viewbox>
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronRight}" Height="16" Width="16" />
                     </Button>
                 </StackPanel>
             </Grid>

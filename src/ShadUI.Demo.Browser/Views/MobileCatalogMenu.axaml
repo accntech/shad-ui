@@ -2,47 +2,169 @@
     x:Class="ShadUI.Demo.Browser.Views.MobileCatalogMenu"
     x:DataType="demo:MainWindowViewModel"
     xmlns="https://github.com/avaloniaui"
+    xmlns:converters="clr-namespace:ShadUI.Demo.Converters;assembly=shadui-app"
     xmlns:demo="clr-namespace:ShadUI.Demo;assembly=shadui-app"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Button
+        AutomationProperties.Name="Browse components"
         Classes="Icon"
-        Height="40"
+        Height="44"
         ToolTip.Tip="Browse components"
-        Width="40">
-        <TextBlock Classes="LucideIcon" Text="&#57646;" />
+        Width="44"
+        x:Name="MenuButton">
+        <PathIcon Data="{x:Static shadui:Icons.Menu}" Height="18" Width="18" />
         <Button.Flyout>
-            <MenuFlyout>
+            <MenuFlyout Placement="BottomEdgeAlignedRight">
+                <MenuFlyout.ItemContainerTheme>
+                    <ControlTheme
+                        BasedOn="{StaticResource {x:Type MenuItem}}"
+                        TargetType="MenuItem">
+                        <Setter Property="MinHeight" Value="44" />
+                        <Setter Property="MinWidth" Value="220" />
+                    </ControlTheme>
+                </MenuFlyout.ItemContainerTheme>
+
                 <MenuItem Command="{Binding OpenDashboardCommand}" Header="Dashboard" />
                 <MenuItem Command="{Binding OpenThemeCommand}" Header="Theming" />
                 <MenuItem Command="{Binding OpenTypographyCommand}" Header="Typography" />
                 <MenuItem Command="{Binding OpenSmoothScrollCommand}" Header="Smooth scroll" />
-                <Separator />
-                <MenuItem Header="Components">
+
+                <MenuItem Header="Display and data" Margin="4,10,4,2">
                     <MenuItem Command="{Binding OpenAvatarCommand}" Header="Avatar" />
                     <MenuItem Command="{Binding OpenBadgeCommand}" Header="Badge" />
                     <MenuItem Command="{Binding OpenButtonsCommand}" Header="Button" />
                     <MenuItem Command="{Binding OpenCardsCommand}" Header="Card" />
+                    <MenuItem Command="{Binding OpenDataGridCommand}" Header="Data table" />
+                </MenuItem>
+                <MenuItem Header="Forms and input">
                     <MenuItem Command="{Binding OpenCheckBoxesCommand}" Header="Checkbox" />
                     <MenuItem Command="{Binding OpenColorsCommand}" Header="Color picker" />
                     <MenuItem Command="{Binding OpenComboBoxesCommand}" Header="Combo box" />
-                    <MenuItem Command="{Binding OpenDataGridCommand}" Header="Data grid" />
                     <MenuItem Command="{Binding OpenDateCommand}" Header="Date" />
-                    <MenuItem Command="{Binding OpenDialogsCommand}" Header="Dialog" />
                     <MenuItem Command="{Binding OpenInputsCommand}" Header="Input" />
-                    <MenuItem Command="{Binding OpenMenusCommand}" Header="Menu" />
                     <MenuItem Command="{Binding OpenNumericsCommand}" Header="Numeric" />
-                    <MenuItem Command="{Binding OpenSidebarCommand}" Header="Sidebar" />
                     <MenuItem Command="{Binding OpenSlidersCommand}" Header="Slider" />
                     <MenuItem Command="{Binding OpenSwitchCommand}" Header="Switch" />
-                    <MenuItem Command="{Binding OpenTabsCommand}" Header="Tabs" />
                     <MenuItem Command="{Binding OpenTimeCommand}" Header="Time" />
-                    <MenuItem Command="{Binding OpenToastCommand}" Header="Toast" />
                     <MenuItem Command="{Binding OpenToggleCommand}" Header="Toggle" />
+                </MenuItem>
+                <MenuItem Header="Navigation and feedback">
+                    <MenuItem Command="{Binding OpenDialogsCommand}" Header="Dialog" />
+                    <MenuItem Command="{Binding OpenMenusCommand}" Header="Menu" />
+                    <MenuItem Command="{Binding OpenSidebarCommand}" Header="Sidebar" />
+                    <MenuItem Command="{Binding OpenTabsCommand}" Header="Tab control" />
+                    <MenuItem Command="{Binding OpenToastCommand}" Header="Toast" />
                     <MenuItem Command="{Binding OpenToolTipCommand}" Header="Tooltip" />
                     <MenuItem Command="{Binding OpenMiscellaneousCommand}" Header="Miscellaneous" />
                 </MenuItem>
-                <Separator />
-                <MenuItem Command="{Binding ShowAboutCommand}" Header="About ShadUI" />
+
+                <MenuItem Margin="4,10,4,2">
+                    <MenuItem.Header>
+                        <Grid ColumnDefinitions="Auto *">
+                            <shadui:Avatar
+                                CornerRadius="{DynamicResource XlCornerRadius}"
+                                Fallback="CN"
+                                Height="32"
+                                Margin="0,0,8,0"
+                                Source="avares://shadui-app/Assets/user.png"
+                                Width="32" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Classes="Small" Text="shadui" />
+                                <TextBlock Classes="Caption" Margin="0,-4,0,0" Text="m@example.com" />
+                            </StackPanel>
+                        </Grid>
+                    </MenuItem.Header>
+                    <shadui:MenuItemAssist.Label>
+                        <Grid ColumnDefinitions="Auto *" HorizontalAlignment="Stretch" Width="220">
+                            <shadui:Avatar
+                                CornerRadius="{DynamicResource XlCornerRadius}"
+                                Fallback="CN"
+                                Height="36"
+                                Margin="0,0,8,0"
+                                Source="avares://shadui-app/Assets/user.png"
+                                Width="36" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Classes="Small" Text="shadui" />
+                                <TextBlock Classes="Caption" Margin="0,-4,0,0" Text="m@example.com" />
+                            </StackPanel>
+                        </Grid>
+                    </shadui:MenuItemAssist.Label>
+                    <Separator />
+                    <MenuItem Command="{Binding ShowAboutCommand}" Header="About">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock Classes="LucideIcon" Foreground="{DynamicResource MutedColor}" Text="&#57599;" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Click="OnExternalLinkClick"
+                        Header="Readme"
+                        Tag="https://github.com/accntech/shad-ui?tab=readme-ov-file#readme">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock Classes="LucideIcon" Foreground="{DynamicResource MutedColor}" Text="&#57443;" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Click="OnExternalLinkClick" Header="Source repository" Tag="https://github.com/accntech/shad-ui">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock Classes="LucideIcon" Foreground="{DynamicResource MutedColor}" Text="&#57862;" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        Click="OnExternalLinkClick"
+                        Header="MIT License"
+                        Tag="https://github.com/accntech/shad-ui?tab=MIT-1-ov-file#readme">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock Classes="LucideIcon" Foreground="{DynamicResource MutedColor}" Text="&#57874;" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Click="OnExternalLinkClick"
+                        Header="Code of Conduct"
+                        Tag="https://github.com/accntech/shad-ui?tab=coc-ov-file#readme">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock Classes="LucideIcon" Foreground="{DynamicResource MutedColor}" Text="&#58071;" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Click="OnExternalLinkClick"
+                        Header="Security"
+                        Tag="https://github.com/accntech/shad-ui?tab=security-ov-file">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock Classes="LucideIcon" Foreground="{DynamicResource MutedColor}" Text="&#57692;" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Click="OnExternalLinkClick" Header="Activity" Tag="https://github.com/accntech/shad-ui/activity">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock Classes="LucideIcon" Foreground="{DynamicResource MutedColor}" Text="&#57400;" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Command="{Binding SwitchThemeCommand}" Header="Switch theme">
+                        <MenuItem.Icon>
+                            <Viewbox Height="16" Width="16">
+                                <TextBlock
+                                    Classes="LucideIcon"
+                                    Foreground="{DynamicResource MutedColor}"
+                                    Text="{Binding CurrentTheme, Converter={x:Static converters:ThemeModeConverters.ToLucideIcon}}" />
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
             </MenuFlyout>
         </Button.Flyout>
     </Button>

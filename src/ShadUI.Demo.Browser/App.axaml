@@ -23,11 +23,21 @@
             <FontFamily x:Key="LucideIcon">avares://shadui-app/Assets/Fonts#lucide</FontFamily>
             <FontFamily x:Key="ShadUIIcon">avares://shadui-app/Assets/Fonts#shadui</FontFamily>
             <x:Double x:Key="ControlContentThemeFontSize">12</x:Double>
-            <Thickness x:Key="PageMargin">24,20</Thickness>
+            <Thickness x:Key="PageMargin">16,16</Thickness>
+            <Thickness x:Key="PageContentMargin">16,0,16,16</Thickness>
+            <Thickness x:Key="ControlBlockPreviewPadding">20</Thickness>
+            <Thickness x:Key="OverviewCardPadding">20</Thickness>
         </ResourceDictionary>
     </Application.Resources>
     <Application.Styles>
         <shadui:ShadTheme />
         <StyleInclude Source="avares://shadui-app/Styles/Index.axaml" />
+        <Style Selector="Button.Icon">
+            <Setter Property="MinHeight" Value="44" />
+            <Setter Property="MinWidth" Value="44" />
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="MinHeight" Value="44" />
+        </Style>
     </Application.Styles>
 </Application>

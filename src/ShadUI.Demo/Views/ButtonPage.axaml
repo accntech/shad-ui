@@ -23,24 +23,20 @@
                     Orientation="Horizontal"
                     Spacing="8">
                     <Button
-                        Background="{DynamicResource GhostHoverColor}"
+                        Background="Transparent"
                         Classes="Icon"
                         Command="{Binding BackPageCommand}"
                         Height="28"
                         Width="28">
-                        <Viewbox Margin="6">
-                            <TextBlock Classes="LucideIcon" Text="&#57420;" />
-                        </Viewbox>
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronLeft}" Height="16" Width="16" />
                     </Button>
                     <Button
-                        Background="{DynamicResource GhostHoverColor}"
+                        Background="Transparent"
                         Classes="Icon"
                         Command="{Binding NextPageCommand}"
                         Height="28"
                         Width="28">
-                        <Viewbox Margin="6">
-                            <TextBlock Classes="LucideIcon" Text="&#57421;" />
-                        </Viewbox>
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronRight}" Height="16" Width="16" />
                     </Button>
                 </StackPanel>
             </Grid>

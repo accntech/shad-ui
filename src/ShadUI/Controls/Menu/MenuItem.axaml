@@ -109,7 +109,6 @@
                             </Grid>
                         </Border>
                         <Popup
-                            HorizontalOffset="-24"
                             IsLightDismissEnabled="False"
                             IsOpen="{TemplateBinding IsSubMenuOpen,
                                                      Mode=TwoWay}"
@@ -124,7 +123,7 @@
                                     BorderThickness="1"
                                     BoxShadow="{DynamicResource Shadow}"
                                     CornerRadius="{DynamicResource LgCornerRadius}"
-                                    Margin="24,0,2,4">
+                                    Margin="0,0,2,4">
                                     <StackPanel Margin="0,2">
                                         <Border IsVisible="{TemplateBinding shadui:MenuItemAssist.Label, Converter={x:Static ObjectConverters.IsNotNull}}" Padding="16,8">
                                             <ContentPresenter Content="{TemplateBinding shadui:MenuItemAssist.Label}" />

@@ -24,32 +24,32 @@
                         BorderBrush="{DynamicResource BorderColor30}"
                         BorderThickness="0,0,0,1"
                         DockPanel.Dock="Top"
-                        MinHeight="56"
-                        Padding="12,8">
+                        MinHeight="64"
+                        Padding="12,10">
                         <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
                             <Border
                                 Background="{DynamicResource PrimaryColor}"
                                 CornerRadius="8"
-                                Height="34"
-                                Width="34">
+                                Height="38"
+                                Width="38">
                                 <PathIcon
                                     Data="{x:Static shadui:Icons.Logo}"
                                     Foreground="{DynamicResource PrimaryForegroundColor}"
-                                    Height="16"
-                                    Width="16" />
+                                    Height="18"
+                                    Width="18" />
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock FontSize="14" FontWeight="SemiBold" Text="ShadUI" />
-                                <TextBlock Classes="Caption" Text="{Binding CurrentRoute}" />
+                                <TextBlock FontSize="15" FontWeight="SemiBold" Text="ShadUI" />
+                                <TextBlock Classes="Caption Muted" Text="Component catalog" />
                             </StackPanel>
                             <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
-                                <local:MobileCatalogMenu />
+                                <local:MobileCatalogMenu x:Name="MobileMenu" />
                                 <Button
                                     Classes="Icon"
                                     Command="{Binding SwitchThemeCommand}"
-                                    Height="40"
+                                    Height="44"
                                     ToolTip.Tip="Switch theme"
-                                    Width="40">
+                                    Width="44">
                                     <TextBlock
                                         Classes="LucideIcon"
                                         Text="{Binding CurrentTheme, Converter={x:Static converters:ThemeModeConverters.ToLucideIcon}}" />

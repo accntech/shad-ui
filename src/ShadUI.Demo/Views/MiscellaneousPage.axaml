@@ -22,15 +22,13 @@
                     Grid.Column="0"
                     Text="Miscellaneous" />
                 <Button
-                    Background="{DynamicResource GhostHoverColor}"
+                    Background="Transparent"
                     Classes="Icon"
                     Command="{Binding BackPageCommand}"
                     Grid.Column="1"
                     Height="28"
                     Width="28">
-                    <Viewbox Margin="6">
-                        <TextBlock Classes="LucideIcon" Text="&#57420;" />
-                    </Viewbox>
+                    <PathIcon Data="{x:Static shadui:Icons.ChevronLeft}" Height="16" Width="16" />
                 </Button>
             </Grid>
             <TextBlock

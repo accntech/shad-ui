@@ -11,5 +11,8 @@
         <ResourceInclude Source="Dashboard/OverviewCard.axaml" />
     </ResourceDictionary.MergedDictionaries>
     <Thickness x:Key="PageMargin">48,24</Thickness>
+    <Thickness x:Key="PageContentMargin">48,0,48,24</Thickness>
+    <Thickness x:Key="ControlBlockPreviewPadding">48</Thickness>
+    <Thickness x:Key="OverviewCardPadding">24</Thickness>
     <system:Double x:Key="PageMaxWidth">900</system:Double>
 </ResourceDictionary>
