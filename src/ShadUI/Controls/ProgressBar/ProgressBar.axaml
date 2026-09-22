@@ -46,7 +46,7 @@
                             HorizontalAlignment="Center"
                             IsVisible="{TemplateBinding ShowProgressText}"
                             VerticalAlignment="Center">
-                            <TextBlock Foreground="{DynamicResource ForegroundColor}">
+                            <TextBlock Name="PART_ProgressTextBlock" Foreground="{DynamicResource ForegroundColor}">
                                 <TextBlock.Text>
                                     <MultiBinding Converter="{StaticResource ProgressTextConverter}">
                                         <TemplateBinding Property="ProgressTextFormat" />
@@ -58,6 +58,30 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </LayoutTransformControl>
+                        <!-- Repeat the text in the primary foreground, clipped to the filled area. -->
+                        <Border
+                            Name="PART_ProgressTextClip"
+                            ClipToBounds="True"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Height="{Binding #PART_Indicator.Bounds.Height}"
+                            IsHitTestVisible="False"
+                            IsVisible="{TemplateBinding ShowProgressText}"
+                            Width="{Binding #PART_Indicator.Bounds.Width}">
+                            <Grid
+                                Height="{Binding #PART_Track.Bounds.Height}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Width="{Binding #PART_Track.Bounds.Width}">
+                                <LayoutTransformControl
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <TextBlock
+                                        AutomationProperties.AccessibilityView="Raw"
+                                        Foreground="{DynamicResource PrimaryForegroundColor}"
+                                        Text="{Binding #PART_ProgressTextBlock.Text}" />
+                                </LayoutTransformControl>
+                            </Grid>
+                        </Border>
                     </Grid>
                 </Border>
             </ControlTemplate>
@@ -74,12 +98,21 @@
         <Style Selector="^:vertical /template/ Border#PART_Indicator">
             <Setter Property="VerticalAlignment" Value="Bottom" />
         </Style>
-        <Style Selector="^:vertical /template/ LayoutTransformControl#PART_ProgressText">
+        <Style Selector="^:horizontal /template/ Border#PART_ProgressTextClip">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style Selector="^:vertical /template/ Border#PART_ProgressTextClip">
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <Style Selector="^:vertical /template/ LayoutTransformControl">
             <Setter Property="LayoutTransform">
                 <RotateTransform Angle="-90" />
             </Setter>
         </Style>
         <Style Selector="^:indeterminate /template/ LayoutTransformControl#PART_ProgressText">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:indeterminate /template/ Border#PART_ProgressTextClip">
             <Setter Property="IsVisible" Value="False" />
         </Style>
         <Style Selector="^:horizontal:indeterminate /template/ Border#PART_IndeterminateIndicator">

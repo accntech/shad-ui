@@ -11,6 +11,11 @@
     xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
     xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Styles>
+        <Style Selector="controls|ControlBlock.ResponsivePreview /template/ ScrollViewer">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+        </Style>
+    </UserControl.Styles>
     <DockPanel LastChildFill="True">
         <StackPanel DockPanel.Dock="Top"
                     Margin="{StaticResource PageMargin}"
@@ -35,10 +40,10 @@
         <ScrollViewer>
             <StackPanel Margin="{StaticResource PageMargin}"
                         MaxWidth="{StaticResource PageMaxWidth}" Spacing="32">
-                <controls:ControlBlock Title="Default" Xaml="{Binding DefaultCode}">
+                <controls:ControlBlock Classes="ResponsivePreview" Title="Default" Xaml="{Binding DefaultCode}">
                     <ProgressBar Value="33" MaxWidth="384" AutomationProperties.Name="Progress" />
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="With label and value" Xaml="{Binding LabelCode}">
+                <controls:ControlBlock Classes="ResponsivePreview" Title="With label and value" Xaml="{Binding LabelCode}">
                     <StackPanel MaxWidth="384" Spacing="16">
                         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
                             <Label x:Name="UploadLabel" Content="Upload progress" Padding="0"
@@ -55,15 +60,15 @@
                         <CheckBox IsChecked="{Binding IsIndeterminate}" Content="Indeterminate" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Indeterminate" Xaml="{Binding IndeterminateCode}">
+                <controls:ControlBlock Classes="ResponsivePreview" Title="Indeterminate" Xaml="{Binding IndeterminateCode}">
                     <ProgressBar IsIndeterminate="True" MaxWidth="384" AutomationProperties.Name="Loading" />
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Custom range and formatting" Xaml="{Binding RangeCode}">
+                <controls:ControlBlock Classes="ResponsivePreview" Title="Custom range and formatting" Xaml="{Binding RangeCode}">
                     <ProgressBar Minimum="20" Maximum="60" Value="40" MaxWidth="384"
                                  ShowProgressText="True" ProgressTextFormat="{}{0:0} / {3:0} ({1:0}%)"
                                  AutomationProperties.Name="Upload progress" />
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Endpoints" Xaml="{Binding EndpointsCode}">
+                <controls:ControlBlock Classes="ResponsivePreview" Title="Endpoints" Xaml="{Binding EndpointsCode}">
                     <StackPanel MaxWidth="384" Spacing="12">
                         <TextBlock Text="Not started" />
                         <ProgressBar Value="0" AutomationProperties.Name="Not started" />
@@ -71,7 +76,7 @@
                         <ProgressBar Value="100" AutomationProperties.Name="Complete" />
                     </StackPanel>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Vertical and right-to-left" Xaml="{Binding OrientationCode}">
+                <controls:ControlBlock Classes="ResponsivePreview" Title="Vertical and right-to-left" Xaml="{Binding OrientationCode}">
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="24" MaxWidth="384">
                         <ProgressBar Orientation="Vertical" Height="100" Value="56"
                                      AutomationProperties.Name="Vertical progress" />
@@ -82,7 +87,7 @@
                         </StackPanel>
                     </Grid>
                 </controls:ControlBlock>
-                <controls:ControlBlock Title="Disabled" Xaml="{Binding DisabledCode}">
+                <controls:ControlBlock Classes="ResponsivePreview" Title="Disabled" Xaml="{Binding DisabledCode}">
                     <ProgressBar Value="56" IsEnabled="False" MaxWidth="384" AutomationProperties.Name="Disabled progress" />
                 </controls:ControlBlock>
             </StackPanel>

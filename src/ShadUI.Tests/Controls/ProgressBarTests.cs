@@ -68,6 +68,7 @@ public class ProgressBarTests : AvaloniaUiRegressionTestBase
             Assert.False(indicator.IsEffectivelyVisible);
             Assert.True(animated.IsEffectivelyVisible);
             Assert.False(text.IsEffectivelyVisible);
+            Assert.False(Part<Border>(bar, "PART_ProgressTextClip").IsEffectivelyVisible);
             Assert.Equal(80, animated.Bounds.Width);
             bar.Value = 75;
             bar.IsIndeterminate = false;
@@ -156,7 +157,7 @@ public class ProgressBarTests : AvaloniaUiRegressionTestBase
             using var binding = value.Bind(TextBlock.TextProperty,
                 new Binding(nameof(ProgressBar.Percentage)) { Source = bar, StringFormat = "{0:0}%" });
             Assert.Equal("50%", value.Text);
-            Assert.Equal("40 / 60 (50%)", bar.GetVisualDescendants().OfType<TextBlock>().Single().Text);
+            Assert.Equal("40 / 60 (50%)", Part<TextBlock>(bar, "PART_ProgressTextBlock").Text);
             AutomationProperties.SetName(bar, "Upload progress");
             var peer = ControlAutomationPeer.CreatePeerForElement(bar)!;
             Assert.Equal("Upload progress", peer.GetName());
@@ -164,6 +165,37 @@ public class ProgressBarTests : AvaloniaUiRegressionTestBase
             Assert.True(peer.GetProvider<IRangeValueProvider>()!.IsReadOnly);
             bar.Value = 60;
             Assert.Equal("100%", value.Text);
+        });
+    }
+
+    [Theory]
+    [InlineData(Orientation.Horizontal, FlowDirection.LeftToRight, 25)]
+    [InlineData(Orientation.Horizontal, FlowDirection.LeftToRight, 50)]
+    [InlineData(Orientation.Horizontal, FlowDirection.LeftToRight, 100)]
+    [InlineData(Orientation.Horizontal, FlowDirection.RightToLeft, 50)]
+    [InlineData(Orientation.Vertical, FlowDirection.LeftToRight, 25)]
+    [InlineData(Orientation.Vertical, FlowDirection.LeftToRight, 50)]
+    [InlineData(Orientation.Vertical, FlowDirection.LeftToRight, 100)]
+    public void Progress_Text_Uses_Contrasting_Aligned_Text_Over_The_Filled_Area(
+        Orientation orientation, FlowDirection direction, double value)
+    {
+        WithProgress(new ProgressBar
+        {
+            Width = orientation == Orientation.Horizontal ? 200 : double.NaN,
+            Height = orientation == Orientation.Vertical ? 200 : double.NaN,
+            Orientation = orientation, FlowDirection = direction, Value = value, ShowProgressText = true
+        }, bar =>
+        {
+            var clip = Part<Border>(bar, "PART_ProgressTextClip");
+            var indicator = Part<Border>(bar, "PART_Indicator");
+            var regularText = Part<TextBlock>(bar, "PART_ProgressTextBlock");
+            var filledText = clip.GetVisualDescendants().OfType<TextBlock>().Single();
+            Assert.True(clip.ClipToBounds);
+            Assert.Equal(indicator.Bounds, clip.Bounds);
+            Assert.Equal(regularText.Text, filledText.Text);
+            Assert.Equal(regularText.TranslatePoint(default, bar), filledText.TranslatePoint(default, bar));
+            Assert.NotEqual(((ISolidColorBrush)regularText.Foreground!).Color, ((ISolidColorBrush)filledText.Foreground!).Color);
+            Assert.Equal(AccessibilityView.Raw, AutomationProperties.GetAccessibilityView(filledText));
         });
     }
 

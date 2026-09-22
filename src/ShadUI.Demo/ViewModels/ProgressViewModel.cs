@@ -14,13 +14,13 @@ public sealed partial class ProgressViewModel : ViewModelBase, INavigable
     {
         _pageManager = pageManager;
         var path = Path.Combine(AppContext.BaseDirectory, "views", "ProgressPage.axaml");
-        DefaultCode = path.ExtractByLineRange(39, 39).CleanIndentation();
-        LabelCode = path.ExtractByLineRange(42, 56).CleanIndentation();
-        IndeterminateCode = path.ExtractByLineRange(59, 59).CleanIndentation();
-        RangeCode = path.ExtractByLineRange(62, 64).CleanIndentation();
-        EndpointsCode = path.ExtractByLineRange(67, 72).CleanIndentation();
-        OrientationCode = path.ExtractByLineRange(75, 83).CleanIndentation();
-        DisabledCode = path.ExtractByLineRange(86, 86).CleanIndentation();
+        DefaultCode = path.ExtractByLineRange(44, 44).CleanIndentation();
+        LabelCode = path.ExtractByLineRange(47, 61).CleanIndentation();
+        IndeterminateCode = path.ExtractByLineRange(64, 64).CleanIndentation();
+        RangeCode = path.ExtractByLineRange(67, 69).CleanIndentation();
+        EndpointsCode = path.ExtractByLineRange(72, 77).CleanIndentation();
+        OrientationCode = path.ExtractByLineRange(80, 88).CleanIndentation();
+        DisabledCode = path.ExtractByLineRange(91, 91).CleanIndentation();
     }
 
     [ObservableProperty]
