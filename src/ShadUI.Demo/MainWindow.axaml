@@ -310,6 +310,15 @@
                         </shadui:SidebarItem.Icon>
                     </shadui:SidebarItem>
                     <shadui:SidebarItem
+                        Command="{Binding OpenLoadingCommand}"
+                        Content="Loading"
+                        Route="loading"
+                        ToolTip.Tip="{Binding $parent[shadui:Sidebar].Expanded, Converter={x:Static converters:BooleanConverters.NullOrString}, ConverterParameter='Loading'}">
+                        <shadui:SidebarItem.Icon>
+                            <shadui:Loading IsIndeterminate="False" Value="75" Height="18" Width="18" />
+                        </shadui:SidebarItem.Icon>
+                    </shadui:SidebarItem>
+                    <shadui:SidebarItem
                         Command="{Binding OpenMenusCommand}"
                         Content="Menu"
                         Route="menu"
@@ -335,6 +344,15 @@
                                     Foreground="{DynamicResource ForegroundColor}"
                                     Text="&#xe902;" />
                             </Viewbox>
+                        </shadui:SidebarItem.Icon>
+                    </shadui:SidebarItem>
+                    <shadui:SidebarItem
+                        Command="{Binding OpenProgressCommand}"
+                        Content="Progress"
+                        Route="progress"
+                        ToolTip.Tip="{Binding $parent[shadui:Sidebar].Expanded, Converter={x:Static converters:BooleanConverters.NullOrString}, ConverterParameter='Progress'}">
+                        <shadui:SidebarItem.Icon>
+                            <ProgressBar Value="60" MinHeight="6" Height="6" Width="20" VerticalAlignment="Center" />
                         </shadui:SidebarItem.Icon>
                     </shadui:SidebarItem>
                     <shadui:SidebarItem

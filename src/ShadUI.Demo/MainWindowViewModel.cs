@@ -142,6 +142,18 @@ public sealed partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
+    private void OpenLoading()
+    {
+        _pageManager.Navigate<LoadingViewModel>();
+    }
+
+    [RelayCommand]
+    private void OpenProgress()
+    {
+        _pageManager.Navigate<ProgressViewModel>();
+    }
+
+    [RelayCommand]
     private void OpenTabs()
     {
         _pageManager.Navigate<TabControlViewModel>();
@@ -285,6 +297,12 @@ public sealed partial class MainWindowViewModel : ViewModelBase
                 break;
             case "menu":
                 _pageManager.Navigate<MenuViewModel>();
+                break;
+            case "loading":
+                _pageManager.Navigate<LoadingViewModel>();
+                break;
+            case "progress":
+                _pageManager.Navigate<ProgressViewModel>();
                 break;
             case "numeric":
                 _pageManager.Navigate<NumericViewModel>();

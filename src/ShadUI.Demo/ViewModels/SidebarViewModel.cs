@@ -20,7 +20,7 @@ public sealed partial class SidebarViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void BackPage()
     {
-        _pageManager.Navigate<NumericViewModel>();
+        _pageManager.Navigate<ProgressViewModel>();
     }
 
     [RelayCommand]

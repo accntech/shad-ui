@@ -22,7 +22,7 @@ public sealed partial class MenuViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void BackPage()
     {
-        _pageManager.Navigate<InputViewModel>();
+        _pageManager.Navigate<LoadingViewModel>();
     }
 
     [RelayCommand]

@@ -1,0 +1,150 @@
+<ResourceDictionary
+    x:ClassModifier="internal"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:converters="using:Avalonia.Controls.Converters"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <StackPanel Margin="20" Spacing="16" Width="320">
+            <ProgressBar Value="33" />
+            <ProgressBar IsIndeterminate="True" />
+            <ProgressBar ShowProgressText="True" Value="56" />
+        </StackPanel>
+    </Design.PreviewWith>
+    <converters:StringFormatConverter x:Key="ProgressTextConverter" />
+    <ControlTheme TargetType="ProgressBar" x:Key="{x:Type ProgressBar}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryColor10}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+        <Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    Padding="{TemplateBinding Padding}">
+                    <Grid>
+                        <Border
+                            Name="PART_Track"
+                            Background="{TemplateBinding Background}"
+                            ClipToBounds="True"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                            <Panel>
+                                <Border
+                                    Name="PART_Indicator"
+                                    Background="{TemplateBinding Foreground}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Border
+                                    Name="PART_IndeterminateIndicator"
+                                    Background="{TemplateBinding Foreground}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsVisible="{TemplateBinding IsIndeterminate}" />
+                            </Panel>
+                        </Border>
+                        <LayoutTransformControl
+                            Name="PART_ProgressText"
+                            HorizontalAlignment="Center"
+                            IsVisible="{TemplateBinding ShowProgressText}"
+                            VerticalAlignment="Center">
+                            <TextBlock Name="PART_ProgressTextBlock" Foreground="{DynamicResource ForegroundColor}">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource ProgressTextConverter}">
+                                        <TemplateBinding Property="ProgressTextFormat" />
+                                        <TemplateBinding Property="Value" />
+                                        <TemplateBinding Property="Percentage" />
+                                        <TemplateBinding Property="Minimum" />
+                                        <TemplateBinding Property="Maximum" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </LayoutTransformControl>
+                        <!-- Repeat the text in the primary foreground, clipped to the filled area. -->
+                        <Border
+                            Name="PART_ProgressTextClip"
+                            ClipToBounds="True"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Height="{Binding #PART_Indicator.Bounds.Height}"
+                            IsHitTestVisible="False"
+                            IsVisible="{TemplateBinding ShowProgressText}"
+                            Width="{Binding #PART_Indicator.Bounds.Width}">
+                            <Grid
+                                Height="{Binding #PART_Track.Bounds.Height}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                Width="{Binding #PART_Track.Bounds.Width}">
+                                <LayoutTransformControl
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <TextBlock
+                                        AutomationProperties.AccessibilityView="Raw"
+                                        Foreground="{DynamicResource PrimaryForegroundColor}"
+                                        Text="{Binding #PART_ProgressTextBlock.Text}" />
+                                </LayoutTransformControl>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:horizontal">
+            <Setter Property="MinHeight" Value="8" />
+        </Style>
+        <Style Selector="^:vertical">
+            <Setter Property="MinWidth" Value="8" />
+        </Style>
+        <Style Selector="^:horizontal /template/ Border#PART_Indicator">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style Selector="^:vertical /template/ Border#PART_Indicator">
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <Style Selector="^:horizontal /template/ Border#PART_ProgressTextClip">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+        <Style Selector="^:vertical /template/ Border#PART_ProgressTextClip">
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <Style Selector="^:vertical /template/ LayoutTransformControl">
+            <Setter Property="LayoutTransform">
+                <RotateTransform Angle="-90" />
+            </Setter>
+        </Style>
+        <Style Selector="^:indeterminate /template/ LayoutTransformControl#PART_ProgressText">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:indeterminate /template/ Border#PART_ProgressTextClip">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:horizontal:indeterminate /template/ Border#PART_IndeterminateIndicator">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Width" Value="{Binding TemplateSettings.ContainerWidth, RelativeSource={RelativeSource TemplatedParent}}" />
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" Easing="LinearEasing" IterationCount="Infinite">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.IndeterminateStartingOffset}" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="TranslateTransform.X" Value="{Binding $parent[ProgressBar].TemplateSettings.IndeterminateEndingOffset}" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="^:vertical:indeterminate /template/ Border#PART_IndeterminateIndicator">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Height" Value="{Binding TemplateSettings.ContainerWidth, RelativeSource={RelativeSource TemplatedParent}}" />
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" Easing="LinearEasing" IterationCount="Infinite">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.IndeterminateEndingOffset}" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="TranslateTransform.Y" Value="{Binding $parent[ProgressBar].TemplateSettings.IndeterminateStartingOffset}" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

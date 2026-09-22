@@ -1,0 +1,86 @@
+<UserControl
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="ShadUI.Demo.Views.LoadingPage"
+    x:DataType="viewModels:LoadingViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top"
+                    Margin="{StaticResource PageMargin}"
+                    MaxWidth="{StaticResource PageMaxWidth}" Spacing="4">
+            <Grid ColumnDefinitions="* Auto">
+                <TextBlock Classes="h2" Text="Loading" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                    <Button Background="Transparent" Classes="Icon"
+                            Command="{Binding BackPageCommand}" Height="28" Width="28"
+                            AutomationProperties.Name="Previous component">
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronLeft}" Height="16" Width="16" />
+                    </Button>
+                    <Button Background="Transparent" Classes="Icon"
+                            Command="{Binding NextPageCommand}" Height="28" Width="28"
+                            AutomationProperties.Name="Next component">
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronRight}" Height="16" Width="16" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <TextBlock Classes="p" Text="A spinner for unknown-duration work, or a circular indicator for known progress." TextWrapping="Wrap" />
+        </StackPanel>
+        <ScrollViewer>
+            <StackPanel Margin="{StaticResource PageMargin}"
+                        MaxWidth="{StaticResource PageMaxWidth}" Spacing="32">
+                <controls:ControlBlock Title="Default" Xaml="{Binding DefaultCode}">
+                    <StackPanel Orientation="Horizontal" Spacing="24" HorizontalAlignment="Center">
+                        <shadui:Loading Height="16" Width="16" AutomationProperties.Name="Loading" />
+                        <shadui:Loading Height="32" Width="32" AutomationProperties.Name="Loading" />
+                        <shadui:Loading Height="48" Width="48" AutomationProperties.Name="Loading" />
+                    </StackPanel>
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Determinate" Xaml="{Binding DeterminateCode}">
+                    <UniformGrid Columns="3" MaxWidth="384">
+                        <StackPanel Spacing="12">
+                            <shadui:Loading IsIndeterminate="False" Value="0" Height="40" Width="40" AutomationProperties.Name="Not started" />
+                            <TextBlock Text="0%" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Spacing="12">
+                            <shadui:Loading IsIndeterminate="False" Value="50" Height="40" Width="40" AutomationProperties.Name="Half complete" />
+                            <TextBlock Text="50%" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Spacing="12">
+                            <shadui:Loading IsIndeterminate="False" Value="100" Height="40" Width="40" AutomationProperties.Name="Complete" />
+                            <TextBlock Text="100%" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </UniformGrid>
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Controlled" Xaml="{Binding ControlledCode}">
+                    <StackPanel MaxWidth="384" Spacing="16">
+                        <shadui:Loading
+                            IsIndeterminate="{Binding IsIndeterminate}"
+                            Value="{Binding Value}"
+                            Height="48" Width="48"
+                            AutomationProperties.Name="Upload progress" />
+                        <TextBlock Text="{Binding Value, StringFormat={}{0:0}%}"
+                                   IsVisible="{Binding !IsIndeterminate}" HorizontalAlignment="Center" />
+                        <Slider Value="{Binding Value}" Minimum="0" Maximum="100"
+                                AutomationProperties.Name="Progress value" />
+                        <CheckBox IsChecked="{Binding IsIndeterminate}" Content="Indeterminate" />
+                    </StackPanel>
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Custom range" Xaml="{Binding RangeCode}">
+                    <StackPanel Spacing="12" MaxWidth="384">
+                        <shadui:Loading IsIndeterminate="False" Minimum="20" Maximum="60" Value="40"
+                                        Height="40" Width="40" AutomationProperties.Name="Upload progress" />
+                        <TextBlock Text="40 in a range of 20–60 is 50% complete."
+                                   TextWrapping="Wrap" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </controls:ControlBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

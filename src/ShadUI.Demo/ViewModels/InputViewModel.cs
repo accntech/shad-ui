@@ -43,7 +43,7 @@ public sealed partial class InputViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void NextPage()
     {
-        _pageManager.Navigate<MenuViewModel>();
+        _pageManager.Navigate<LoadingViewModel>();
     }
 
     private void SearchTimerElapsed(object? sender, ElapsedEventArgs e)
