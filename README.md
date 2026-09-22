@@ -83,6 +83,9 @@ ShadUI includes a growing set of essential UI controls, inspired by [shadcn/ui](
 and [Suki UI Library](https://kikipoulet.github.io/SukiUI/).  
 We are actively working to expand the library with additional controls and advanced features.
 
+See [Loading and progress](docs/progress.md) for circular progress, themed native
+progress bars, and label/value composition examples.
+
 ![Controls Demo](https://raw.githubusercontent.com/accntech/shad-ui/main/docs/demo-02.gif)
 
 ---

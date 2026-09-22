@@ -1,0 +1,91 @@
+<UserControl
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    x:Class="ShadUI.Demo.Views.ProgressPage"
+    x:DataType="viewModels:ProgressViewModel"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:controls="clr-namespace:ShadUI.Demo.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shadui="clr-namespace:ShadUI;assembly=ShadUI"
+    xmlns:viewModels="clr-namespace:ShadUI.Demo.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top"
+                    Margin="{StaticResource PageMargin}"
+                    MaxWidth="{StaticResource PageMaxWidth}" Spacing="4">
+            <Grid ColumnDefinitions="* Auto">
+                <TextBlock Classes="h2" Text="Progress" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                    <Button Background="Transparent" Classes="Icon"
+                            Command="{Binding BackPageCommand}" Height="28" Width="28"
+                            AutomationProperties.Name="Previous component">
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronLeft}" Height="16" Width="16" />
+                    </Button>
+                    <Button Background="Transparent" Classes="Icon"
+                            Command="{Binding NextPageCommand}" Height="28" Width="28"
+                            AutomationProperties.Name="Next component">
+                        <PathIcon Data="{x:Static shadui:Icons.ChevronRight}" Height="16" Width="16" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <TextBlock Classes="p" Text="Displays the completion of a task using Avalonia’s native ProgressBar." TextWrapping="Wrap" />
+        </StackPanel>
+        <ScrollViewer>
+            <StackPanel Margin="{StaticResource PageMargin}"
+                        MaxWidth="{StaticResource PageMaxWidth}" Spacing="32">
+                <controls:ControlBlock Title="Default" Xaml="{Binding DefaultCode}">
+                    <ProgressBar Value="33" MaxWidth="384" AutomationProperties.Name="Progress" />
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="With label and value" Xaml="{Binding LabelCode}">
+                    <StackPanel MaxWidth="384" Spacing="16">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                            <Label x:Name="UploadLabel" Content="Upload progress" Padding="0"
+                                   Target="{Binding #UploadProgress}" />
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding #UploadProgress.Percentage, StringFormat={}{0:0}%}"
+                                       IsVisible="{Binding !IsIndeterminate}" />
+                            <ProgressBar x:Name="UploadProgress" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,8,0,0"
+                                         Value="{Binding Value}" IsIndeterminate="{Binding IsIndeterminate}"
+                                         AutomationProperties.LabeledBy="{Binding #UploadLabel}" />
+                        </Grid>
+                        <Slider Value="{Binding Value}" Minimum="0" Maximum="100"
+                                AutomationProperties.Name="Progress value" />
+                        <CheckBox IsChecked="{Binding IsIndeterminate}" Content="Indeterminate" />
+                    </StackPanel>
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Indeterminate" Xaml="{Binding IndeterminateCode}">
+                    <ProgressBar IsIndeterminate="True" MaxWidth="384" AutomationProperties.Name="Loading" />
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Custom range and formatting" Xaml="{Binding RangeCode}">
+                    <ProgressBar Minimum="20" Maximum="60" Value="40" MaxWidth="384"
+                                 ShowProgressText="True" ProgressTextFormat="{}{0:0} / {3:0} ({1:0}%)"
+                                 AutomationProperties.Name="Upload progress" />
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Endpoints" Xaml="{Binding EndpointsCode}">
+                    <StackPanel MaxWidth="384" Spacing="12">
+                        <TextBlock Text="Not started" />
+                        <ProgressBar Value="0" AutomationProperties.Name="Not started" />
+                        <TextBlock Text="Complete" />
+                        <ProgressBar Value="100" AutomationProperties.Name="Complete" />
+                    </StackPanel>
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Vertical and right-to-left" Xaml="{Binding OrientationCode}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="24" MaxWidth="384">
+                        <ProgressBar Orientation="Vertical" Height="100" Value="56"
+                                     AutomationProperties.Name="Vertical progress" />
+                        <StackPanel Grid.Column="1" Spacing="12" VerticalAlignment="Center">
+                            <TextBlock Text="Right-to-left" />
+                            <ProgressBar FlowDirection="RightToLeft" Value="56"
+                                         AutomationProperties.Name="Right-to-left progress" />
+                        </StackPanel>
+                    </Grid>
+                </controls:ControlBlock>
+                <controls:ControlBlock Title="Disabled" Xaml="{Binding DisabledCode}">
+                    <ProgressBar Value="56" IsEnabled="False" MaxWidth="384" AutomationProperties.Name="Disabled progress" />
+                </controls:ControlBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

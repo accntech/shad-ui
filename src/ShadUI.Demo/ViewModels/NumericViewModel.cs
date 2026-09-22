@@ -33,7 +33,7 @@ public sealed partial class NumericViewModel : ViewModelBase, INavigable
     [RelayCommand]
     private void NextPage()
     {
-        _pageManager.Navigate<SidebarViewModel>();
+        _pageManager.Navigate<ProgressViewModel>();
     }
 
     [ObservableProperty]

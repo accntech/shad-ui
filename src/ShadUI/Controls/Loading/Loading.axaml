@@ -9,14 +9,32 @@
     <ControlTheme TargetType="shadui:Loading" x:Key="{x:Type shadui:Loading}">
         <Setter Property="Template">
             <ControlTemplate>
-                <PathIcon
-                    Data="{StaticResource Spinner}"
-                    Foreground="{TemplateBinding Foreground}"
-                    Height="{TemplateBinding Height}"
-                    Width="{TemplateBinding Width}" />
+                <Panel>
+                    <PathIcon
+                        Name="PART_Spinner"
+                        Data="{StaticResource Spinner}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Height="{TemplateBinding Height}"
+                        IsVisible="{TemplateBinding IsIndeterminate}"
+                        Width="{TemplateBinding Width}" />
+                    <Viewbox IsVisible="{Binding !IsIndeterminate, RelativeSource={RelativeSource TemplatedParent}}">
+                        <Panel Height="20" Width="20">
+                            <Ellipse
+                                Name="PART_Track"
+                                Opacity="0.15"
+                                Stroke="{TemplateBinding Foreground}"
+                                StrokeThickness="2" />
+                            <Path
+                                Name="PART_Indicator"
+                                Stroke="{TemplateBinding Foreground}"
+                                StrokeLineCap="Round"
+                                StrokeThickness="2" />
+                        </Panel>
+                    </Viewbox>
+                </Panel>
             </ControlTemplate>
         </Setter>
-        <Style Selector="^ /template/ PathIcon">
+        <Style Selector="^:indeterminate /template/ PathIcon#PART_Spinner">
             <Style.Animations>
                 <Animation Duration="0:0:1" IterationCount="Infinite">
                     <KeyFrame Cue="0%">
