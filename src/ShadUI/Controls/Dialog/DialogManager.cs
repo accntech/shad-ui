@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -87,7 +88,7 @@ public sealed class DialogManager
         if (contextType is not null) InvokeCallBacks(context, contextType, false);
     }
 
-    internal readonly Dictionary<Type, Type> CustomDialogs = [];
+    internal readonly Dictionary<Type, Func<Control>> CustomDialogs = [];
 
     /// <summary>
     ///     Registers a custom dialog view with its DataContext type.
@@ -95,9 +96,11 @@ public sealed class DialogManager
     /// <typeparam name="TView">The type of view</typeparam>
     /// <typeparam name="TContext">The type of DataContext</typeparam>
     /// <returns></returns>
-    public DialogManager Register<TView, TContext>() where TView : Control
+    public DialogManager Register<
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)] TView,
+        TContext>() where TView : Control
     {
-        CustomDialogs.Add(typeof(TContext), typeof(TView));
+        CustomDialogs.Add(typeof(TContext), static () => Activator.CreateInstance<TView>());
         return this;
     }
 

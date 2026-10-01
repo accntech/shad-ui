@@ -1,0 +1,49 @@
+name: NativeAOT smoke test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - ".github/workflows/aot-smoke-test.yml"
+      - "src/ShadUI/**"
+      - "src/ShadUI.AotSmoke/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  aot:
+    name: Publish and run with NativeAOT
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      # Treats every trim/AOT warning as an error and roots all of ShadUI so the whole assembly is analyzed.
+      # ILC reports code it cannot compile ("will always throw") as a message, not a warning, so fail on that too.
+      - name: Publish smoke test
+        shell: bash
+        run: |
+          set -o pipefail
+          dotnet publish src/ShadUI.AotSmoke/ShadUI.AotSmoke.csproj \
+            --configuration Release \
+            --runtime linux-x64 \
+            --output artifacts/aot-smoke \
+            -p:RootShadUI=true \
+            -p:TreatWarningsAsErrors=true \
+            --nologo | tee publish.log
+          if grep -q "will always throw" publish.log; then
+            echo "::error::NativeAOT compiler found code that will always throw at runtime."
+            exit 1
+          fi
+
+      - name: Run smoke test
+        run: ./artifacts/aot-smoke/ShadUI.AotSmoke

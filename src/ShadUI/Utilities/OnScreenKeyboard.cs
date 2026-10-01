@@ -14,7 +14,7 @@ using Avalonia.Media;
 // ReSharper disable once CheckNamespace
 namespace ShadUI;
 
-internal static class OnScreenKeyboard
+internal static partial class OnScreenKeyboard
 {
     private static readonly Dictionary<IInputPane, TopLevel> TopLevelMap = new();
     private static Timer? _throttleTimer;
@@ -151,55 +151,56 @@ internal static class OnScreenKeyboard
         }
     }
 
-    private static void Toggle(IntPtr hwnd)
+    private static unsafe void Toggle(IntPtr hwnd)
     {
-        UIHostNoLaunch uiHostNoLaunch;
-        try
-        {
-            uiHostNoLaunch = new UIHostNoLaunch();
-        }
-        catch (COMException e)
-        {
-            if ((uint)e.HResult == 0x80040154)
-            {
-                // Use fully qualified path to prevent command injection via PATH hijacking
-                var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles);
-                var tabTipPath = Path.Combine(programFiles, "Microsoft Shared", "ink", "tabtip.exe");
+        // Built-in COM interop ([ComImport]) is not supported by NativeAOT, so ITipInvocation is activated and
+        // invoked through CoCreateInstance and its vtable directly.
+        var hr = CoCreateInstance(UIHostNoLaunchClsid, IntPtr.Zero, ClsctxServer, ITipInvocationIid,
+            out var tipInvocation);
 
-                if (File.Exists(tabTipPath))
-                {
-                    using var process = new Process();
-                    process.StartInfo = new ProcessStartInfo
-                    {
-                        FileName = tabTipPath,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    };
-                    process.Start();
-                }
-            }
-            else
+        if (hr == RegdbEClassNotReg)
+        {
+            // Use fully qualified path to prevent command injection via PATH hijacking
+            var programFiles = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles);
+            var tabTipPath = Path.Combine(programFiles, "Microsoft Shared", "ink", "tabtip.exe");
+
+            if (File.Exists(tabTipPath))
             {
-                throw;
+                using var process = new Process();
+                process.StartInfo = new ProcessStartInfo
+                {
+                    FileName = tabTipPath,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+                process.Start();
             }
 
             return;
         }
 
-        // ReSharper disable once SuspiciousTypeConversion.Global
-        ((ITipInvocation)uiHostNoLaunch).Toggle(hwnd);
-        if (OperatingSystem.IsWindows()) Marshal.ReleaseComObject(uiHostNoLaunch);
+        Marshal.ThrowExceptionForHR(hr);
+
+        try
+        {
+            // ITipInvocation vtable: QueryInterface, AddRef, Release, Toggle.
+            var vtable = *(IntPtr**)tipInvocation;
+            var toggle = (delegate* unmanaged[Stdcall]<IntPtr, IntPtr, int>)vtable[3];
+            Marshal.ThrowExceptionForHR(toggle(tipInvocation, hwnd));
+        }
+        finally
+        {
+            Marshal.Release(tipInvocation);
+        }
     }
 
-    [ComImport] [Guid("4ce576fa-83dc-4F88-951c-9d0782b4e376")]
-    private class UIHostNoLaunch
-    {
-    }
+    private const int RegdbEClassNotReg = unchecked((int)0x80040154);
+    private const uint ClsctxServer = 0x1 | 0x4 | 0x10; // CLSCTX_INPROC_SERVER | CLSCTX_LOCAL_SERVER | CLSCTX_REMOTE_SERVER
 
-    [ComImport] [Guid("37c994e7-432b-4834-a2f7-dce1f13b834b")]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    private interface ITipInvocation
-    {
-        void Toggle(IntPtr hwnd);
-    }
+    private static readonly Guid UIHostNoLaunchClsid = new("4ce576fa-83dc-4F88-951c-9d0782b4e376");
+    private static readonly Guid ITipInvocationIid = new("37c994e7-432b-4834-a2f7-dce1f13b834b");
+
+    [LibraryImport("ole32.dll")]
+    private static partial int CoCreateInstance(in Guid rclsid, IntPtr pUnkOuter, uint dwClsContext, in Guid riid,
+        out IntPtr ppv);
 }

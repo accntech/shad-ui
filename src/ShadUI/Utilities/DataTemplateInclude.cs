@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
@@ -10,8 +11,15 @@ namespace ShadUI;
 /// <summary>
 ///     Provides functionality to include and load data templates from external XAML sources.
 /// </summary>
+/// <remarks>
+///     Templates are loaded at runtime with <see cref="AvaloniaXamlLoader" />, which is not trim-safe.
+///     In trimmed or NativeAOT applications, reference the templates directly instead.
+/// </remarks>
 public class DataTemplateInclude : IDataTemplate
 {
+    private const string TrimmingMessage =
+        "DataTemplateInclude loads XAML at runtime with AvaloniaXamlLoader, which is not trim-safe.";
+
     private DataTemplates? _loaded;
     private bool _isLoading;
 
@@ -26,6 +34,8 @@ public class DataTemplateInclude : IDataTemplate
     /// <returns>A collection of loaded data templates, or null if loading fails.</returns>
     public DataTemplates? Loaded
     {
+        [UnconditionalSuppressMessage("Trimming", "IL2026",
+            Justification = "The constructor is annotated with RequiresUnreferencedCode.")]
         get
         {
             if (_loaded != null) return _loaded;
@@ -41,6 +51,7 @@ public class DataTemplateInclude : IDataTemplate
     /// <summary>
     ///     Initializes a new instance of the <see cref="DataTemplateInclude" /> class.
     /// </summary>
+    [RequiresUnreferencedCode(TrimmingMessage)]
     public DataTemplateInclude()
     {
     }

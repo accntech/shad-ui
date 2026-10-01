@@ -62,6 +62,12 @@ Include ShadTheme in your App.xaml:
 
 > Recommended for desktop targets: Use `ShadUI.Controls.Window` instead of `Avalonia.Controls.Window` to get the full ShadUI experience.
 
+#### Trimming and NativeAOT
+
+ShadUI is trim-safe and NativeAOT-compatible, so it can be used in apps published with `PublishTrimmed` or
+`PublishAot`. Custom dialogs registered with `DialogManager.Register<TView, TContext>()` need a public parameterless
+constructor. `DataTemplateInclude` loads XAML at runtime and is not trim-safe; reference the templates directly instead.
+
 <img src="https://learn.microsoft.com/en-us/windows/apps/images/new-badge-dark.png" alt="App Screenshot" width="200"/>
 
 [Download](https://apps.microsoft.com/detail/9N3358B0PHG4?hl=en-us&gl=PH&ocid=pdpshare) ShadUI App from Microsoft
